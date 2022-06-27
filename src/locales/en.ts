@@ -111,6 +111,7 @@ export default {
     analysis: 'Analysis',
     workplace: 'Workplace',
     guide: 'Guide',
+    stocklist: 'Stock List',
     component: 'Component',
     icon: 'Icon',
     echart: 'Echart',

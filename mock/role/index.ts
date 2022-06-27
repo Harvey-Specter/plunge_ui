@@ -7,6 +7,99 @@ const timeout = 1000
 
 const adminList = [
   {
+    path: '/stockList',
+    component: '#',
+    name: 'stockList',
+    meta: {},
+    children: [
+      {
+        path: 'stockList',
+        component: 'views/Stock/StockList',
+        name: 'StockList',
+        meta: {
+          title: 'router.stocklist',
+          icon: 'cib:telegram-plane'
+        }
+      }
+    ]
+  },
+  {
+    path: '/example',
+    component: '#',
+    redirect: '/example/example-dialog',
+    name: 'Example',
+    meta: {
+      title: 'router.example',
+      icon: 'ep:management',
+      alwaysShow: true
+    },
+    children: [
+      // {
+      //   path: 'stockList',
+      //   component: 'views/Stock/StockList',
+      //   name: 'StockList',
+      //   meta: {
+      //     title: 'router.stocklist'
+      //   }
+      // },
+      {
+        path: 'example-dialog',
+        component: 'views/Example/Dialog/ExampleDialog',
+        name: 'ExampleDialog',
+        meta: {
+          title: 'router.exampleDialog'
+        }
+      },
+      {
+        path: 'example-page',
+        component: 'views/Example/Page/ExamplePage',
+        name: 'ExamplePage',
+        meta: {
+          title: 'router.examplePage'
+        }
+      },
+      {
+        path: 'example-add',
+        component: 'views/Example/Page/ExampleAdd',
+        name: 'ExampleAdd',
+        meta: {
+          title: 'router.exampleAdd',
+          noTagsView: true,
+          noCache: true,
+          hidden: true,
+          showMainRoute: true,
+          activeMenu: '/example/example-page'
+        }
+      },
+      {
+        path: 'example-edit',
+        component: 'views/Example/Page/ExampleEdit',
+        name: 'ExampleEdit',
+        meta: {
+          title: 'router.exampleEdit',
+          noTagsView: true,
+          noCache: true,
+          hidden: true,
+          showMainRoute: true,
+          activeMenu: '/example/example-page'
+        }
+      },
+      {
+        path: 'example-detail',
+        component: 'views/Example/Page/ExampleDetail',
+        name: 'ExampleDetail',
+        meta: {
+          title: 'router.exampleDetail',
+          noTagsView: true,
+          noCache: true,
+          hidden: true,
+          showMainRoute: true,
+          activeMenu: '/example/example-page'
+        }
+      }
+    ]
+  },
+  {
     path: '/dashboard',
     component: '#',
     redirect: '/dashboard/analysis',
@@ -344,74 +437,6 @@ const adminList = [
         component: 'views/Level/Menu2',
         meta: {
           title: 'router.menu2'
-        }
-      }
-    ]
-  },
-  {
-    path: '/example',
-    component: '#',
-    redirect: '/example/example-dialog',
-    name: 'Example',
-    meta: {
-      title: 'router.example',
-      icon: 'ep:management',
-      alwaysShow: true
-    },
-    children: [
-      {
-        path: 'example-dialog',
-        component: 'views/Example/Dialog/ExampleDialog',
-        name: 'ExampleDialog',
-        meta: {
-          title: 'router.exampleDialog'
-        }
-      },
-      {
-        path: 'example-page',
-        component: 'views/Example/Page/ExamplePage',
-        name: 'ExamplePage',
-        meta: {
-          title: 'router.examplePage'
-        }
-      },
-      {
-        path: 'example-add',
-        component: 'views/Example/Page/ExampleAdd',
-        name: 'ExampleAdd',
-        meta: {
-          title: 'router.exampleAdd',
-          noTagsView: true,
-          noCache: true,
-          hidden: true,
-          showMainRoute: true,
-          activeMenu: '/example/example-page'
-        }
-      },
-      {
-        path: 'example-edit',
-        component: 'views/Example/Page/ExampleEdit',
-        name: 'ExampleEdit',
-        meta: {
-          title: 'router.exampleEdit',
-          noTagsView: true,
-          noCache: true,
-          hidden: true,
-          showMainRoute: true,
-          activeMenu: '/example/example-page'
-        }
-      },
-      {
-        path: 'example-detail',
-        component: 'views/Example/Page/ExampleDetail',
-        name: 'ExampleDetail',
-        meta: {
-          title: 'router.exampleDetail',
-          noTagsView: true,
-          noCache: true,
-          hidden: true,
-          showMainRoute: true,
-          activeMenu: '/example/example-page'
         }
       }
     ]

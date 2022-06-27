@@ -111,6 +111,7 @@ export default {
     analysis: '分析页',
     workplace: '工作台',
     guide: '引导',
+    stocklist: '股票列表',
     component: '组件',
     icon: '图标',
     echart: '图表',
