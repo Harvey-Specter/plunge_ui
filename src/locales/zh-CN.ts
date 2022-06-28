@@ -425,5 +425,8 @@ export default {
   inputPasswordDemo: {
     title: '密码输入框',
     inputPasswordDes: '基于 ElementPlus 的 Input 组件二次封装'
+  },
+  stock: {
+    tvFrame: '图表'
   }
 }

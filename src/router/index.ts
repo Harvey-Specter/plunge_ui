@@ -11,7 +11,7 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
     path: '/',
     component: Layout,
     //redirect: '/dashboard/analysis',
-    redirect: '/example/example-dialog',
+    redirect: '/stock/stockList',
     name: 'Root',
     meta: {
       hidden: true
@@ -400,23 +400,29 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
       }
     ]
   },
+
   {
-    path: '/StockList',
+    path: '/stock',
     component: Layout,
-    name: 'stockList',
-    meta: {},
+    redirect: '/Stock/StockList',
+    name: 'Stock',
+    meta: {
+      title: t('router.stocklist'),
+      icon: 'ep:management',
+      alwaysShow: true
+    },
     children: [
       {
         path: 'stockList',
         component: () => import('@/views/Stock/StockList.vue'),
         name: 'StockList',
         meta: {
-          title: t('router.stocklist'),
-          icon: 'cib:telegram-plane'
+          title: t('router.stocklist')
         }
       }
     ]
   },
+
   {
     path: '/example',
     component: Layout,

@@ -156,6 +156,10 @@ const AddAction = () => {
   dialogVisible.value = true
 }
 
+const openTv = () => {
+  window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=NASDAQ%3ATSLA', '_blank')
+}
+
 const delLoading = ref(false)
 
 const delData = async (row: TableData | null, multiple: boolean) => {
@@ -228,6 +232,9 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
+        <ElButton type="danger" @click="openTv()">
+          {{ t('stock.tvFrame') }}
+        </ElButton>
         <ElButton type="primary" @click="action(row, 'edit')">
           {{ t('exampleDemo.edit') }}
         </ElButton>
@@ -243,7 +250,7 @@ const save = async () => {
 
   <Dialog v-model="dialogVisible" :title="dialogTitle">
     <Write
-      v-if="actionType !== 'detail'"
+      v-if="actionType === 'edit'"
       ref="writeRef"
       :form-schema="allSchemas.formSchema"
       :current-row="tableObject.currentRow"

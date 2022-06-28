@@ -7,17 +7,38 @@ const timeout = 1000
 
 const adminList = [
   {
-    path: '/stockList',
+    path: '/stock',
     component: '#',
-    name: 'stockList',
-    meta: {},
+    redirect: '/stock/StockList',
+    name: 'Stock',
+    meta: {
+      title: 'router.stocklist',
+      icon: 'ep:management',
+      alwaysShow: true
+    },
     children: [
       {
         path: 'stockList',
         component: 'views/Stock/StockList',
         name: 'StockList',
         meta: {
-          title: 'router.stocklist',
+          title: 'router.stocklist'
+        }
+      }
+    ]
+  },
+  {
+    path: '/guide',
+    component: '#',
+    name: 'Guide',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: 'views/Guide/Guide',
+        name: 'GuideDemo',
+        meta: {
+          title: 'router.guide',
           icon: 'cib:telegram-plane'
         }
       }
@@ -142,23 +163,6 @@ const adminList = [
         meta: {
           title: 'router.document',
           icon: 'clarity:document-solid'
-        }
-      }
-    ]
-  },
-  {
-    path: '/guide',
-    component: '#',
-    name: 'Guide',
-    meta: {},
-    children: [
-      {
-        path: 'index',
-        component: 'views/Guide/Guide',
-        name: 'GuideDemo',
-        meta: {
-          title: 'router.guide',
-          icon: 'cib:telegram-plane'
         }
       }
     ]
