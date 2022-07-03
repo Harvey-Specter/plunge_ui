@@ -7,6 +7,24 @@ const timeout = 1000
 
 const adminList = [
   {
+    path: '/group',
+    component: '#',
+    redirect: '/group/index',
+    name: 'Group',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: 'views/Group/GroupList',
+        name: 'GuideList',
+        meta: {
+          title: 'stock.groupList',
+          icon: 'cib:telegram-plane'
+        }
+      }
+    ]
+  },
+  {
     path: '/stock',
     component: '#',
     redirect: '/stock/StockList',

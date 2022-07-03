@@ -66,6 +66,7 @@ export default defineComponent({
       if (isUrl(index)) {
         window.open(index)
       } else {
+        console.log('push-===', index)
         push(index)
       }
     }

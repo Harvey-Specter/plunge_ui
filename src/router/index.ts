@@ -10,9 +10,17 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
   {
     path: '/',
     component: Layout,
-    //redirect: '/dashboard/analysis',
-    redirect: '/stock/stockList',
+    redirect: '/group/index',
     name: 'Root',
+    meta: {
+      hidden: true
+    }
+  },
+  {
+    path: '/stockList',
+    component: Layout,
+    redirect: '/stock/stockList',
+    name: 'Root1',
     meta: {
       hidden: true
     }
@@ -117,6 +125,23 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
         name: 'GuideDemo',
         meta: {
           title: t('router.guide'),
+          icon: 'cib:telegram-plane'
+        }
+      }
+    ]
+  },
+  {
+    path: '/group',
+    component: Layout,
+    name: 'Group',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/Group/GroupList.vue'),
+        name: 'GroupList',
+        meta: {
+          title: t('stock.groupList'),
           icon: 'cib:telegram-plane'
         }
       }

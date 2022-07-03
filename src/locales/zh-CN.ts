@@ -427,6 +427,16 @@ export default {
     inputPasswordDes: '基于 ElementPlus 的 Input 组件二次封装'
   },
   stock: {
-    tvFrame: '图表'
+    tvFrame: '图表',
+    groupList: '分组管理',
+    opengroup: '进入'
+  },
+  group: {
+    code: '代码',
+    name: '名称',
+    remark: '备注',
+    create_time: '创建时间',
+    stock_count: '标的数',
+    stocks: '标的代码'
   }
 }
