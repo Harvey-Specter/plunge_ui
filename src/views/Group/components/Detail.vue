@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { PropType } from 'vue'
-import type { TableData } from '@/api/table/types'
+import type { GroupData } from '@/api/group/types'
 import { Descriptions } from '@/components/Descriptions'
-import { useI18n } from '@/hooks/web/useI18n'
-import { ElTag } from 'element-plus'
+// import { useI18n } from '@/hooks/web/useI18n'
+// import { ElTag } from 'element-plus'
 
-const { t } = useI18n()
+// const { t } = useI18n()
 
 defineProps({
   currentRow: {
-    type: Object as PropType<Nullable<TableData>>,
+    type: Object as PropType<Nullable<GroupData>>,
     default: () => null
   },
   detailSchema: {
@@ -21,7 +21,7 @@ defineProps({
 
 <template>
   <Descriptions :schema="detailSchema" :data="currentRow || {}">
-    <template #importance="{ row }: { row: TableData }">
+    <!--template #importance="{ row }: { row: GroupData }">
       <ElTag :type="row.importance === 1 ? 'success' : row.importance === 2 ? 'warning' : 'danger'">
         {{
           row.importance === 1
@@ -31,10 +31,10 @@ defineProps({
             : t('tableDemo.commonly')
         }}
       </ElTag>
-    </template>
+    </template-->
 
-    <template #content="{ row }: { row: TableData }">
-      <div v-html="row.content"></div>
+    <template #content="{ row }: { row: GroupData }">
+      <div v-html="row.remark"></div>
     </template>
   </Descriptions>
 </template>
