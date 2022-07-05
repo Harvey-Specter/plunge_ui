@@ -16,7 +16,7 @@ const adminList = [
       {
         path: 'index',
         component: 'views/Group/GroupList',
-        name: 'GuideList',
+        name: 'GroupList',
         meta: {
           title: 'stock.groupList',
           icon: 'cib:telegram-plane'

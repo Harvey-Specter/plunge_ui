@@ -165,13 +165,14 @@ const action = (row: GroupData, type: string) => {
   dialogVisible.value = true
 }
 
-const openDetail = (url: string) => {
+const openDetail = (row: GroupData) => {
+  let url = '/group/index1123' + row.id
   let r: RouteRecordRaw = {
     path: url,
     //component: () => import('@/views/Stock/StockList.vue'),
     component: () => import('@/views/Guide/Guide.vue'),
     //redirect: '/stock/stockList',
-    name: 'GuideList222',
+    name: 'GuideList222' + row.id,
     meta: {
       title: url,
       icon: 'cib:telegram-plane'
@@ -233,7 +234,7 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton type="success" @click="openDetail('/group/index1123')">
+        <ElButton type="success" @click="openDetail(row)">
           {{ t('stock.opengroup') }}
         </ElButton>
         <ElButton type="primary" @click="action(row, 'edit')">
