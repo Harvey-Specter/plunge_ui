@@ -120,9 +120,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: {
         // 选项写法
         '/api': {
-          target: 'http://127.0.0.1:8000',
+          target: 'http://plunge.test',
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, '')
+          ws: true,
+          // rewrite: path => path.replace(/^\/api\/v1/, '')
         }
       },
       hmr: {

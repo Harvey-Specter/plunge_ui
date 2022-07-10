@@ -169,20 +169,15 @@ const openDetail = (row: GroupData) => {
   let url = '/group/index1123' + row.id
   let r: RouteRecordRaw = {
     path: url,
-    //component: () => import('@/views/Stock/StockList.vue'),
     component: () => import('@/views/Guide/Guide.vue'),
-    //redirect: '/stock/stockList',
     name: 'GuideList222' + row.id,
     meta: {
       title: url,
-      icon: 'cib:telegram-plane'
+      icon: 'cib:telegram-plane',
+      breadcrumb: true
     }
   }
-
-  router.addRoute('Root', r)
-
-  // push('/group/index1123')
-
+  router.addRoute('Group', r)
   push(url)
 }
 

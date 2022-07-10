@@ -127,7 +127,7 @@ const signIn = async () => {
 
       try {
         const res = await loginApi(formData)
-
+        console.log('res===', res)
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data)
           getRole()
