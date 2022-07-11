@@ -42,7 +42,7 @@ const schema = reactive<FormSchema[]>([
   {
     field: 'username',
     label: t('login.username'),
-    value: 'admin',
+    value: 'admin@gmail.com',
     component: 'Input',
     colProps: {
       span: 24
@@ -54,7 +54,7 @@ const schema = reactive<FormSchema[]>([
   {
     field: 'password',
     label: t('login.password'),
-    value: 'admin',
+    value: 'password',
     component: 'InputPassword',
     colProps: {
       span: 24
@@ -149,7 +149,9 @@ const getRole = async () => {
   // admin - 模拟后端过滤菜单
   // test - 模拟前端过滤菜单
   const res =
-    formData.username === 'admin' ? await getAdminRoleApi(params) : await getTestRoleApi(params)
+    formData.username.indexOf('admin') >= 0
+      ? await getAdminRoleApi(params)
+      : await getTestRoleApi(params)
   if (res) {
     const { wsCache } = useCache()
     const routers = res.data || []
