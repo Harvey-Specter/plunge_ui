@@ -5,8 +5,12 @@ import { ElMessage } from 'element-plus'
 import qs from 'qs'
 
 import { config } from '@/config/axios/config'
+import { useAppStoreWithOut } from '@/store/modules/app'
+import { useCache } from '@/hooks/web/useCache'
 
 const { result_code, base_url } = config
+const appStore = useAppStoreWithOut()
+const { wsCache } = useCache()
 
 export const PATH_URL = base_url[import.meta.env.VITE_API_BASEPATH]
 
@@ -24,6 +28,11 @@ service.interceptors.request.use(
       config!.headers!['Content-Type'] === 'application/x-www-form-urlencoded'
     ) {
       config.data = qs.stringify(config.data)
+    }
+    const userInfo = wsCache.get(appStore.getUserInfo)
+    if (userInfo) {
+      // console.log(userInfo)
+      config!.headers!['Authorization'] = userInfo.token_type + ' ' + userInfo.access_token
     }
     // get参数编码
     if (config.method === 'get' && config.params) {

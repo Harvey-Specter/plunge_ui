@@ -4,7 +4,7 @@ import type { GroupData } from './types'
 const request = useAxios()
 
 export const getGroupListApi = async (params: any): Promise<IResponse> => {
-  const res = await request.get({ url: '/group/list', params })
+  const res = await request.get({ url: '/categories', params })
   return res && res.data
 }
 
