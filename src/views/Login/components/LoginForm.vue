@@ -4,7 +4,8 @@ import { Form } from '@/components/Form'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElCheckbox, ElLink } from 'element-plus'
 import { useForm } from '@/hooks/web/useForm'
-import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
+// import { loginApi, getTestRoleApi, getAdminRoleApi } from '@/api/login'
+import { loginApi } from '@/api/login'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStore } from '@/store/modules/app'
 import { usePermissionStore } from '@/store/modules/permission'
@@ -143,30 +144,66 @@ const signIn = async () => {
 const getRole = async () => {
   const { getFormData } = methods
   const formData = await getFormData<UserType>()
-  const params = {
-    roleName: formData.username
-  }
+
+  const adminList = [
+    {
+      path: '/group',
+      component: '#',
+      redirect: '/group/index',
+      name: 'Group',
+      meta: {},
+      children: [
+        {
+          path: 'index',
+          component: 'views/Group/GroupList',
+          name: 'GroupList',
+          meta: {
+            title: 'stock.groupList',
+            icon: 'cib:telegram-plane'
+          }
+        }
+      ]
+    }
+  ]
+  const { wsCache } = useCache()
+  const routers = adminList || []
+  wsCache.set('roleRouters', routers)
+
+  formData.username === 'admin'
+    ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
+    : await permissionStore.generateRoutes('test', routers).catch(() => {})
+
+  permissionStore.getAddRouters.forEach((route) => {
+    addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
+  })
+  permissionStore.setIsAddRouters(true)
+  push({ path: redirect.value || permissionStore.addRouters[0].path })
+
+  // 下面是原来的代码
+  // const params = {
+  //     roleName: formData.username
+  //   }
   // admin - 模拟后端过滤菜单
   // test - 模拟前端过滤菜单
-  const res =
-    formData.username.indexOf('admin') >= 0
-      ? await getAdminRoleApi(params)
-      : await getTestRoleApi(params)
-  if (res) {
-    const { wsCache } = useCache()
-    const routers = res.data || []
-    wsCache.set('roleRouters', routers)
+  // const res =
+  //   formData.username.indexOf('admin') >= 0
+  //     ? await getAdminRoleApi(params)
+  //     : await getTestRoleApi(params)
+  // if (res) {
+  //   const { wsCache } = useCache()
+  //   const routers = res.data || []
+  //   wsCache.set('roleRouters', routers)
 
-    formData.username === 'admin'
-      ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
-      : await permissionStore.generateRoutes('test', routers).catch(() => {})
+  //   formData.username === 'admin'
+  //     ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
+  //     : await permissionStore.generateRoutes('test', routers).catch(() => {})
 
-    permissionStore.getAddRouters.forEach((route) => {
-      addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
-    })
-    permissionStore.setIsAddRouters(true)
-    push({ path: redirect.value || permissionStore.addRouters[0].path })
-  }
+  //   permissionStore.getAddRouters.forEach((route) => {
+  //     addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
+  //   })
+  //   permissionStore.setIsAddRouters(true)
+  //   push({ path: redirect.value || permissionStore.addRouters[0].path })
+  // }
 }
 
 // 去注册页面
