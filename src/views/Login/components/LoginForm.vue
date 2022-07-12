@@ -129,6 +129,8 @@ const signIn = async () => {
       try {
         const res = await loginApi(formData)
         console.log('res===', res)
+        res.data.username = 'admin'
+        res.data.role = 'admin'
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data)
           getRole()
@@ -145,7 +147,8 @@ const getRole = async () => {
   const { getFormData } = methods
   const formData = await getFormData<UserType>()
 
-  const adminList = [
+  // const constantRouterMap: AppRouteRecordRaw[]
+  const adminList: AppCustomRouteRecordRaw[] = [
     {
       path: '/group',
       component: '#',
@@ -157,6 +160,7 @@ const getRole = async () => {
           path: 'index',
           component: 'views/Group/GroupList',
           name: 'GroupList',
+          redirect: '',
           meta: {
             title: 'stock.groupList',
             icon: 'cib:telegram-plane'
@@ -169,13 +173,15 @@ const getRole = async () => {
   const routers = adminList || []
   wsCache.set('roleRouters', routers)
 
-  formData.username === 'admin'
+  formData.username.indexOf('admin') >= 0
     ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
     : await permissionStore.generateRoutes('test', routers).catch(() => {})
 
+  console.log('permissionStore.getAddRouters========', permissionStore.getAddRouters)
   permissionStore.getAddRouters.forEach((route) => {
     addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
   })
+
   permissionStore.setIsAddRouters(true)
   push({ path: redirect.value || permissionStore.addRouters[0].path })
 
