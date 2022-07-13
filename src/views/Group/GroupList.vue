@@ -77,7 +77,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'create_time',
+    field: 'created_at',
     label: t('tableDemo.displayTime'),
     form: {
       component: 'DatePicker',

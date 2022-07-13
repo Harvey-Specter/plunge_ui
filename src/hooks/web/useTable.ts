@@ -57,7 +57,8 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
     return {
       ...tableObject.params,
       pageSize: tableObject.pageSize,
-      pageIndex: tableObject.currentPage
+      // pageIndex: tableObject.currentPage
+      page: tableObject.currentPage
     }
   })
 
@@ -147,7 +148,8 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
       tableObject.currentPage = 1
       tableObject.params = Object.assign(tableObject.params, {
         pageSize: tableObject.pageSize,
-        pageIndex: tableObject.currentPage,
+        // pageIndex: tableObject.currentPage,
+        page: tableObject.currentPage,
         ...data
       })
       methods.getList()
