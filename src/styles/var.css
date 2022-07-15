@@ -4,9 +4,9 @@
   /* left menu start */
   --left-menu-border-color: '#eee';
 
-  --left-menu-max-width: 200px;
+  --left-menu-max-width: 0px; /* 200px; */
 
-  --left-menu-min-width: 64px;
+  --left-menu-min-width: 0px; /* 64px; */
 
   --left-menu-bg-color: #001529;
 
