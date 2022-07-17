@@ -166,19 +166,24 @@ const action = (row: GroupData, type: string) => {
 }
 
 const openDetail = (row: GroupData) => {
-  let url = '/group/index1123' + row.id
+  let url = '/stock/StockList' + row.id
+
+  let queryParam = {
+    id: row.id,
+    // name: row.name.replace(/ /g, ''),
+    code: row.code
+  }
   let r: RouteRecordRaw = {
     path: url,
-    component: () => import('@/views/Guide/Guide.vue'),
-    name: 'GuideList222' + row.id,
+    component: () => import('@/views/Stock/StockList.vue'),
+    name: row.code + row.id,
     meta: {
-      title: url,
-      icon: 'cib:telegram-plane',
+      title: row.name,
       breadcrumb: true
     }
   }
   router.addRoute('Group', r)
-  push(url)
+  push({ path: url, query: queryParam })
 }
 
 const writeRef = ref<ComponentRef<typeof Write>>()

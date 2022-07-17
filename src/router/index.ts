@@ -52,9 +52,21 @@ export const constantRouterMap: AppRouteRecordRaw[] = [
       noTagsView: true
     }
   },
+  // {
+  //   path: '/404',
+  //   component: () => import('@/views/Error/404.vue'),
+  //   name: 'NoFind',
+  //   meta: {
+  //     hidden: true,
+  //     title: '404',
+  //     noTagsView: true
+  //   }
+  // }
+
   {
     path: '/404',
-    component: () => import('@/views/Error/404.vue'),
+    redirect: '/group/index',
+    // component: () => import('@/views/Error/404.vue'),
     name: 'NoFind',
     meta: {
       hidden: true,

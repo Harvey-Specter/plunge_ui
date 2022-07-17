@@ -429,7 +429,12 @@ export default {
   stock: {
     tvFrame: '图表',
     groupList: '分组管理',
-    opengroup: '进入'
+    opengroup: '进入',
+    code: '代码',
+    market: '市场',
+    remark: '备注',
+    pattern: '形态',
+    create_at: '创建时间'
   },
   group: {
     code: '代码',

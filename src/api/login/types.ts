@@ -9,3 +9,7 @@ export type UserType = {
   role: string
   roleId: string
 }
+
+export type IdType = {
+  id: string | number
+}

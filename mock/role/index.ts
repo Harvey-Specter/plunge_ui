@@ -73,14 +73,6 @@ const adminList = [
       alwaysShow: true
     },
     children: [
-      // {
-      //   path: 'stockList',
-      //   component: 'views/Stock/StockList',
-      //   name: 'StockList',
-      //   meta: {
-      //     title: 'router.stocklist'
-      //   }
-      // },
       {
         path: 'example-dialog',
         component: 'views/Example/Dialog/ExampleDialog',

@@ -5,17 +5,24 @@ import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElTag } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getTableListApi, saveTableApi, delTableListApi } from '@/api/table'
+import { getStockListApi, saveStockApi, delStockListApi } from '@/api/stock'
 import { useTable } from '@/hooks/web/useTable'
-import { TableData } from '@/api/table/types'
+import { StockData } from '@/api/stock/types'
 import { h, ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { useRoute } from 'vue-router'
 
-const { register, tableObject, methods } = useTable<TableData>({
-  getListApi: getTableListApi,
-  delListApi: delTableListApi,
+const route = useRoute()
+// const qCode = route.query.code
+const cateId = route.query.id
+
+// console.log(qCode, id)
+
+const { register, tableObject, methods } = useTable<StockData>({
+  getListApi: getStockListApi,
+  delListApi: delStockListApi,
   response: {
     list: 'list',
     total: 'total'
@@ -23,7 +30,7 @@ const { register, tableObject, methods } = useTable<TableData>({
 })
 
 const { getList, setSearchParams } = methods
-
+tableObject.params = { id: cateId }
 getList()
 
 const { t } = useI18n()
@@ -41,8 +48,8 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'title',
-    label: t('tableDemo.title'),
+    field: 'code',
+    label: t('stock.code'),
     search: {
       show: true
     },
@@ -56,23 +63,8 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'author',
-    label: t('tableDemo.author')
-  },
-  {
-    field: 'display_time',
-    label: t('tableDemo.displayTime'),
-    form: {
-      component: 'DatePicker',
-      componentProps: {
-        type: 'datetime',
-        valueFormat: 'YYYY-MM-DD HH:mm:ss'
-      }
-    }
-  },
-  {
-    field: 'importance',
-    label: t('tableDemo.importance'),
+    field: 'pattern',
+    label: t('stock.pattern'),
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
@@ -93,14 +85,18 @@ const crudSchemas = reactive<CrudSchema[]>([
         options: [
           {
             label: '头肩',
+            value: 4
+          },
+          {
+            label: '吸筹',
             value: 3
           },
           {
-            label: '良好',
+            label: '连续收星',
             value: 2
           },
           {
-            label: '一般',
+            label: '缺口支撑',
             value: 1
           }
         ]
@@ -108,11 +104,14 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'pageviews',
-    label: t('tableDemo.pageviews'),
+    field: 'create_at',
+    label: t('stock.create_at'),
     form: {
-      component: 'InputNumber',
-      value: 0
+      component: 'DatePicker',
+      componentProps: {
+        type: 'datetime',
+        valueFormat: 'YYYY-MM-DD HH:mm:ss'
+      }
     }
   },
   {
@@ -162,7 +161,7 @@ const openTv = () => {
 
 const delLoading = ref(false)
 
-const delData = async (row: TableData | null, multiple: boolean) => {
+const delData = async (row: StockData | null, multiple: boolean) => {
   tableObject.currentRow = row
   const { delList, getSelections } = methods
   const selections = await getSelections()
@@ -177,7 +176,7 @@ const delData = async (row: TableData | null, multiple: boolean) => {
 
 const actionType = ref('')
 
-const action = (row: TableData, type: string) => {
+const action = (row: StockData, type: string) => {
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   tableObject.currentRow = row
@@ -193,8 +192,8 @@ const save = async () => {
   await write?.elFormRef?.validate(async (isValid) => {
     if (isValid) {
       loading.value = true
-      const data = (await write?.getFormData()) as TableData
-      const res = await saveTableApi(data)
+      const data = (await write?.getFormData()) as StockData
+      const res = await saveStockApi(data)
         .catch(() => {})
         .finally(() => {
           loading.value = false
