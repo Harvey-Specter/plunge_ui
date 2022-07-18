@@ -33,7 +33,15 @@ let router = useRouter()
 getList()
 
 const { t } = useI18n()
+const writeRef = ref<ComponentRef<typeof Write>>()
+const write = unref(writeRef)
 
+const genCode = (val: string) => {  
+  console.log('genCode--val===', val)
+  write?.setValues({
+    code: val
+  })
+}
 const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'index',
@@ -55,6 +63,9 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       colProps: {
         span: 12
+      },
+      componentProps: {
+        onChange: genCode
       }
     },
     detail: {
@@ -80,6 +91,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'created_at',
     label: t('tableDemo.displayTime'),
     form: {
+      show: false,
       component: 'DatePicker',
       componentProps: {
         type: 'datetime',
@@ -94,7 +106,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Input',
       colProps: {
-        span: 24
+        span: 12
       }
     }
   },
@@ -163,7 +175,14 @@ const action = (row: GroupData, type: string) => {
 const addAction = (type: string) => {
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = type
-  tableObject.currentRow = null // groupDataNull
+  let newGroup={
+  id: '',
+  name: '',
+  code: '',
+  remark: '',
+  stock_count: 0,
+  created_at: '' }
+  tableObject.currentRow = newGroup // groupDataNull
   dialogVisible.value = true
 }
 const openDetail = (row: GroupData) => {
@@ -185,15 +204,16 @@ const openDetail = (row: GroupData) => {
   push({ path: url, query: queryParam })
 }
 
-const writeRef = ref<ComponentRef<typeof Write>>()
+// const writeRef = ref<ComponentRef<typeof Write>>()
 
 const loading = ref(false)
 const save = async () => {
-  const write = unref(writeRef)
+  // const write = unref(writeRef)
   await write?.elFormRef?.validate(async (isValid) => {
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as GroupData
+      console.log('data===', data); return false ;
       const res = await saveGroupApi(data)
         .catch(() => {})
         .finally(() => {
