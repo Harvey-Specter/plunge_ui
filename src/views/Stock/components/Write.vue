@@ -19,12 +19,12 @@ const props = defineProps({
 })
 
 const rules = reactive({
-  title: [required()],
-  author: [required()],
-  importance: [required()],
-  pageviews: [required()],
-  display_time: [required()],
-  content: [required()]
+  code: [required()]
+  // author: [required()],
+  // importance: [required()],
+  // pageviews: [required()],
+  // display_time: [required()],
+  // content: [required()]
 })
 
 const { register, methods, elFormRef } = useForm({

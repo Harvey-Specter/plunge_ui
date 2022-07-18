@@ -1,15 +1,14 @@
 export type StockData = {
-  id: string
-  price_id: string
+  id: number
+  price_id: number
   day: string
   code: string
   user_id: number
-  category_id: string
+  category_id: number
   pattern: number
   market: string
-  remark: number
+  remark: string
   created_at: string
-  updated_at: number
 }
 
 // | id          | int unsigned | NO   | PRI | NULL    | auto_increment |

@@ -166,7 +166,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'content',
+    field: 'remark',
     label: t('exampleDemo.content'),
     table: {
       show: false
@@ -200,12 +200,6 @@ const dialogVisible = ref(false)
 
 const dialogTitle = ref('')
 
-const AddAction = () => {
-  dialogTitle.value = t('exampleDemo.add')
-  tableObject.currentRow = null
-  dialogVisible.value = true
-}
-
 const openTv = () => {
   window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=NASDAQ%3ATSLA', '_blank')
 }
@@ -218,7 +212,7 @@ const delData = async (row: StockData | null, multiple: boolean) => {
   const selections = await getSelections()
   delLoading.value = true
   await delList(
-    multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as string],
+    multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number],
     multiple
   ).finally(() => {
     delLoading.value = false
@@ -231,6 +225,13 @@ const action = (row: StockData, type: string) => {
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   tableObject.currentRow = row
+  dialogVisible.value = true
+}
+const addAction = () => {
+  // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  dialogTitle.value = t('exampleDemo.add')
+  actionType.value = 'edit'
+  tableObject.currentRow = null
   dialogVisible.value = true
 }
 
@@ -264,7 +265,7 @@ const save = async () => {
     <Search :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
 
     <div class="mb-10px">
-      <ElButton type="primary" @click="AddAction">{{ t('exampleDemo.add') }}</ElButton>
+      <ElButton type="primary" @click="addAction()">{{ t('exampleDemo.add') }}</ElButton>
       <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
         {{ t('exampleDemo.del') }}
       </ElButton>

@@ -168,7 +168,6 @@ const addAction = (type: string) => {
 }
 const openDetail = (row: GroupData) => {
   let url = '/stock/StockList' + row.id
-
   let queryParam = {
     id: row.id,
     code: row.code.replace(/ /g, '')
