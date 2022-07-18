@@ -431,10 +431,18 @@ export default {
     groupList: '分组管理',
     opengroup: '进入',
     code: '代码',
+    day: '入选日期',
     market: '市场',
+    market_CH: '中国',
+    market_JP: '日本',
+    market_X: '未知',
     remark: '备注',
     pattern: '形态',
-    create_at: '创建时间'
+    create_at: '创建时间',
+    headShoulder: '头肩',
+    getingChips: '筹码',
+    stars: '连续收星',
+    gap: '缺口'
   },
   group: {
     code: '代码',

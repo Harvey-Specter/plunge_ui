@@ -1,11 +1,12 @@
 import { useAxios } from '@/hooks/web/useAxios'
-import { IdType } from '../login/types'
+// import { IdType } from '../login/types'
 import type { StockData } from './types'
 
 const request = useAxios()
 
-export const getStockListApi = async (id: IdType): Promise<IResponse> => {
-  const res = await request.get({ url: '/categories/' + id.id + '/stocks?include=user' })
+export const getStockListApi = async (params: any): Promise<IResponse> => {
+  // const res = await request.get({ url: '/categories/' + id.id + '/stocks?include=user' })
+  const res = await request.get({ url: '/categories/' + params.id + '/stocks', params })
   return res && res.data
 }
 

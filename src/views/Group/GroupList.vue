@@ -135,12 +135,6 @@ const dialogVisible = ref(false)
 
 const dialogTitle = ref('')
 
-const AddAction = () => {
-  dialogTitle.value = t('exampleDemo.add')
-  tableObject.currentRow = null
-  dialogVisible.value = true
-}
-
 const delLoading = ref(false)
 
 const delData = async (row: GroupData | null, multiple: boolean) => {
@@ -159,19 +153,25 @@ const delData = async (row: GroupData | null, multiple: boolean) => {
 const actionType = ref('')
 
 const action = (row: GroupData, type: string) => {
+  // console.log('action--type===', type, row)
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   tableObject.currentRow = row
+  // console.log('tableObject.currentRow===', tableObject.currentRow)
   dialogVisible.value = true
 }
-
+const addAction = (type: string) => {
+  dialogTitle.value = t('exampleDemo.add')
+  actionType.value = type
+  tableObject.currentRow = null // groupDataNull
+  dialogVisible.value = true
+}
 const openDetail = (row: GroupData) => {
   let url = '/stock/StockList' + row.id
 
   let queryParam = {
     id: row.id,
-    // name: row.name.replace(/ /g, ''),
-    code: row.code
+    code: row.code.replace(/ /g, '')
   }
   let r: RouteRecordRaw = {
     path: url,
@@ -189,7 +189,6 @@ const openDetail = (row: GroupData) => {
 const writeRef = ref<ComponentRef<typeof Write>>()
 
 const loading = ref(false)
-
 const save = async () => {
   const write = unref(writeRef)
   await write?.elFormRef?.validate(async (isValid) => {
@@ -216,7 +215,7 @@ const save = async () => {
     <Search :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
 
     <div class="mb-10px">
-      <ElButton type="primary" @click="AddAction">{{ t('exampleDemo.add') }}</ElButton>
+      <ElButton type="primary" @click="addAction('edit')">{{ t('exampleDemo.add') }}</ElButton>
       <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
         {{ t('exampleDemo.del') }}
       </ElButton>

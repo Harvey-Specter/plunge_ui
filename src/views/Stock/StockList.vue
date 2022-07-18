@@ -30,7 +30,7 @@ const { register, tableObject, methods } = useTable<StockData>({
 })
 
 const { getList, setSearchParams } = methods
-tableObject.params = { id: cateId }
+tableObject.params.id = cateId
 getList()
 
 const { t } = useI18n()
@@ -63,20 +63,30 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
+    field: 'day',
+    label: t('stock.day'),
+    search: {
+      show: true
+    }
+  },
+  {
     field: 'pattern',
     label: t('stock.pattern'),
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
         {
-          type: cellValue === 1 ? 'success' : cellValue === 2 ? 'warning' : 'danger'
+          type:
+            cellValue == 1 ? 'success' : cellValue == 2 ? 'warning' : cellValue == 3 ? '' : 'danger'
         },
         () =>
-          cellValue === 1
-            ? t('tableDemo.important')
-            : cellValue === 2
-            ? t('tableDemo.good')
-            : t('tableDemo.commonly')
+          cellValue == 1
+            ? t('stock.headShoulder')
+            : cellValue == 2
+            ? t('stock.getingChips')
+            : cellValue == 3
+            ? t('stock.stars')
+            : t('stock.gap')
       )
     },
     form: {
@@ -85,26 +95,67 @@ const crudSchemas = reactive<CrudSchema[]>([
         options: [
           {
             label: '头肩',
-            value: 4
+            value: 1
           },
           {
             label: '吸筹',
-            value: 3
-          },
-          {
-            label: '连续收星',
             value: 2
           },
           {
+            label: '连续收星',
+            value: 3
+          },
+          {
             label: '缺口支撑',
-            value: 1
+            value: 4
           }
         ]
       }
     }
   },
   {
-    field: 'create_at',
+    field: 'market',
+    label: t('stock.market'),
+    formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
+      return h(
+        ElTag,
+        {
+          type:
+            cellValue == 1
+              ? 'danger'
+              : cellValue == 2
+              ? ''
+              : cellValue == 3
+              ? 'success'
+              : 'warning',
+          effect: 'dark'
+        },
+        () =>
+          cellValue == 1
+            ? t('stock.market_CH')
+            : cellValue == 2
+            ? t('stock.market_JP')
+            : t('stock.market_X')
+      )
+    },
+    form: {
+      component: 'Select',
+      componentProps: {
+        options: [
+          {
+            label: '中国',
+            value: 1
+          },
+          {
+            label: '日本',
+            value: 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    field: 'created_at',
     label: t('stock.create_at'),
     form: {
       component: 'DatePicker',
@@ -237,10 +288,7 @@ const save = async () => {
         <ElButton type="primary" @click="action(row, 'edit')">
           {{ t('exampleDemo.edit') }}
         </ElButton>
-        <ElButton type="success" @click="action(row, 'detail')">
-          {{ t('exampleDemo.detail') }}
-        </ElButton>
-        <ElButton type="danger" @click="delData(row, false)">
+        <ElButton type="success" @click="delData(row, false)">
           {{ t('exampleDemo.del') }}
         </ElButton>
       </template>

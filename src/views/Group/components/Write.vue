@@ -22,7 +22,7 @@ const rules = reactive({
   name: [required()],
   code: [required()],
   remark: [],
-  stocks: [required()]
+  stocks: []
 })
 
 const { register, methods, elFormRef } = useForm({
