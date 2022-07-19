@@ -9,7 +9,7 @@ export const getGroupListApi = async (params: any): Promise<IResponse> => {
 }
 
 export const saveGroupApi = async (data: Partial<GroupData>): Promise<IResponse> => {
-  const res = await request.post({ url: '/group/save', data })
+  const res = await request.post({ url: '/categories', data })
   return res && res.data
 }
 

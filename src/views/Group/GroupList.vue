@@ -33,8 +33,7 @@ let router = useRouter()
 getList()
 
 const { t } = useI18n()
-const writeRef = ref<ComponentRef<typeof Write>>()
-const write = unref(writeRef)
+
 
 const genCode = (val: string) => {
   console.log('genCode--val===', val)
@@ -190,13 +189,13 @@ const addAction = (type: string) => {
 const openDetail = (row: GroupData) => {
   let url = '/stock/StockList' + row.id
   let queryParam = {
-    id: row.id,
-    code: row.code.replace(/ /g, '')
+    id: row.id
+    // code: row.code.replace(/ /g, '')
   }
   let r: RouteRecordRaw = {
     path: url,
     component: () => import('@/views/Stock/StockList.vue'),
-    name: row.code + row.id,
+    name: 'stock_' + row.id,
     meta: {
       title: row.name,
       breadcrumb: true
@@ -210,13 +209,17 @@ const openDetail = (row: GroupData) => {
 
 const loading = ref(false)
 const save = async () => {
+  console.log('save')
   // const write = unref(writeRef)
+  const writeRef = ref<ComponentRef<typeof Write>>()
+  const write = unref(writeRef)
+  
   await write?.elFormRef?.validate(async (isValid) => {
+    console.log('isValid===',isValid)
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as GroupData
-      console.log('data===', data)
-      return false
+      console.log('data===', data); // return false
       const res = await saveGroupApi(data)
         .catch(() => {})
         .finally(() => {
@@ -229,6 +232,9 @@ const save = async () => {
       }
     }
   })
+  setTimeout(()=>{
+      console.log(999)
+    },20000);
 }
 </script>
 
