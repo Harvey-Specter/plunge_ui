@@ -20,7 +20,7 @@ const props = defineProps({
 
 const rules = reactive({
   name: [required()],
-  code: [required()],
+  // code: [required()],
   remark: [],
   stocks: []
 })

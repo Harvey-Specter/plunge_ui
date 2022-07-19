@@ -36,11 +36,11 @@ const { t } = useI18n()
 const writeRef = ref<ComponentRef<typeof Write>>()
 const write = unref(writeRef)
 
-const genCode = (val: string) => {  
+const genCode = (val: string) => {
   console.log('genCode--val===', val)
-  write?.setValues({
-    code: val
-  })
+  // write?.setValues({
+  //   code: val
+  // })
 }
 const crudSchemas = reactive<CrudSchema[]>([
   {
@@ -62,7 +62,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     },
     form: {
       colProps: {
-        span: 12
+        span: 24
       },
       componentProps: {
         onChange: genCode
@@ -72,16 +72,16 @@ const crudSchemas = reactive<CrudSchema[]>([
       span: 12
     }
   },
-  {
-    field: 'code',
-    label: t('group.code')
-  },
+  // {
+  //   field: 'code',
+  //   label: t('group.code')
+  // },
   {
     field: 'stock_count',
     label: t('group.stock_count'),
     disabled: true,
     form: {
-      show: true,
+      show: false,
       componentProps: {
         disabled: true
       }
@@ -106,7 +106,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Input',
       colProps: {
-        span: 12
+        span: 24
       }
     }
   },
@@ -175,13 +175,14 @@ const action = (row: GroupData, type: string) => {
 const addAction = (type: string) => {
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = type
-  let newGroup={
-  id: '',
-  name: '',
-  code: '',
-  remark: '',
-  stock_count: 0,
-  created_at: '' }
+  let newGroup = {
+    id: '',
+    name: '',
+    code: '',
+    remark: '',
+    stock_count: 0,
+    created_at: ''
+  }
   tableObject.currentRow = newGroup // groupDataNull
   dialogVisible.value = true
 }
@@ -213,7 +214,8 @@ const save = async () => {
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as GroupData
-      console.log('data===', data); return false ;
+      console.log('data===', data)
+      return false
       const res = await saveGroupApi(data)
         .catch(() => {})
         .finally(() => {

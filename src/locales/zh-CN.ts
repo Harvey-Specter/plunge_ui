@@ -445,7 +445,7 @@ export default {
     gap: '缺口'
   },
   group: {
-    code: '代码',
+    code: '别名',
     name: '名称',
     remark: '备注',
     create_time: '创建时间',
