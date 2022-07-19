@@ -79,6 +79,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'stock_count',
     label: t('group.stock_count'),
+    type: 'count',
     disabled: true,
     form: {
       show: false,

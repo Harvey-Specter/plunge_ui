@@ -237,7 +237,32 @@ export default defineComponent({
                 width="65px"
               ></ElTableColumn>
             )
-          } else {
+          } else if(v.type === 'count'){
+            const props = { ...v }
+            if (props.children) delete props.children
+            return (
+              <ElTableColumn
+                showOverflowTooltip={showOverflowTooltip}
+                align={align}
+                width="95px"
+                headerAlign={headerAlign}
+                {...props}
+                prop={v.field}
+              >
+                {{
+                  default: (data: TableSlotDefault) =>
+                    v.children && v.children.length
+                      ? rnderTreeTableColumn(v.children)
+                      : // @ts-ignore
+                        getSlot(slots, v.field, data) ||
+                        v?.formatter?.(data.row, data.column, data.row[v.field], data.$index) ||
+                        data.row[v.field],
+                  // @ts-ignore
+                  header: () => getSlot(slots, `${v.field}-header`) || v.label
+                }}
+              </ElTableColumn>
+            )
+          }else {
             const props = { ...v }
             if (props.children) delete props.children
             return (
