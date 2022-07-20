@@ -226,6 +226,8 @@ const save = async () => {
         .finally(() => {
           loading.value = false
         })
+      
+      console.log('res=====',res)
       if (res) {
         dialogVisible.value = false
         tableObject.currentPage = 1
@@ -233,9 +235,9 @@ const save = async () => {
       }
     }
   })
-  setTimeout(() => {
-    console.log(999)
-  }, 20000)
+  // setTimeout(() => {
+  //   console.log(999)
+  // }, 20000)
 }
 </script>
 
