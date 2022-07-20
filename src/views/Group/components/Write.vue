@@ -19,13 +19,14 @@ const props = defineProps({
 })
 
 const rules = reactive({
-  name: [required()],
+  name: [required()]
   // code: [required()],
   // remark: [],
   // stocks: []
 })
 
-const { register, methods, elFormRef } = useForm({
+console.log('formSchema===', props.formSchema)
+const { register, elFormRef, methods } = useForm({
   schema: props.formSchema
 })
 
@@ -41,6 +42,8 @@ watch(
     immediate: true
   }
 )
+
+console.log('elFormRef===', elFormRef)
 
 defineExpose({
   elFormRef,

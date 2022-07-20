@@ -34,12 +34,15 @@ getList()
 
 const { t } = useI18n()
 
+const writeRef = ref<ComponentRef<typeof Write>>()
+// const write = unref(writeRef)
 
 const genCode = (val: string) => {
   console.log('genCode--val===', val)
   // write?.setValues({
-  //   code: val
+  //   remark: val
   // })
+  //console.log('genCode--val==end ', val)
 }
 const crudSchemas = reactive<CrudSchema[]>([
   {
@@ -175,15 +178,15 @@ const action = (row: GroupData, type: string) => {
 const addAction = (type: string) => {
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = type
-  let newGroup = {
-    id: '',
-    name: '',
-    code: '',
-    remark: '',
-    stock_count: 0,
-    created_at: ''
-  }
-  tableObject.currentRow = newGroup // groupDataNull
+  // let newGroup = {
+  //   id: '',
+  //   name: '',
+  //   code: '',
+  //   remark: '',
+  //   stock_count: 0,
+  //   created_at: ''
+  // }
+  tableObject.currentRow = null
   dialogVisible.value = true
 }
 const openDetail = (row: GroupData) => {
@@ -209,17 +212,15 @@ const openDetail = (row: GroupData) => {
 
 const loading = ref(false)
 const save = async () => {
-  console.log('save')
-  // const write = unref(writeRef)
-  const writeRef = ref<ComponentRef<typeof Write>>()
   const write = unref(writeRef)
-  
+  console.log('save 2', write, '---------------')
+
   await write?.elFormRef?.validate(async (isValid) => {
-    console.log('isValid===',isValid)
+    console.log('isValid===', isValid)
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as GroupData
-      console.log('data===', data); // return false
+      console.log('data===', data) // return false
       const res = await saveGroupApi(data)
         .catch(() => {})
         .finally(() => {
@@ -232,9 +233,9 @@ const save = async () => {
       }
     }
   })
-  setTimeout(()=>{
-      console.log(999)
-    },20000);
+  setTimeout(() => {
+    console.log(999)
+  }, 20000)
 }
 </script>
 
