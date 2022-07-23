@@ -5,4 +5,5 @@ export type GroupData = {
   remark: string
   stock_count: number
   created_at: string
+  stocks: string
 }

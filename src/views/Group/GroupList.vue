@@ -5,9 +5,10 @@ import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getGroupListApi, saveGroupApi, delGroupListApi } from '@/api/group'
+import { getGroupListApi, saveGroupApi, delGroupListApi,getStocksByCategoryId } from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
 import { GroupData } from '@/api/group/types'
+import { StockData } from '@/api/stock/types'
 import { ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
@@ -165,27 +166,47 @@ const delData = async (row: GroupData | null, multiple: boolean) => {
   })
 }
 
+// getList: async () => {
+//       tableObject.loading = true
+//       const res = await config?.getListApi(unref(paramsObj)).finally(() => {
+//         tableObject.loading = false
+//       })
+//       if (res) {
+//         tableObject.tableList = get(res.data || {}, config?.response.list as string)
+//         tableObject.total = get(res.data || {}, config?.response?.total as string) || 0
+//       }
+//     },
+
 const actionType = ref('')
 
-const action = (row: GroupData, type: string) => {
+//const save = async () => {
+const action = async(row: GroupData, type: string) => {
   // console.log('action--type===', type, row)
+
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   tableObject.currentRow = row
-  // console.log('tableObject.currentRow===', tableObject.currentRow)
+  const res = await getStocksByCategoryId({id:row.id})
+        .catch(() => {})
+        .finally(() => {
+          loading.value = false
+        })
+      
+      console.log('res=====',res)
+      if (res) {
+        let stockCodes = []
+        for(let item: StockData  of res.data) {
+          stockCodes.push(item.code)
+        }
+        tableObject.currentRow.stocks=stockCodes.join(",")
+      }
   dialogVisible.value = true
 }
+
+
 const addAction = (type: string) => {
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = type
-  // let newGroup = {
-  //   id: '',
-  //   name: '',
-  //   code: '',
-  //   remark: '',
-  //   stock_count: 0,
-  //   created_at: ''
-  // }
   tableObject.currentRow = null
   dialogVisible.value = true
 }
@@ -207,16 +228,12 @@ const openDetail = (row: GroupData) => {
   router.addRoute('Group', r)
   push({ path: url, query: queryParam })
 }
-
-// const writeRef = ref<ComponentRef<typeof Write>>()
-
 const loading = ref(false)
+
 const save = async () => {
   const write = unref(writeRef)
-  console.log('save 2', write, '---------------')
-
   await write?.elFormRef?.validate(async (isValid) => {
-    console.log('isValid===', isValid)
+    // console.log('isValid===', isValid)
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as GroupData

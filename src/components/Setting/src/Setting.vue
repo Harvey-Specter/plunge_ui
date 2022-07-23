@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { ElDrawer, ElDivider, ElButton, ElMessage } from 'element-plus'
+// import { ElDrawer, ElDivider, ElButton, ElMessage } from 'element-plus'
+import { ElDrawer, ElDivider } from 'element-plus'
 import { ref, unref, computed, watch } from 'vue'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ThemeSwitch } from '@/components/ThemeSwitch'
 import { colorIsDark, lighten, hexToRGB } from '@/utils/color'
 import { useCssVar } from '@vueuse/core'
 import { useAppStore } from '@/store/modules/app'
-import { trim, setCssVar } from '@/utils'
-import ColorRadioPicker from './components/ColorRadioPicker.vue'
-import InterfaceDisplay from './components/InterfaceDisplay.vue'
-import LayoutRadioPicker from './components/LayoutRadioPicker.vue'
-import { useCache } from '@/hooks/web/useCache'
-import { useClipboard } from '@vueuse/core'
+// import { trim, setCssVar } from '@/utils'
+// import ColorRadioPicker from './components/ColorRadioPicker.vue'
+// import InterfaceDisplay from './components/InterfaceDisplay.vue'
+// import LayoutRadioPicker from './components/LayoutRadioPicker.vue'
+// import { useCache } from '@/hooks/web/useCache'
+// import { useClipboard } from '@vueuse/core'
 import { useDesign } from '@/hooks/web/useDesign'
 
 const { getPrefixCls } = useDesign()
@@ -27,14 +28,14 @@ const layout = computed(() => appStore.getLayout)
 const drawer = ref(false)
 
 // 主题色相关
-const systemTheme = ref(appStore.getTheme.elColorPrimary)
+// const systemTheme = ref(appStore.getTheme.elColorPrimary)
 
-const setSystemTheme = (color: string) => {
-  setCssVar('--el-color-primary', color)
-  appStore.setTheme({ elColorPrimary: color })
-  const leftMenuBgColor = useCssVar('--left-menu-bg-color', document.documentElement)
-  setMenuTheme(trim(unref(leftMenuBgColor)))
-}
+// const setSystemTheme = (color: string) => {
+//   setCssVar('--el-color-primary', color)
+//   appStore.setTheme({ elColorPrimary: color })
+//   const leftMenuBgColor = useCssVar('--left-menu-bg-color', document.documentElement)
+//   setMenuTheme(trim(unref(leftMenuBgColor)))
+// }
 
 // 头部主题相关
 const headerTheme = ref(appStore.getTheme.topHeaderBgColor || '')
@@ -44,10 +45,10 @@ const setHeaderTheme = (color: string) => {
   const textColor = isDarkColor ? '#fff' : 'inherit'
   const textHoverColor = isDarkColor ? lighten(color!, 6) : '#f6f6f6'
   const topToolBorderColor = isDarkColor ? color : '#eee'
-  setCssVar('--top-header-bg-color', color)
-  setCssVar('--top-header-text-color', textColor)
-  setCssVar('--top-header-hover-color', textHoverColor)
-  setCssVar('--top-tool-border-color', topToolBorderColor)
+  // setCssVar('--top-header-bg-color', color)
+  // setCssVar('--top-header-text-color', textColor)
+  // setCssVar('--top-header-hover-color', textHoverColor)
+  // setCssVar('--top-tool-border-color', topToolBorderColor)
   appStore.setTheme({
     topHeaderBgColor: color,
     topHeaderTextColor: textColor,
@@ -109,7 +110,7 @@ watch(
     }
   }
 )
-
+/** 
 // 拷贝
 const copyConfig = async () => {
   const { copy, copied, isSupported } = useClipboard({
@@ -197,6 +198,8 @@ const clear = () => {
   wsCache.delete('isDark')
   window.location.reload()
 }
+
+**/
 </script>
 
 <template>
@@ -218,11 +221,11 @@ const clear = () => {
       <ElDivider>{{ t('setting.theme') }}</ElDivider>
       <ThemeSwitch />
 
-      <!-- 布局 -->
+      <!-- 布局
       <ElDivider>{{ t('setting.layout') }}</ElDivider>
       <LayoutRadioPicker />
-
-      <!-- 系统主题 -->
+ -->
+      <!-- 系统主题 
       <ElDivider>{{ t('setting.systemTheme') }}</ElDivider>
       <ColorRadioPicker
         v-model="systemTheme"
@@ -238,8 +241,8 @@ const clear = () => {
         ]"
         @change="setSystemTheme"
       />
-
-      <!-- 头部主题 -->
+-->
+      <!-- 头部主题 
       <ElDivider>{{ t('setting.headerTheme') }}</ElDivider>
       <ColorRadioPicker
         v-model="headerTheme"
@@ -255,8 +258,8 @@ const clear = () => {
         ]"
         @change="setHeaderTheme"
       />
-
-      <!-- 菜单主题 -->
+-->
+      <!-- 菜单主题 
       <template v-if="layout !== 'top'">
         <ElDivider>{{ t('setting.menuTheme') }}</ElDivider>
         <ColorRadioPicker
@@ -274,9 +277,10 @@ const clear = () => {
           @change="setMenuTheme"
         />
       </template>
+      -->
     </div>
 
-    <!-- 界面显示 -->
+    <!-- 界面显示 
     <ElDivider>{{ t('setting.interfaceDisplay') }}</ElDivider>
     <InterfaceDisplay />
 
@@ -289,6 +293,8 @@ const clear = () => {
         {{ t('setting.clearAndReset') }}
       </ElButton>
     </div>
+
+    -->
   </ElDrawer>
 </template>
 

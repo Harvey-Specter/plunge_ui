@@ -95,7 +95,7 @@ const schema = reactive<FormSchema[]>([
   }
 ])
 
-const iconSize = 30
+// const iconSize = 30
 
 const remember = ref(false)
 
@@ -103,7 +103,7 @@ const { register, elFormRef, methods } = useForm()
 
 const loading = ref(false)
 
-const iconColor = '#999'
+// const iconColor = '#999'
 
 const redirect = ref<string>('')
 
@@ -252,7 +252,7 @@ const toRegister = () => {
       </div>
     </template>
 
-    <template #otherIcon>
+    <!-- template #otherIcon>
       <div class="flex justify-between w-[100%]">
         <Icon
           icon="ant-design:github-filled"
@@ -279,7 +279,7 @@ const toRegister = () => {
           class="cursor-pointer anticon"
         />
       </div>
-    </template>
+    </template -->
   </Form>
 </template>
 

@@ -8,6 +8,11 @@ export const getGroupListApi = async (params: any): Promise<IResponse> => {
   return res && res.data
 }
 
+export const getStocksByCategoryId = async (params: any): Promise<IResponse> => {
+  const res = await request.get({ url: '/categories/getStocksByCategoryId', params })
+  return res && res.data
+}
+
 export const saveGroupApi = async (data: Partial<GroupData>): Promise<IResponse> => {
   console.log('saveGroupApi===data====', data)
   const res = await request.post({ url: '/categories', data })
