@@ -428,7 +428,7 @@ export default {
   },
   stock: {
     tvFrame: '图表',
-    groupList: '分组管理',
+    groupList: '板块管理',
     opengroup: '进入',
     code: '代码',
     day: '入选日期',
@@ -440,9 +440,9 @@ export default {
     pattern: '形态',
     create_at: '创建时间',
     headShoulder: '头肩',
-    getingChips: '筹码',
+    getingChips: '吸筹',
     stars: '连续收星',
-    gap: '缺口'
+    gap: '缺口支撑'
   },
   group: {
     code: '别名',
@@ -450,6 +450,6 @@ export default {
     remark: '备注',
     create_time: '创建时间',
     stock_count: '标的数',
-    stocks: '标的代码'
+    stocks: '股票代码'
   }
 }

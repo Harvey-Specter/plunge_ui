@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ContentWrap } from '@/components/ContentWrap'
-import { Search } from '@/components/Search'
+import { SearchButton } from '@/components/SearchButton'
 import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton } from 'element-plus'
@@ -237,7 +237,7 @@ const save = async () => {
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as GroupData
-      console.log('data===', data) // return false
+      // console.log('data====', data) ;return false
       const res = await saveGroupApi(data)
         .catch(() => {})
         .finally(() => {
@@ -260,14 +260,15 @@ const save = async () => {
 
 <template>
   <ContentWrap>
-    <Search :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
-
-    <div class="mb-10px">
+  <div class="mb-10px float-left">
       <ElButton type="primary" @click="addAction('edit')">{{ t('exampleDemo.add') }}</ElButton>
       <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
         {{ t('exampleDemo.del') }}
       </ElButton>
     </div>
+    
+    <SearchButton :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
+    
 
     <Table
       v-model:pageSize="tableObject.pageSize"

@@ -6,7 +6,8 @@ const { wsCache } = useCache()
 
 export const elLocaleMap = {
   'zh-CN': zhCn,
-  en: en
+  en: en,
+  jp: en
 }
 export interface LocaleState {
   currentLocale: LocaleDropdownType
@@ -15,18 +16,22 @@ export interface LocaleState {
 
 export const localeModules: LocaleState = {
   currentLocale: {
-    lang: wsCache.get('lang') || 'zh-CN',
-    elLocale: elLocaleMap[wsCache.get('lang') || 'zh-CN']
+    lang: wsCache.get('lang') || 'jp',
+    elLocale: elLocaleMap[wsCache.get('lang') || 'jp']
   },
   // 多语言
   localeMap: [
     {
-      lang: 'zh-CN',
-      name: '简体中文'
+      lang: 'jp',
+      name: '日本語'
     },
     {
       lang: 'en',
       name: 'English'
-    }
+    },
+    {
+      lang: 'zh-CN',
+      name: '简体中文'
+    },
   ]
 }

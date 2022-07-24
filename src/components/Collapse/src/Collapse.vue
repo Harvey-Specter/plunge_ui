@@ -24,12 +24,13 @@ const toggleCollapse = () => {
 
 <template>
   <div :class="prefixCls">
-    <Icon
+    <!-- Icon
       :size="18"
       :icon="collapse ? 'ant-design:menu-unfold-outlined' : 'ant-design:menu-fold-outlined'"
       :color="color"
       class="cursor-pointer"
       @click="toggleCollapse"
-    />
+    / -->
+    <img src="@/assets/imgs/logo.png" alt="" class="w-18px h-18px mr-18px" />
   </div>
 </template>

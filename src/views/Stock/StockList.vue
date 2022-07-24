@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ContentWrap } from '@/components/ContentWrap'
-import { Search } from '@/components/Search'
+import { SearchButton } from '@/components/SearchButton'
 import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElTag } from 'element-plus'
@@ -262,14 +262,15 @@ const save = async () => {
 
 <template>
   <ContentWrap>
-    <Search :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
 
-    <div class="mb-10px">
+    <div class="mb-10px float-left">
       <ElButton type="primary" @click="addAction()">{{ t('exampleDemo.add') }}</ElButton>
       <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
         {{ t('exampleDemo.del') }}
       </ElButton>
     </div>
+<SearchButton :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
+
 
     <Table
       v-model:pageSize="tableObject.pageSize"
