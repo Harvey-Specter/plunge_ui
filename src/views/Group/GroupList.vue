@@ -14,6 +14,7 @@ import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRouter, RouteRecordRaw } from 'vue-router'
+import { useIcon } from '@/hooks/web/useIcon'
 // import { usePermissionStore } from '@/store/modules/permission'
 
 const { register, tableObject, methods } = useTable<GroupData>({
@@ -27,6 +28,11 @@ const { register, tableObject, methods } = useTable<GroupData>({
 
 const { getList, setSearchParams } = methods
 const { push } = useRouter()
+
+const plus = useIcon({ icon: 'ant-design:plus-outlined' })
+const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
+
+
 
 // const store = usePermissionStore()
 // console.log('store===', store.getRouters.length, store.getRouters)
@@ -261,7 +267,7 @@ const save = async () => {
 <template>
   <ContentWrap>
   <div class="mb-10px float-left">
-      <ElButton type="primary" @click="addAction('edit')">{{ t('exampleDemo.add') }}</ElButton>
+      <ElButton type="primary" :icon="plus" @click="addAction('edit')"/>
       <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
         {{ t('exampleDemo.del') }}
       </ElButton>
@@ -282,9 +288,8 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton type="success" @click="openDetail(row)">
-          {{ t('stock.opengroup') }}
-        </ElButton>
+      <ElButton :icon="chart" type="success" @click="openDetail(row)" />
+          
         <ElButton type="primary" @click="action(row, 'edit')">
           {{ t('exampleDemo.edit') }}
         </ElButton>

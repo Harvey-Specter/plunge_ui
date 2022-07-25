@@ -113,7 +113,7 @@ export default {
     create_at: '作成時間',
     headShoulder: 'ヘッドショルダー',
     getingChips: 'チップの蓄積',
-    stars: '星の継続的なコレクション',
+    stars: '連続星',
     gap: 'ギャップサポート'
   },
   group: {
