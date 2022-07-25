@@ -34,7 +34,7 @@ const toLogin = () => {
   >
     <div class="relative h-full flex mx-auto">
       <div
-        :class="`${prefixCls}__left flex-1 bg-gray-500 bg-opacity-20 relative p-30px <xl:hidden`"
+        :class="`${prefixCls}__left flex-1 bg-slate-900 bg-opacity-20 relative p-30px <xl:hidden`"
       >
         <div class="flex items-center relative text-white">
           <img src="@/assets/imgs/logo.png" alt="" class="w-48px h-48px mr-10px" />

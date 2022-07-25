@@ -82,8 +82,8 @@ export default {
     small: '小'
   },
   login: {
-    welcome: 'システムへようこそ',
-    message: '舞台裏管理システム',
+    welcome: 'システムへようこそ, パターンに一致する株を探す',
+    message: '人に優しくすると、自分に優しくなれます。',
     username: 'ユーザー名',
     password: 'パスワード',
     register: '登録',

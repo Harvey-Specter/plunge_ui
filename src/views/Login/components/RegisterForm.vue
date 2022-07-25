@@ -65,13 +65,13 @@ const schema = reactive<FormSchema[]>([
       placeholder: t('login.passwordPlaceholder')
     }
   },
-  {
-    field: 'code',
-    label: t('login.code'),
-    colProps: {
-      span: 24
-    }
-  },
+  // {
+  //   field: 'code',
+  //   label: t('login.code'),
+  //   colProps: {
+  //     span: 24
+  //   }
+  // },
   {
     field: 'register',
     colProps: {
@@ -83,8 +83,8 @@ const schema = reactive<FormSchema[]>([
 const rules: FormRules = {
   username: [required()],
   password: [required()],
-  check_password: [required()],
-  code: [required()]
+  check_password: [required()]
+  // code: [required()]
 }
 
 const toLogin = () => {
