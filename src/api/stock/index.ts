@@ -20,7 +20,13 @@ export const getStockDetApi = async (id: string): Promise<IResponse<StockData>> 
   return res && res.data
 }
 
+// export const delStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
+//   const res = await request.post({ url: '/group/delete', data: { ids } })
+//   return res && res.data
+// }
+
 export const delStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
-  const res = await request.post({ url: '/group/delete', data: { ids } })
+  const idsStr = ids.toString();
+  const res = await request.post({ url: '/stocks/del', data:{ids:idsStr} })
   return res && res.data
 }

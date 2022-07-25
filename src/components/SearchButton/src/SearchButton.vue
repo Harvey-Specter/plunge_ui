@@ -105,12 +105,10 @@ const setVisible = () => {
     <template #action>
       <div v-if="layout === 'inline'">
         <ElButton v-if="showSearch" type="primary" @click="search">
-          <Icon icon="ep:search" class="mr-5px" />
-          {{ t('common.query') }}
+          <Icon icon="ep:search"  />
         </ElButton>
         <ElButton v-if="showReset" @click="reset">
-          <Icon icon="ep:refresh-right" class="mr-5px" />
-          {{ t('common.reset') }}
+          <Icon icon="ep:refresh-right"  />
         </ElButton>
         <ElButton v-if="expand" text @click="setVisible">
           {{ t(visible ? 'common.shrink' : 'common.expand') }}

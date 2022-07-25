@@ -7,6 +7,9 @@ import { useRouter } from 'vue-router'
 import { loginOutApi } from '@/api/login'
 import { useDesign } from '@/hooks/web/useDesign'
 import { useTagsViewStore } from '@/store/modules/tagsView'
+import { useAppStoreWithOut } from '@/store/modules/app'
+
+const appStore = useAppStoreWithOut()
 
 const tagsViewStore = useTagsViewStore()
 
@@ -19,6 +22,20 @@ const { t } = useI18n()
 const { wsCache } = useCache()
 
 const { replace } = useRouter()
+
+const userInfo = wsCache.get(appStore.getUserInfo)
+
+const fullUserName = userInfo.username
+
+const userName = fullUserName.split('@')[0]
+
+let ava = 'avatar.jpg'
+if(userName=='admin'){
+  ava='admin.jpg'
+}
+
+
+console.log("userInfo=====",userInfo)
 
 const loginOut = () => {
   ElMessageBox.confirm(t('common.loginOutMessage'), t('common.reminder'), {
@@ -47,11 +64,11 @@ const toDocument = () => {
   <ElDropdown :class="prefixCls" trigger="click">
     <div class="flex items-center">
       <img
-        src="@/assets/imgs/avatar.jpg"
+        :src="'src/assets/imgs/'+ava"
         alt=""
         class="w-[calc(var(--logo-height)-25px)] rounded-[50%]"
       />
-      <span class="<lg:hidden text-14px pl-[5px] text-[var(--top-header-text-color)]">Archer</span>
+      <span class="<lg:hidden text-14px pl-[5px] text-[var(--top-header-text-color)]">{{userName}}</span>
     </div>
     <template #dropdown>
       <ElDropdownMenu>
