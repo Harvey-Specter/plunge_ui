@@ -14,6 +14,8 @@ import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
+// import { getCurrentUser } from '@/api/login'
+
 // import { usePermissionStore } from '@/store/modules/permission'
 
 const { register, tableObject, methods } = useTable<GroupData>({
@@ -234,6 +236,22 @@ const openDetail = (row: GroupData) => {
 }
 const loading = ref(false)
 
+// const currentUser={}
+// const currUser = async () => {
+//   const res = await getCurrentUser()
+//     .catch(() => {})
+//     .finally(() => {
+//       loading.value = false
+//     })
+
+//   console.log('res=====', res)
+//   if (res) {
+//     dialogVisible.value = false
+//     tableObject.currentPage = 1
+//     getList()
+//   }
+// }
+
 const save = async () => {
   const write = unref(writeRef)
   await write?.elFormRef?.validate(async (isValid) => {
@@ -256,9 +274,6 @@ const save = async () => {
       }
     }
   })
-  // setTimeout(() => {
-  //   console.log(999)
-  // }, 20000)
 }
 </script>
 
@@ -287,11 +302,11 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton :icon="table" type="success" @click="openDetail(row)" plain />
+        <ElButton :icon="table" type="success" @click="openDetail(row)"  />
 
-        <ElButton type="primary" :icon="edit" @click="action(row, 'edit')" plain />
+        <ElButton type="primary" :icon="edit" @click="action(row, 'edit')"  />
 
-        <ElButton type="danger" :icon="del" @click="delData(row, false)" plain />
+        <ElButton type="danger" :icon="del" @click="delData(row, false)"  />
       </template>
     </Table>
   </ContentWrap>

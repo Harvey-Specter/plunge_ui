@@ -39,3 +39,10 @@ export const getTestRoleApi = async (params: RoleParams): Promise<IResponse<stri
   const res = await request.get({ url: '/role/list', params })
   return res && res.data
 }
+
+export const getCurrentUser = async (): Promise<IResponse> => {
+  const res = await request.get({ url: 'user' })
+  return res && res.data
+}
+
+
