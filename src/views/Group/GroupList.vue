@@ -5,10 +5,10 @@ import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getGroupListApi, saveGroupApi, delGroupListApi,getStocksByCategoryId } from '@/api/group'
+import { getGroupListApi, saveGroupApi, delGroupListApi, getStocksByCategoryId } from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
 import { GroupData } from '@/api/group/types'
-import { StockData } from '@/api/stock/types'
+// import { StockData } from '@/api/stock/types'
 import { ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
@@ -180,29 +180,28 @@ const delData = async (row: GroupData | null, multiple: boolean) => {
 const actionType = ref('')
 
 //const save = async () => {
-const action = async(row: GroupData, type: string) => {
+const action = async (row: GroupData, type: string) => {
   // console.log('action--type===', type, row)
 
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   tableObject.currentRow = row
-  const res = await getStocksByCategoryId({id:row.id})
-        .catch(() => {})
-        .finally(() => {
-          loading.value = false
-        })
-      
-      console.log('res=====',res)
-      if (res) {
-        let stockCodes = []
-        for(let item: StockData  of res.data) {
-          stockCodes.push(item.code)
-        }
-        tableObject.currentRow.stocks=stockCodes.join(",")
-      }
+  const res = await getStocksByCategoryId({ id: row.id })
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+
+  console.log('res=====', res)
+  if (res) {
+    let stockCodes = []
+    for (let item of res.data) {
+      stockCodes.push(item.code as never)
+    }
+    tableObject.currentRow.stocks = stockCodes.join(',')
+  }
   dialogVisible.value = true
 }
-
 
 const addAction = (type: string) => {
   dialogTitle.value = t('exampleDemo.add')
@@ -243,8 +242,8 @@ const save = async () => {
         .finally(() => {
           loading.value = false
         })
-      
-      console.log('res=====',res)
+
+      console.log('res=====', res)
       if (res) {
         dialogVisible.value = false
         tableObject.currentPage = 1
@@ -260,15 +259,18 @@ const save = async () => {
 
 <template>
   <ContentWrap>
-  <div class="mb-10px float-left">
+    <div class="mb-10px float-left">
       <ElButton type="primary" @click="addAction('edit')">{{ t('exampleDemo.add') }}</ElButton>
       <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
         {{ t('exampleDemo.del') }}
       </ElButton>
     </div>
-    
-    <SearchButton :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
-    
+
+    <SearchButton
+      :schema="allSchemas.searchSchema"
+      @search="setSearchParams"
+      @reset="setSearchParams"
+    />
 
     <Table
       v-model:pageSize="tableObject.pageSize"
