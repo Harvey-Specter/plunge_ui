@@ -129,7 +129,7 @@ const signIn = async () => {
       try {
         const res = await loginApi(formData)
         console.log('res===', res)
-        res.data.username = 'admin'
+        res.data.username = formData.username //'admin@gmail.com'
         res.data.role = 'admin'
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data)

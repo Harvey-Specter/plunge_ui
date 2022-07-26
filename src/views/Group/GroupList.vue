@@ -8,12 +8,12 @@ import { Table } from '@/components/Table'
 import { getGroupListApi, saveGroupApi, delGroupListApi, getStocksByCategoryId } from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
 import { GroupData } from '@/api/group/types'
-// import { StockData } from '@/api/stock/types'
 import { ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRouter, RouteRecordRaw } from 'vue-router'
+import { useIcon } from '@/hooks/web/useIcon'
 // import { usePermissionStore } from '@/store/modules/permission'
 
 const { register, tableObject, methods } = useTable<GroupData>({
@@ -27,6 +27,11 @@ const { register, tableObject, methods } = useTable<GroupData>({
 
 const { getList, setSearchParams } = methods
 const { push } = useRouter()
+const plus = useIcon({ icon: 'ant-design:plus-outlined' })
+// const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
+const table = useIcon({ icon: 'carbon:table' })
+const del = useIcon({ icon: 'ep:delete' })
+const edit = useIcon({ icon: 'bx:edit' })
 
 // const store = usePermissionStore()
 // console.log('store===', store.getRouters.length, store.getRouters)
@@ -260,10 +265,8 @@ const save = async () => {
 <template>
   <ContentWrap>
     <div class="mb-10px float-left">
-      <ElButton type="primary" @click="addAction('edit')">{{ t('exampleDemo.add') }}</ElButton>
-      <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
-        {{ t('exampleDemo.del') }}
-      </ElButton>
+      <ElButton type="primary" :icon="plus" @click="addAction('edit')" />
+      <ElButton :loading="delLoading" :icon="del" type="danger" @click="delData(null, true)" />
     </div>
 
     <SearchButton
@@ -284,15 +287,11 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton type="success" @click="openDetail(row)">
-          {{ t('stock.opengroup') }}
-        </ElButton>
-        <ElButton type="primary" @click="action(row, 'edit')">
-          {{ t('exampleDemo.edit') }}
-        </ElButton>
-        <ElButton type="danger" @click="delData(row, false)">
-          {{ t('exampleDemo.del') }}
-        </ElButton>
+        <ElButton :icon="table" type="success" @click="openDetail(row)" plain />
+
+        <ElButton type="primary" :icon="edit" @click="action(row, 'edit')" plain />
+
+        <ElButton type="danger" :icon="del" @click="delData(row, false)" plain />
       </template>
     </Table>
   </ContentWrap>

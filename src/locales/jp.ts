@@ -113,7 +113,7 @@ export default {
     create_at: '作成時間',
     headShoulder: 'ヘッドショルダー',
     getingChips: 'チップの蓄積',
-    stars: '星の継続的なコレクション',
+    stars: '連続星',
     gap: 'ギャップサポート'
   },
   group: {
@@ -379,7 +379,7 @@ export default {
     index: 'Index',
     title: 'Title',
     author: 'Author',
-    displayTime: 'Display time',
+    displayTime: '作成時間',
     importance: 'Importance',
     pageviews: 'Pageviews',
     action: 'Action',
@@ -431,7 +431,7 @@ export default {
     del: '削除',
     edit: '編集',
     author: 'Author',
-    displayTime: '表示時間',
+    displayTime: '作成時間',
     importance: 'Importance',
     pageviews: 'Pageviews',
     important: 'Important',

@@ -13,7 +13,7 @@ import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRoute } from 'vue-router'
-
+import { useIcon } from '@/hooks/web/useIcon'
 const route = useRoute()
 // const qCode = route.query.code
 const cateId = route.query.id
@@ -34,6 +34,11 @@ tableObject.params.id = cateId
 getList()
 
 const { t } = useI18n()
+
+const plus = useIcon({ icon: 'ant-design:plus-outlined' })
+const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
+const del = useIcon({ icon: 'ep:delete' })
+const edit = useIcon({ icon: 'bx:edit' })
 
 const crudSchemas = reactive<CrudSchema[]>([
   {
@@ -66,11 +71,38 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'day',
     label: t('stock.day'),
     search: {
-      show: true
+      show: false
+    },
+    form: {
+      show: false
     }
   },
   {
     field: 'pattern',
+    search: {
+      show: true,
+      component: 'Select',
+      componentProps: {
+        options: [
+          {
+            label: t('stock.headShoulder'),
+            value: 1
+          },
+          {
+            label: t('stock.getingChips'),
+            value: 2
+          },
+          {
+            label: t('stock.stars'),
+            value: 3
+          },
+          {
+            label: t('stock.gap'),
+            value: 4
+          }
+        ]
+      }
+    },
     label: t('stock.pattern'),
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
@@ -94,19 +126,19 @@ const crudSchemas = reactive<CrudSchema[]>([
       componentProps: {
         options: [
           {
-            label: '头肩',
+            label: t('stock.headShoulder'),
             value: 1
           },
           {
-            label: '吸筹',
+            label: t('stock.getingChips'),
             value: 2
           },
           {
-            label: '连续收星',
+            label: t('stock.stars'),
             value: 3
           },
           {
-            label: '缺口支撑',
+            label: t('stock.gap'),
             value: 4
           }
         ]
@@ -137,48 +169,52 @@ const crudSchemas = reactive<CrudSchema[]>([
             ? t('stock.market_JP')
             : t('stock.market_X')
       )
-    },
-    form: {
-      component: 'Select',
-      componentProps: {
-        options: [
-          {
-            label: '中国',
-            value: 1
-          },
-          {
-            label: '日本',
-            value: 2
-          }
-        ]
-      }
     }
+    // form: {
+    //   component: 'Select',
+    //   componentProps: {
+    //     options: [
+    //       {
+    //         label: '中国',
+    //         value: 1
+    //       },
+    //       {
+    //         label: '日本',
+    //         value: 2
+    //       }
+    //     ]
+    //   }
+    // }
   },
   {
     field: 'created_at',
     label: t('stock.create_at'),
     form: {
-      component: 'DatePicker',
-      componentProps: {
-        type: 'datetime',
-        valueFormat: 'YYYY-MM-DD HH:mm:ss'
-      }
+      show: false
     }
+    // form: {
+    //   component: 'DatePicker',
+    //   componentProps: {
+    //     type: 'datetime',
+    //     valueFormat: 'YYYY-MM-DD HH:mm:ss'
+    //   }
+    // }
   },
   {
     field: 'remark',
-    label: t('exampleDemo.content'),
+    label: t('group.remark'),
     table: {
       show: false
     },
     form: {
-      component: 'Editor',
+      component: 'Input',
+      componentProps: {
+        type: 'textarea',
+        rows: 15
+      },
       colProps: {
         span: 24
       }
-    },
-    detail: {
-      span: 24
     }
   },
   {
@@ -262,15 +298,15 @@ const save = async () => {
 
 <template>
   <ContentWrap>
-
     <div class="mb-10px float-left">
-      <ElButton type="primary" @click="addAction()">{{ t('exampleDemo.add') }}</ElButton>
-      <ElButton :loading="delLoading" type="danger" @click="delData(null, true)">
-        {{ t('exampleDemo.del') }}
-      </ElButton>
+      <ElButton :icon="plus" type="primary" @click="addAction()" />
+      <ElButton :icon="del" :loading="delLoading" type="danger" @click="delData(null, true)" />
     </div>
-<SearchButton :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
-
+    <SearchButton
+      :schema="allSchemas.searchSchema"
+      @search="setSearchParams"
+      @reset="setSearchParams"
+    />
 
     <Table
       v-model:pageSize="tableObject.pageSize"
@@ -284,15 +320,11 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton type="danger" @click="openTv()">
-          {{ t('stock.tvFrame') }}
-        </ElButton>
-        <ElButton type="primary" @click="action(row, 'edit')">
-          {{ t('exampleDemo.edit') }}
-        </ElButton>
-        <ElButton type="success" @click="delData(row, false)">
-          {{ t('exampleDemo.del') }}
-        </ElButton>
+        <ElButton :icon="chart" type="success" @click="openTv()" />
+
+        <ElButton :icon="edit" type="primary" @click="action(row, 'edit')" />
+
+        <ElButton :icon="del" type="danger" @click="delData(row, false)" />
       </template>
     </Table>
   </ContentWrap>
