@@ -442,7 +442,8 @@ export default {
     headShoulder: '头肩',
     getingChips: '吸筹',
     stars: '连续收星',
-    gap: '缺口支撑'
+    gap: '缺口支撑',
+    save_as_block: '另存到板块'
   },
   group: {
     code: '别名',

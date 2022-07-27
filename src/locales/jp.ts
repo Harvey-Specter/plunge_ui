@@ -114,7 +114,8 @@ export default {
     headShoulder: 'ヘッドショルダー',
     getingChips: 'チップの蓄積',
     stars: '連続星',
-    gap: 'ギャップサポート'
+    gap: 'ギャップサポート',
+    save_as_block: 'ボードに保存'
   },
   group: {
     code: 'エイリアス',

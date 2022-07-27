@@ -14,7 +14,7 @@ import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
-// import { getCurrentUser } from '@/api/login'
+import { getCurrentUser } from '@/api/login'
 
 // import { usePermissionStore } from '@/store/modules/permission'
 
@@ -26,6 +26,21 @@ const { register, tableObject, methods } = useTable<GroupData>({
     total: 'total'
   }
 })
+
+const userId = ref('')
+
+const currUser = async () => {
+  const res = await getCurrentUser()
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+  console.log('currUser==res=====', res)
+  if (res) {
+    userId.value = res.data.id
+  }
+}
+currUser()
 
 const { getList, setSearchParams } = methods
 const { push } = useRouter()
@@ -138,7 +153,6 @@ const crudSchemas = reactive<CrudSchema[]>([
       }
     }
   },
-
   {
     field: 'action',
     width: '260px',
@@ -219,7 +233,10 @@ const addAction = (type: string) => {
 const openDetail = (row: GroupData) => {
   let url = '/stock/StockList' + row.id
   let queryParam = {
-    id: row.id
+    id: row.id,
+    userId: row.user_id,
+    myUserId: userId.value
+
     // code: row.code.replace(/ /g, '')
   }
   let r: RouteRecordRaw = {
@@ -235,22 +252,6 @@ const openDetail = (row: GroupData) => {
   push({ path: url, query: queryParam })
 }
 const loading = ref(false)
-
-// const currentUser={}
-// const currUser = async () => {
-//   const res = await getCurrentUser()
-//     .catch(() => {})
-//     .finally(() => {
-//       loading.value = false
-//     })
-
-//   console.log('res=====', res)
-//   if (res) {
-//     dialogVisible.value = false
-//     tableObject.currentPage = 1
-//     getList()
-//   }
-// }
 
 const save = async () => {
   const write = unref(writeRef)
@@ -302,11 +303,21 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton :icon="table" type="success" @click="openDetail(row)"  />
+        <ElButton :icon="table" type="success" @click="openDetail(row)" />
 
-        <ElButton type="primary" :icon="edit" @click="action(row, 'edit')"  />
+        <ElButton
+          :disabled="userId != row.user_id"
+          type="primary"
+          :icon="edit"
+          @click="action(row, 'edit')"
+        />
 
-        <ElButton type="danger" :icon="del" @click="delData(row, false)"  />
+        <ElButton
+          :disabled="userId != row.user_id"
+          type="danger"
+          :icon="del"
+          @click="delData(row, false)"
+        />
       </template>
     </Table>
   </ContentWrap>

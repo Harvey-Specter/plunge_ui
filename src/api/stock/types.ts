@@ -5,7 +5,7 @@ export type StockData = {
   code: string
   user_id: number
   category_id: number
-  pattern: number
+  pattern: string
   market: string
   remark: string
   created_at: string

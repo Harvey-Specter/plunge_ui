@@ -14,11 +14,14 @@ import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRoute } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
+
 const route = useRoute()
 // const qCode = route.query.code
 const cateId = route.query.id
+const userId = route.query.userId
+const myUserId = route.query.myUserId
 
-// console.log(qCode, id)
+console.log(cateId, userId, myUserId)
 
 const { register, tableObject, methods } = useTable<StockData>({
   getListApi: getStockListApi,
@@ -39,6 +42,22 @@ const plus = useIcon({ icon: 'ant-design:plus-outlined' })
 const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
 const del = useIcon({ icon: 'ep:delete' })
 const edit = useIcon({ icon: 'bx:edit' })
+
+const actionType = ref('')
+
+const action = (row: StockData, type: string) => {
+  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  actionType.value = type
+  tableObject.currentRow = row
+  dialogVisible.value = true
+}
+const addAction = () => {
+  // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  dialogTitle.value = t('exampleDemo.add')
+  actionType.value = 'edit'
+  tableObject.currentRow = null
+  dialogVisible.value = true
+}
 
 const crudSchemas = reactive<CrudSchema[]>([
   {
@@ -86,37 +105,43 @@ const crudSchemas = reactive<CrudSchema[]>([
         options: [
           {
             label: t('stock.headShoulder'),
-            value: 1
+            value: '1'
           },
           {
             label: t('stock.getingChips'),
-            value: 2
+            value: '2'
           },
           {
             label: t('stock.stars'),
-            value: 3
+            value: '3'
           },
           {
             label: t('stock.gap'),
-            value: 4
+            value: '4'
           }
         ]
       }
     },
     label: t('stock.pattern'),
-    formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
+    formatter: (_: Recordable, __: TableColumn, cellValue: string) => {
       return h(
         ElTag,
         {
           type:
-            cellValue == 1 ? 'success' : cellValue == 2 ? 'warning' : cellValue == 3 ? '' : 'danger'
+            cellValue === '1'
+              ? 'success'
+              : cellValue === '2'
+              ? 'warning'
+              : cellValue === '3'
+              ? ''
+              : 'danger'
         },
         () =>
-          cellValue == 1
+          cellValue === '1'
             ? t('stock.headShoulder')
-            : cellValue == 2
+            : cellValue === '2'
             ? t('stock.getingChips')
-            : cellValue == 3
+            : cellValue === '3'
             ? t('stock.stars')
             : t('stock.gap')
       )
@@ -127,19 +152,19 @@ const crudSchemas = reactive<CrudSchema[]>([
         options: [
           {
             label: t('stock.headShoulder'),
-            value: 1
+            value: '1'
           },
           {
             label: t('stock.getingChips'),
-            value: 2
+            value: '2'
           },
           {
             label: t('stock.stars'),
-            value: 3
+            value: '3'
           },
           {
             label: t('stock.gap'),
-            value: 4
+            value: '4'
           }
         ]
       }
@@ -148,43 +173,43 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'market',
     label: t('stock.market'),
-    formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
+    formatter: (_: Recordable, __: TableColumn, cellValue: string) => {
       return h(
         ElTag,
         {
           type:
-            cellValue == 1
+            cellValue == '1'
               ? 'danger'
-              : cellValue == 2
+              : cellValue == '2'
               ? ''
-              : cellValue == 3
+              : cellValue == '3'
               ? 'success'
               : 'warning',
           effect: 'dark'
         },
         () =>
-          cellValue == 1
+          cellValue == '1'
             ? t('stock.market_CH')
-            : cellValue == 2
+            : cellValue == '2'
             ? t('stock.market_JP')
             : t('stock.market_X')
       )
+    },
+    form: {
+      component: 'Select',
+      componentProps: {
+        options: [
+          {
+            label: '中国',
+            value: '1'
+          },
+          {
+            label: '日本',
+            value: '2'
+          }
+        ]
+      }
     }
-    // form: {
-    //   component: 'Select',
-    //   componentProps: {
-    //     options: [
-    //       {
-    //         label: '中国',
-    //         value: 1
-    //       },
-    //       {
-    //         label: '日本',
-    //         value: 2
-    //       }
-    //     ]
-    //   }
-    // }
   },
   {
     field: 'created_at',
@@ -201,6 +226,33 @@ const crudSchemas = reactive<CrudSchema[]>([
     // }
   },
   {
+    field: 'category_ids',
+    label: t('stock.save_as_block'),
+    table: {
+      show: false
+    },
+    form: {
+      component: 'CheckboxButton',
+      value: [],
+      componentProps: {
+        options: [
+          {
+            label: 'option-1',
+            value: '1'
+          },
+          {
+            label: 'option-2',
+            value: '2'
+          },
+          {
+            label: 'option-3',
+            value: '23'
+          }
+        ]
+      }
+    }
+  },
+  {
     field: 'remark',
     label: t('group.remark'),
     table: {
@@ -210,7 +262,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       component: 'Input',
       componentProps: {
         type: 'textarea',
-        rows: 15
+        rows: 10
       },
       colProps: {
         span: 24
@@ -255,22 +307,6 @@ const delData = async (row: StockData | null, multiple: boolean) => {
   })
 }
 
-const actionType = ref('')
-
-const action = (row: StockData, type: string) => {
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  actionType.value = type
-  tableObject.currentRow = row
-  dialogVisible.value = true
-}
-const addAction = () => {
-  // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  dialogTitle.value = t('exampleDemo.add')
-  actionType.value = 'edit'
-  tableObject.currentRow = null
-  dialogVisible.value = true
-}
-
 const writeRef = ref<ComponentRef<typeof Write>>()
 
 const loading = ref(false)
@@ -299,8 +335,14 @@ const save = async () => {
 <template>
   <ContentWrap>
     <div class="mb-10px float-left">
-      <ElButton :icon="plus" type="primary" @click="addAction()" />
-      <ElButton :icon="del" :loading="delLoading" type="danger" @click="delData(null, true)" />
+      <ElButton :disabled="userId != myUserId" :icon="plus" type="primary" @click="addAction()" />
+      <ElButton
+        :disabled="userId != myUserId"
+        :icon="del"
+        :loading="delLoading"
+        type="danger"
+        @click="delData(null, true)"
+      />
     </div>
     <SearchButton
       :schema="allSchemas.searchSchema"
@@ -324,7 +366,12 @@ const save = async () => {
 
         <ElButton :icon="edit" type="primary" @click="action(row, 'edit')" />
 
-        <ElButton :icon="del" type="danger" @click="delData(row, false)" />
+        <ElButton
+          :disabled="userId != myUserId"
+          :icon="del"
+          type="danger"
+          @click="delData(row, false)"
+        />
       </template>
     </Table>
   </ContentWrap>
