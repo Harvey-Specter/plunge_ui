@@ -5,7 +5,14 @@ import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
 import { ElButton, ElTag } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getStockListApi, saveStockApi, delStockListApi } from '@/api/stock'
+import {
+  getStockListApi,
+  saveStockApi,
+  delStockListApi,
+  getCatesByUserId,
+  getCatesByUserIdCode
+} from '@/api/stock'
+
 import { useTable } from '@/hooks/web/useTable'
 import { StockData } from '@/api/stock/types'
 import { h, ref, unref, reactive } from 'vue'
@@ -17,9 +24,10 @@ import { useIcon } from '@/hooks/web/useIcon'
 
 const route = useRoute()
 // const qCode = route.query.code
+
+const myUserId = route.query.myUserId as string
 const cateId = route.query.id
 const userId = route.query.userId
-const myUserId = route.query.myUserId
 
 console.log(cateId, userId, myUserId)
 
@@ -44,20 +52,7 @@ const del = useIcon({ icon: 'ep:delete' })
 const edit = useIcon({ icon: 'bx:edit' })
 
 const actionType = ref('')
-
-const action = (row: StockData, type: string) => {
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  actionType.value = type
-  tableObject.currentRow = row
-  dialogVisible.value = true
-}
-const addAction = () => {
-  // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  dialogTitle.value = t('exampleDemo.add')
-  actionType.value = 'edit'
-  tableObject.currentRow = null
-  dialogVisible.value = true
-}
+const myCateIds = ref([])
 
 const crudSchemas = reactive<CrudSchema[]>([
   {
@@ -232,23 +227,29 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: false
     },
     form: {
+      colProps: {
+        span: 24
+      },
       component: 'CheckboxButton',
       value: [],
       componentProps: {
-        options: [
-          {
-            label: 'option-1',
-            value: '1'
-          },
-          {
-            label: 'option-2',
-            value: '2'
-          },
-          {
-            label: 'option-3',
-            value: '23'
-          }
-        ]
+        options: [] // myCates
+
+        // [
+
+        //   {
+        //     label: 'option-1',
+        //     value: '1'
+        //   },
+        //   {
+        //     label: 'option-2',
+        //     value: '2'
+        //   },
+        //   {
+        //     label: 'option-3',
+        //     value: '23'
+        //   }
+        // ]
       }
     }
   },
@@ -281,6 +282,69 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   }
 ])
+
+let myCates = reactive<ComponentOptions[]>([])
+
+const getCates = async () => {
+  const res = await getCatesByUserId(myUserId)
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+  console.log('getCates==res=====', res)
+  if (res) {
+    myCates = res.data
+    let ids = []
+    for (let i = 0; i < res.data.length; i++) {
+      ids.push(res.data[i].value as never)
+    }
+    myCateIds.value = ids
+    console.log(myCates, myCateIds.value)
+
+    if (crudSchemas.length >= 7) {
+      crudSchemas[6]!.form!.componentProps!.options = myCates
+    }
+  }
+}
+getCates()
+
+const myCatesOfcode = ref([])
+
+const getCatesByCode = async (userId: string, code: string) => {
+  const res = await getCatesByUserIdCode(userId, code)
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+  console.log('getCates==res=====', res)
+  if (res) {
+    myCates = res.data
+    let ids = []
+    for (let i = 0; i < res.data.length; i++) {
+      ids.push(res.data[i].value as never)
+    }
+    myCatesOfcode.value = ids
+    tableObject!.currentRow!.category_ids = myCatesOfcode.value
+    //console.log(myCates,myCateIds.value)
+  }
+}
+const action = async (row: StockData, type: string) => {
+  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  actionType.value = type
+  tableObject.currentRow = row
+  getCatesByCode(myUserId, row.code)
+  dialogVisible.value = true
+}
+const addAction = () => {
+  // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  dialogTitle.value = t('exampleDemo.add')
+  actionType.value = 'edit'
+  tableObject.currentRow = null
+  // tableObject.currentRow?.category_ids=myCateIds.value
+  dialogVisible.value = true
+}
+
+// console.log('crudSchemas=====',myCates,'+==========+',crudSchemas[6].form.componentProps)
 
 const { allSchemas } = useCrudSchemas(crudSchemas)
 
@@ -317,6 +381,8 @@ const save = async () => {
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as StockData
+      console.log('stockSave====', data)
+      return false
       const res = await saveStockApi(data)
         .catch(() => {})
         .finally(() => {

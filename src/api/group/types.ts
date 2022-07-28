@@ -8,3 +8,7 @@ export type GroupData = {
   created_at: string
   stocks: string
 }
+export type Option = {
+  lable: string
+  value: string
+}

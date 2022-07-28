@@ -22,11 +22,11 @@ defineProps({
 <template>
   <Descriptions :schema="detailSchema" :data="currentRow || {}">
     <template #importance="{ row }: { row: StockData }">
-      <ElTag :type="row.pattern === 1 ? 'success' : row.pattern === 2 ? 'warning' : 'danger'">
+      <ElTag :type="row.pattern === '1' ? 'success' : row.pattern === '2' ? 'warning' : 'danger'">
         {{
-          row.pattern === 1
+          row.pattern === '1'
             ? t('tableDemo.important')
-            : row.pattern === 2
+            : row.pattern === '2'
             ? t('tableDemo.good')
             : t('tableDemo.commonly')
         }}

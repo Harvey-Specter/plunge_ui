@@ -30,3 +30,16 @@ export const delStockListApi = async (ids: string[] | number[]): Promise<IRespon
   const res = await request.post({ url: '/stocks/del', data: { ids: idsStr } })
   return res && res.data
 }
+
+export const getCatesByUserId = async (userId: string): Promise<IResponse> => {
+  const res = await request.get({ url: '/categories/getCatesByUserId', params: { userId: userId } })
+  return res && res.data
+}
+
+export const getCatesByUserIdCode = async (userId: string, code: string): Promise<IResponse> => {
+  const res = await request.get({
+    url: '/categories/getCatesByUserIdCode',
+    params: { userId: userId, code: code }
+  })
+  return res && res.data
+}

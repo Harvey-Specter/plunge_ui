@@ -25,7 +25,7 @@ export const getGroupDetApi = async (id: string): Promise<IResponse<GroupData>> 
 }
 
 export const delGroupListApi = async (ids: string[] | number[]): Promise<IResponse> => {
-  const idsStr = ids.toString();
-  const res = await request.post({ url: '/categories/delCate', data:{ids:idsStr} })
+  const idsStr = ids.toString()
+  const res = await request.post({ url: '/categories/delCate', data: { ids: idsStr } })
   return res && res.data
 }
