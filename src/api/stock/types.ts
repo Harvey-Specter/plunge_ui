@@ -9,7 +9,7 @@ export type StockData = {
   market: string
   remark: string
   created_at: string
-  category_ids: string[]
+  category_ids: number[]
 }
 
 // | id          | int unsigned | NO   | PRI | NULL    | auto_increment |

@@ -26,7 +26,7 @@ const route = useRoute()
 // const qCode = route.query.code
 
 const myUserId = route.query.myUserId as string
-const cateId = route.query.id
+const cateId = route.query.id as never
 const userId = route.query.userId
 
 console.log(cateId, userId, myUserId)
@@ -73,6 +73,9 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: true
     },
     form: {
+      componentProps: {
+        readonly: true
+      },
       colProps: {
         span: 24
       }
@@ -97,6 +100,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: true,
       component: 'Select',
       componentProps: {
+        readonly: myUserId != userId,
         options: [
           {
             label: t('stock.headShoulder'),
@@ -144,6 +148,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Select',
       componentProps: {
+        disabled: myUserId != userId,
         options: [
           {
             label: t('stock.headShoulder'),
@@ -193,6 +198,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Select',
       componentProps: {
+        disabled: myUserId != userId,
         options: [
           {
             label: '中国',
@@ -234,9 +240,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       value: [],
       componentProps: {
         options: [] // myCates
-
         // [
-
         //   {
         //     label: 'option-1',
         //     value: '1'
@@ -262,6 +266,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Input',
       componentProps: {
+        readonly: myUserId != userId,
         type: 'textarea',
         rows: 10
       },
@@ -331,6 +336,9 @@ const getCatesByCode = async (userId: string, code: string) => {
 const action = async (row: StockData, type: string) => {
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
+  if (crudSchemas.length >= 1) {
+    crudSchemas[1]!.form!.componentProps!.readonly = true
+  }
   tableObject.currentRow = row
   getCatesByCode(myUserId, row.code)
   dialogVisible.value = true
@@ -339,7 +347,27 @@ const addAction = () => {
   // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = 'edit'
-  tableObject.currentRow = null
+  tableObject.currentRow = {
+    id: NaN,
+    price_id: NaN,
+    day: '',
+    code: '',
+    user_id: NaN,
+    category_id: NaN,
+    pattern: '',
+    market: '',
+    remark: '',
+    created_at: '',
+    category_ids: [cateId as number]
+  }
+
+  tableObject.currentRow.category_ids = [cateId]
+
+  console.log(1, '1')
+  if (crudSchemas.length >= 1) {
+    crudSchemas[1]!.form!.componentProps!.readonly = false
+  }
+  // tableObject.currentRow.category_ids=[cateId as string]
   // tableObject.currentRow?.category_ids=myCateIds.value
   dialogVisible.value = true
 }
