@@ -11,7 +11,7 @@ export const getStockListApi = async (params: any): Promise<IResponse> => {
 }
 
 export const saveStockApi = async (data: Partial<StockData>): Promise<IResponse> => {
-  const res = await request.post({ url: '/group/save', data })
+  const res = await request.post({ url: '/categories/'+data.category_id+'/stocks', data })
   return res && res.data
 }
 
@@ -19,11 +19,6 @@ export const getStockDetApi = async (id: string): Promise<IResponse<StockData>> 
   const res = await request.get({ url: '/group/detail', params: { id } })
   return res && res.data
 }
-
-// export const delStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
-//   const res = await request.post({ url: '/group/delete', data: { ids } })
-//   return res && res.data
-// }
 
 export const delStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
   const idsStr = ids.toString()

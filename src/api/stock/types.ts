@@ -3,7 +3,7 @@ export type StockData = {
   price_id: number
   day: string
   code: string
-  user_id: number
+  user_id: string
   category_id: number
   pattern: string
   market: string

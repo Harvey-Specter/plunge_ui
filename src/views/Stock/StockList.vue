@@ -344,29 +344,31 @@ const action = async (row: StockData, type: string) => {
   dialogVisible.value = true
 }
 const addAction = () => {
-  // dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  if (crudSchemas.length >= 1) {
+    crudSchemas[1]!.form!.componentProps!.readonly = false
+  }
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = 'edit'
   tableObject.currentRow = {
     id: NaN,
-    price_id: NaN,
+    price_id: 0,
     day: '',
     code: '',
-    user_id: NaN,
-    category_id: NaN,
+    user_id: myUserId,
+    category_id: cateId,
     pattern: '',
     market: '',
     remark: '',
     created_at: '',
-    category_ids: [cateId as number]
+    category_ids: [ cateId ]
   }
+  // let ids = [];
+  // ids.push(cateId)
+  // myCatesOfcode.value = ids
+  // tableObject!.currentRow!.category_ids = myCatesOfcode.value
 
-  tableObject.currentRow.category_ids = [cateId]
-
-  console.log(1, '1')
-  if (crudSchemas.length >= 1) {
-    crudSchemas[1]!.form!.componentProps!.readonly = false
-  }
+  // console.log(1, '1')
+ 
   // tableObject.currentRow.category_ids=[cateId as string]
   // tableObject.currentRow?.category_ids=myCateIds.value
   dialogVisible.value = true
@@ -409,8 +411,9 @@ const save = async () => {
     if (isValid) {
       loading.value = true
       const data = (await write?.getFormData()) as StockData
+      data.user_id=myUserId 
       console.log('stockSave====', data)
-      return false
+      // return false
       const res = await saveStockApi(data)
         .catch(() => {})
         .finally(() => {
