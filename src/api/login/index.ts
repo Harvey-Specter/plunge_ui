@@ -16,6 +16,12 @@ export const loginApi = async (data: UserType): Promise<IResponse<UserType>> => 
   return res && res.data
 }
 
+export const registerApi = async (data: UserType): Promise<IResponse<UserType>> => {
+  console.log('registerApi data==', data)
+  const res = await request.post({ url: '/users', data: data })
+  return res && res.data
+}
+
 export const loginOutApi = async (): Promise<IResponse> => {
   const res = await request.delete({ url: 'authorizations/current' })
   return res && res.data
@@ -44,5 +50,3 @@ export const getCurrentUser = async (): Promise<IResponse> => {
   const res = await request.get({ url: 'user' })
   return res && res.data
 }
-
-

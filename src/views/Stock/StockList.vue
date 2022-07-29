@@ -296,7 +296,7 @@ const getCates = async () => {
     .finally(() => {
       loading.value = false
     })
-  console.log('getCates==res.data=====', res.data)
+  // console.log('getCates==res.data=====', res.data)
   if (res) {
     myCates = res.data
     let ids = []

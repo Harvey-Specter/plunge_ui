@@ -5,10 +5,12 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { useForm } from '@/hooks/web/useForm'
 import { ElButton, ElInput, FormRules } from 'element-plus'
 import { useValidator } from '@/hooks/web/useValidator'
+import { registerApi } from '@/api/login'
+import { UserType } from '@/api/login/types'
 
 const emit = defineEmits(['to-login'])
 
-const { register, elFormRef } = useForm()
+const { register, elFormRef, methods } = useForm()
 
 const { t } = useI18n()
 
@@ -22,15 +24,15 @@ const schema = reactive<FormSchema[]>([
     }
   },
   {
-    field: 'username',
-    label: t('login.username'),
+    field: 'email',
+    label: t('descriptionsDemo.email'),
     value: '',
     component: 'Input',
     colProps: {
       span: 24
     },
     componentProps: {
-      placeholder: t('login.usernamePlaceholder')
+      placeholder: t('')
     }
   },
   {
@@ -65,13 +67,6 @@ const schema = reactive<FormSchema[]>([
       placeholder: t('login.passwordPlaceholder')
     }
   },
-  // {
-  //   field: 'code',
-  //   label: t('login.code'),
-  //   colProps: {
-  //     span: 24
-  //   }
-  // },
   {
     field: 'register',
     colProps: {
@@ -81,12 +76,26 @@ const schema = reactive<FormSchema[]>([
 ])
 
 const rules: FormRules = {
-  username: [required()],
+  email: [
+    required(),
+    {
+      type: 'email',
+      message: 'Please input correct email address',
+      trigger: ['blur', 'change']
+    }
+  ],
+  username: [
+    required(),
+    {
+      type: 'email',
+      message: 'Please input correct email address',
+      trigger: ['blur', 'change']
+    }
+  ],
   password: [required()],
   check_password: [required()]
   // code: [required()]
 }
-
 const toLogin = () => {
   emit('to-login')
 }
@@ -97,9 +106,18 @@ const loginRegister = async () => {
   const formRef = unref(elFormRef)
   formRef?.validate(async (valid) => {
     if (valid) {
+      loading.value = true
+      const { getFormData } = methods
+      const formData = await getFormData<UserType>()
+
+      console.log('loginRegister====', formData)
       try {
-        loading.value = true
-        toLogin()
+        const res = await registerApi(formData)
+        console.log('res===', res)
+        if (res) {
+          console.log('loginRegister--res===', res)
+          toLogin()
+        }
       } finally {
         loading.value = false
       }
