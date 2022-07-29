@@ -26,10 +26,10 @@ const route = useRoute()
 // const qCode = route.query.code
 
 const myUserId = route.query.myUserId as string
-const cateId = route.query.id as never
+const cateId = route.query.id as unknown as number
 const userId = route.query.userId
 
-console.log(cateId, userId, myUserId)
+console.log(cateId, typeof +cateId, 8, userId, myUserId)
 
 const { register, tableObject, methods } = useTable<StockData>({
   getListApi: getStockListApi,
@@ -296,7 +296,7 @@ const getCates = async () => {
     .finally(() => {
       loading.value = false
     })
-  console.log('getCates==res=====', res)
+  console.log('getCates==res.data=====', res.data)
   if (res) {
     myCates = res.data
     let ids = []
@@ -304,7 +304,7 @@ const getCates = async () => {
       ids.push(res.data[i].value as never)
     }
     myCateIds.value = ids
-    console.log(myCates, myCateIds.value)
+    // console.log(myCates, myCateIds.value)
 
     if (crudSchemas.length >= 7) {
       crudSchemas[6]!.form!.componentProps!.options = myCates
@@ -321,7 +321,7 @@ const getCatesByCode = async (userId: string, code: string) => {
     .finally(() => {
       loading.value = false
     })
-  console.log('getCates==res=====', res)
+  // console.log('getCates==res=====', res)
   if (res) {
     myCates = res.data
     let ids = []
@@ -349,26 +349,28 @@ const addAction = () => {
   }
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = 'edit'
+
   tableObject.currentRow = {
     id: NaN,
     price_id: 0,
     day: '',
     code: '',
     user_id: myUserId,
-    category_id: cateId,
+    category_id: +cateId,
     pattern: '',
     market: '',
     remark: '',
     created_at: '',
-    category_ids: [ cateId ]
+    category_ids: [+cateId]
   }
+  //---------------------
   // let ids = [];
   // ids.push(cateId)
   // myCatesOfcode.value = ids
   // tableObject!.currentRow!.category_ids = myCatesOfcode.value
 
   // console.log(1, '1')
- 
+
   // tableObject.currentRow.category_ids=[cateId as string]
   // tableObject.currentRow?.category_ids=myCateIds.value
   dialogVisible.value = true
@@ -409,9 +411,9 @@ const save = async () => {
   const write = unref(writeRef)
   await write?.elFormRef?.validate(async (isValid) => {
     if (isValid) {
-      loading.value = true
+      // loading.value = true
       const data = (await write?.getFormData()) as StockData
-      data.user_id=myUserId 
+      data.user_id = myUserId
       console.log('stockSave====', data)
       // return false
       const res = await saveStockApi(data)
