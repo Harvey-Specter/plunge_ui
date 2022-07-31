@@ -41,8 +41,8 @@ const schema = reactive<FormSchema[]>([
     }
   },
   {
-    field: 'username',
-    label: t('login.username'),
+    field: 'email',
+    label: t('descriptionsDemo.email'),
     value: 'admin@gmail.com',
     component: 'Input',
     colProps: {
@@ -128,7 +128,7 @@ const signIn = async () => {
       try {
         const res = await loginApi(formData)
         console.log('res===', res)
-        res.data.username = formData.username //'admin@gmail.com'
+        res.data.email = formData.email //'admin@gmail.com'
         res.data.role = 'admin'
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data)
@@ -172,7 +172,7 @@ const getRole = async () => {
   const routers = adminList || []
   wsCache.set('roleRouters', routers)
 
-  formData.username.indexOf('admin') >= 0
+  formData.email.indexOf('admin') >= 0
     ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
     : await permissionStore.generateRoutes('test', routers).catch(() => {})
 

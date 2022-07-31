@@ -21,15 +21,38 @@ import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRoute } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
+import { useCache } from '@/hooks/web/useCache'
+import { useAppStoreWithOut } from '@/store/modules/app'
+
 
 const route = useRoute()
 // const qCode = route.query.code
 
-const myUserId = route.query.myUserId as string
-const cateId = route.query.id as unknown as number
-const userId = route.query.userId
+// const myUserId = route.query.myUserId as string
 
-console.log(cateId, typeof +cateId, 8, userId, myUserId)
+console.log('route.query========',route.query);
+
+const cateId = route.query.id as unknown as number
+const userId  = route.query.userId
+const delFlag0  = route.query.del
+let delFlag = 0
+if(delFlag0){
+  delFlag = 1
+}
+console.log('delFlag----',delFlag)
+const appStore = useAppStoreWithOut()
+const { wsCache } = useCache()
+const userInfo = wsCache.get(appStore.getUserInfo)
+
+const myUserId = userInfo.id as string 
+
+console.log(myUserId,'========',userId);
+let others=true
+if(userId==myUserId){
+  others=false
+}
+// console.log('userInfo====',userInfo);
+// console.log('route.query',route.query)
 
 const { register, tableObject, methods } = useTable<StockData>({
   getListApi: getStockListApi,
@@ -42,6 +65,9 @@ const { register, tableObject, methods } = useTable<StockData>({
 
 const { getList, setSearchParams } = methods
 tableObject.params.id = cateId
+tableObject.params.del = delFlag
+tableObject.params.userId = myUserId
+
 getList()
 
 const { t } = useI18n()
@@ -49,49 +75,85 @@ const { t } = useI18n()
 const plus = useIcon({ icon: 'ant-design:plus-outlined' })
 const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
 const del = useIcon({ icon: 'ep:delete' })
-const edit = useIcon({ icon: 'bx:edit' })
-
+let edit =  useIcon({ icon: 'bx:edit' })
+if(delFlag == 1){
+  edit = useIcon({ icon: 'akar-icons:arrow-cycle' })
+}
 const actionType = ref('')
 const myCateIds = ref([])
+const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
+
+// const t1 = ref( 3 )
 
 const crudSchemas = reactive<CrudSchema[]>([
-  {
-    field: 'index',
-    label: t('tableDemo.index'),
-    type: 'index',
-    form: {
-      show: false
-    },
-    detail: {
-      show: false
-    }
-  },
   {
     field: 'code',
     label: t('stock.code'),
     search: {
       show: true
     },
+    // type: 'index',
     form: {
       componentProps: {
         readonly: true
       },
       colProps: {
-        span: 24
+        span: 12
       }
     },
     detail: {
-      span: 24
+      show: false
     }
   },
   {
-    field: 'day',
+    field: 'name',
+    label: t('stock.code'),
+    search: {
+      show: true
+    },
+    form: {
+      show: true,
+      componentProps: {
+        readonly: true
+      },
+      colProps: {
+        span: 12
+      }
+    },
+    detail: {
+      span: 12
+    }
+  },
+  {
+    field: 'cate33',
     label: t('stock.day'),
     search: {
       show: false
     },
     form: {
-      show: false
+      show: true,
+      componentProps: {
+        readonly: true
+      },
+      colProps: {
+        span: 12
+      }
+    }
+  },
+  {
+    field: 'size',
+    label: t('stock.size'),
+    table: {
+      show: true
+    },
+    form: {
+      show: true,
+      componentProps: {
+        readonly: true
+      },
+      colProps: {
+        span: 12
+      }
     }
   },
   {
@@ -100,7 +162,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: true,
       component: 'Select',
       componentProps: {
-        readonly: myUserId != userId,
+        readonly: others,
         options: [
           {
             label: t('stock.headShoulder'),
@@ -146,6 +208,9 @@ const crudSchemas = reactive<CrudSchema[]>([
       )
     },
     form: {
+      colProps: {
+        span: 12
+      },
       component: 'Select',
       componentProps: {
         disabled: myUserId != userId,
@@ -171,44 +236,36 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'market',
-    label: t('stock.market'),
-    formatter: (_: Recordable, __: TableColumn, cellValue: string) => {
+    field: 'score',
+    label: t('formDemo.rate'),
+    formatter: ( _: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
         {
           type:
-            cellValue == '1'
+               cellValue === 0
+              ? 'info'
+              : cellValue === 1
               ? 'danger'
-              : cellValue == '2'
+              : cellValue === 2
+              ? 'danger'
+              : cellValue === 3
+              ? 'warning'
+              : cellValue === 4
               ? ''
-              : cellValue == '3'
-              ? 'success'
-              : 'warning',
-          effect: 'dark'
+              : 'success' ,
+              effect: 'dark',
+              round: true
         },
-        () =>
-          cellValue == '1'
-            ? t('stock.market_CH')
-            : cellValue == '2'
-            ? t('stock.market_JP')
-            : t('stock.market_X')
+        ()=>cellValue  // cellValue
       )
     },
     form: {
-      component: 'Select',
+      component: 'Rate',
       componentProps: {
-        disabled: myUserId != userId,
-        options: [
-          {
-            label: '中国',
-            value: '1'
-          },
-          {
-            label: '日本',
-            value: '2'
-          }
-        ]
+        readonly: others,
+        colors: colors, 
+        size: "large" 
       }
     }
   },
@@ -239,21 +296,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       component: 'CheckboxButton',
       value: [],
       componentProps: {
-        options: [] // myCates
-        // [
-        //   {
-        //     label: 'option-1',
-        //     value: '1'
-        //   },
-        //   {
-        //     label: 'option-2',
-        //     value: '2'
-        //   },
-        //   {
-        //     label: 'option-3',
-        //     value: '23'
-        //   }
-        // ]
+        options: []
       }
     }
   },
@@ -266,7 +309,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Input',
       componentProps: {
-        readonly: myUserId != userId,
+        readonly: others,
         type: 'textarea',
         rows: 10
       },
@@ -306,8 +349,8 @@ const getCates = async () => {
     myCateIds.value = ids
     // console.log(myCates, myCateIds.value)
 
-    if (crudSchemas.length >= 7) {
-      crudSchemas[6]!.form!.componentProps!.options = myCates
+    if (crudSchemas.length >= 8) {
+      crudSchemas[7]!.form!.componentProps!.options = myCates
     }
   }
 }
@@ -337,7 +380,7 @@ const action = async (row: StockData, type: string) => {
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   if (crudSchemas.length >= 1) {
-    crudSchemas[1]!.form!.componentProps!.readonly = true
+    crudSchemas[0]!.form!.componentProps!.readonly = true
   }
   tableObject.currentRow = row
   getCatesByCode(myUserId, row.code)
@@ -345,15 +388,15 @@ const action = async (row: StockData, type: string) => {
 }
 const addAction = () => {
   if (crudSchemas.length >= 1) {
-    crudSchemas[1]!.form!.componentProps!.readonly = false
+    crudSchemas[0]!.form!.componentProps!.readonly = false
   }
   dialogTitle.value = t('exampleDemo.add')
   actionType.value = 'edit'
 
   tableObject.currentRow = {
     id: NaN,
-    price_id: 0,
-    day: '',
+    name: '0',
+    cate33: '',
     code: '',
     user_id: myUserId,
     category_id: +cateId,
@@ -361,7 +404,8 @@ const addAction = () => {
     market: '',
     remark: '',
     created_at: '',
-    category_ids: [+cateId]
+    category_ids: [+cateId],
+    score: 0
   }
   //---------------------
   // let ids = [];
@@ -384,12 +428,10 @@ const dialogVisible = ref(false)
 
 const dialogTitle = ref('')
 
-const openTv = () => {
-  window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=NASDAQ%3ATSLA', '_blank')
+const openTv = (row) => {
+  window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=TSE%3A'+row.code, '_blank')
 }
-
 const delLoading = ref(false)
-
 const delData = async (row: StockData | null, multiple: boolean) => {
   tableObject.currentRow = row
   const { delList, getSelections } = methods
@@ -434,9 +476,9 @@ const save = async () => {
 <template>
   <ContentWrap>
     <div class="mb-10px float-left">
-      <ElButton :disabled="userId != myUserId" :icon="plus" type="primary" @click="addAction()" />
-      <ElButton
-        :disabled="userId != myUserId"
+      <ElButton :disabled="others||delFlag==1" :icon="plus" type="primary" @click="addAction()" />
+      <ElButton 
+        :disabled="others&&delFlag==0"
         :icon="del"
         :loading="delLoading"
         type="danger"
@@ -461,12 +503,12 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton :icon="chart" type="success" @click="openTv()" />
+        <ElButton :icon="chart" type="success" @click="openTv(row)" />
 
         <ElButton :icon="edit" type="primary" @click="action(row, 'edit')" />
 
         <ElButton
-          :disabled="userId != myUserId"
+          :disabled="others && delFlag==0"
           :icon="del"
           type="danger"
           @click="delData(row, false)"

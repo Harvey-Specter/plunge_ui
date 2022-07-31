@@ -25,7 +25,7 @@ const { replace } = useRouter()
 
 const userInfo = wsCache.get(appStore.getUserInfo)
 
-const fullUserName = userInfo.username
+const fullUserName = userInfo.email
 
 const userName = fullUserName.split('@')[0]
 
@@ -34,7 +34,7 @@ if (userName == 'admin') {
   ava = 'admin.jpg'
 }
 
-console.log('userInfo=====', userInfo)
+// console.log('userInfo=====', userInfo)
 
 const loginOut = () => {
   ElMessageBox.confirm(t('common.loginOutMessage'), t('common.reminder'), {

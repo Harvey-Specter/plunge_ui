@@ -4,10 +4,13 @@ import { Collapse } from '@/components/Collapse'
 import { LocaleDropdown } from '@/components/LocaleDropdown'
 import { SizeDropdown } from '@/components/SizeDropdown'
 import { UserInfo } from '@/components/UserInfo'
+import { HeadButtons } from '@/components/HeadButtons'
+
 import { Screenfull } from '@/components/Screenfull'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { useAppStore } from '@/store/modules/app'
 import { useDesign } from '@/hooks/web/useDesign'
+
 
 const { getPrefixCls, variables } = useDesign()
 
@@ -54,6 +57,9 @@ export default defineComponent({
           </div>
         ) : undefined}
         <div class="h-full flex items-center">
+
+        <HeadButtons class="hover-tigger" color="var(--top-header-text-color)"></HeadButtons>
+
           {screenfull.value ? (
             <Screenfull class="hover-tigger" color="var(--top-header-text-color)"></Screenfull>
           ) : undefined}

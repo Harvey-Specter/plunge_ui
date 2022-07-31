@@ -95,6 +95,8 @@ export default {
     forgetPassword: 'Forget password',
     usernamePlaceholder: 'Please input username',
     passwordPlaceholder: 'Please input password',
+    emailPlaceholder: 'Please input email',
+    email: 'Email',
     code: 'Verification code',
     codePlaceholder: 'Please input verification code'
   },
@@ -429,5 +431,9 @@ export default {
   inputPasswordDemo: {
     title: 'InputPassword',
     inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus'
+  },
+  stock:{
+    industry_sector: 'IndustrySector',
+    trash: 'Trash'
   }
 }

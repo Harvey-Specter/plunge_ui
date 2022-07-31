@@ -95,6 +95,8 @@ export default {
     forgetPassword: 'パスワードを忘れる',
     usernamePlaceholder: 'ユーザー名を入力してください',
     passwordPlaceholder: 'パスワードを入力してください',
+    emailPlaceholder: 'メールアドレスを入力してください',
+    email: 'メール',
     code: '検証コード',
     codePlaceholder: '確認コードを入力してください'
   },
@@ -115,7 +117,9 @@ export default {
     getingChips: 'チップの蓄積',
     stars: '連続星',
     gap: 'ギャップサポート',
-    save_as_block: 'ボードに保存'
+    save_as_block: 'ボードに保存',
+    industry_sector: '産業部門',
+    trash: 'ごみ箱'
   },
   group: {
     code: 'エイリアス',

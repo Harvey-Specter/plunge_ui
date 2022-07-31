@@ -94,7 +94,8 @@ export default {
     hasUser: '已有账号？去登录',
     forgetPassword: '忘记密码',
     usernamePlaceholder: '请输入用户名',
-    passwordPlaceholder: '请输入密码',
+    emailPlaceholder: '请输入邮箱',
+    email: '邮箱',
     code: '验证码',
     codePlaceholder: '请输入验证码'
   },
@@ -443,7 +444,8 @@ export default {
     getingChips: '吸筹',
     stars: '连续收星',
     gap: '缺口支撑',
-    save_as_block: '另存到板块'
+    industry_sector: '行业板块',
+    trash: '回收站'
   },
   group: {
     code: '别名',
