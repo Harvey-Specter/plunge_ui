@@ -16,6 +16,9 @@ import { useRouter, RouteRecordRaw } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
 import { getCurrentUser } from '@/api/login'
 
+import { useCache } from '@/hooks/web/useCache'
+import { useAppStoreWithOut } from '@/store/modules/app'
+
 // import { usePermissionStore } from '@/store/modules/permission'
 
 const { register, tableObject, methods } = useTable<GroupData>({
@@ -26,6 +29,10 @@ const { register, tableObject, methods } = useTable<GroupData>({
     total: 'total'
   }
 })
+const appStore = useAppStoreWithOut()
+const { wsCache } = useCache()
+const userInfo = wsCache.get(appStore.getUserInfo)
+
 
 const userId = ref('')
 
@@ -38,6 +45,8 @@ const currUser = async () => {
   console.log('currUser==res=====', res)
   if (res) {
     userId.value = res.data.id
+    userInfo.id=res.data.id
+    wsCache.set(appStore.getUserInfo, userInfo)
   }
 }
 currUser()
@@ -235,8 +244,7 @@ const openDetail = (row: GroupData) => {
   let queryParam = {
     id: row.id,
     userId: row.user_id,
-    myUserId: userId.value
-
+    // myUserId: userId.value
     // code: row.code.replace(/ /g, '')
   }
   let r: RouteRecordRaw = {

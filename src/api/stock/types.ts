@@ -1,7 +1,7 @@
 export type StockData = {
   id: number
-  price_id: number
-  day: string
+  name: string
+  cate33: string
   code: string
   user_id: string
   category_id: number
@@ -10,6 +10,7 @@ export type StockData = {
   remark: string
   created_at: string
   category_ids: number[]
+  score: number
 }
 
 // | id          | int unsigned | NO   | PRI | NULL    | auto_increment |
