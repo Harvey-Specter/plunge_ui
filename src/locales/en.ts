@@ -434,6 +434,7 @@ export default {
   },
   stock:{
     industry_sector: 'IndustrySector',
+    industry_details: 'Industry Details',
     trash: 'Trash'
   }
 }

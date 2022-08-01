@@ -42,7 +42,7 @@ const openTrash = () => {
   let r: RouteRecordRaw = {
     path: url,
     component: () => import('@/views/Stock/StockList.vue'),
-    name: 'StockList',
+    name: 'StockListDel',
     meta: {
       title: '回收站',
       breadcrumb: true

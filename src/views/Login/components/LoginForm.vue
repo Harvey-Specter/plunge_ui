@@ -171,7 +171,7 @@ const getRole = async () => {
       path: '/industry',
       component: '#',
       redirect: '/industry/index',
-      name: 'Industry',
+      name: 'IndustryList',
       meta: {},
       children: [
         {
@@ -182,6 +182,25 @@ const getRole = async () => {
           meta: {
             title: t('stock.industry_sector'),
             icon: 'bx:bxs-component'
+          }
+        }
+      ]
+    },
+    {
+      path: '/industry',
+      component: '#',
+      redirect: '/industry/stock',
+      name: 'Industry',
+      meta: {},
+      children: [
+        {
+          path: 'stock',
+          component: 'views/Stock/StockList',
+          name: 'StockList',
+          redirect: '',
+          meta: {
+            title: t('stock.industry_details'),
+            icon: 'carbon:skill-level-advanced'
           }
         }
       ]

@@ -20,9 +20,21 @@ export const getStockDetApi = async (id: string): Promise<IResponse<StockData>> 
   return res && res.data
 }
 
+export const rmfStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
+  const idsStr = ids.toString()
+  const res = await request.post({ url: '/stocks/rmf', data: { ids: idsStr } })
+  return res && res.data
+}
+
 export const delStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
   const idsStr = ids.toString()
   const res = await request.post({ url: '/stocks/del', data: { ids: idsStr } })
+  return res && res.data
+}
+
+export const recStockListApi = async (ids: string[] | number[]): Promise<IResponse> => {
+  const idsStr = ids.toString()
+  const res = await request.post({ url: '/stocks/rec', data: { ids: idsStr } })
   return res && res.data
 }
 

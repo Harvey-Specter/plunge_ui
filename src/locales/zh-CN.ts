@@ -445,6 +445,7 @@ export default {
     stars: '连续收星',
     gap: '缺口支撑',
     industry_sector: '行业板块',
+    Industry_details: '行业详情',
     trash: '回收站'
   },
   group: {

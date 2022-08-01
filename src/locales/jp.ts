@@ -119,6 +119,7 @@ export default {
     gap: 'ギャップサポート',
     save_as_block: 'ボードに保存',
     industry_sector: '産業部門',
+    industry_details: '業界の詳細',
     trash: 'ごみ箱'
   },
   group: {

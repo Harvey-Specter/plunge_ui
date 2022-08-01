@@ -9,6 +9,8 @@ import {
   getStockListApi,
   saveStockApi,
   delStockListApi,
+  recStockListApi,
+  rmfStockListApi,
   getCatesByUserId,
   getCatesByUserIdCode
 } from '@/api/stock'
@@ -77,7 +79,7 @@ const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
 const del = useIcon({ icon: 'ep:delete' })
 let edit =  useIcon({ icon: 'bx:edit' })
 if(delFlag == 1){
-  edit = useIcon({ icon: 'akar-icons:arrow-cycle' })
+  edit = useIcon({ icon: 'fa-solid:undo' })
 }
 const actionType = ref('')
 const myCateIds = ref([])
@@ -377,14 +379,24 @@ const getCatesByCode = async (userId: string, code: string) => {
   }
 }
 const action = async (row: StockData, type: string) => {
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
-  actionType.value = type
-  if (crudSchemas.length >= 1) {
-    crudSchemas[0]!.form!.componentProps!.readonly = true
+
+  console.log('action_delflag====',delFlag)
+
+  if(delFlag==1){
+    console.log('now is in trash ; Do recover')
+    await recData(row,false);
+    getList()
+  }else{
+    dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+    actionType.value = type
+    if (crudSchemas.length >= 1) {
+      crudSchemas[0]!.form!.componentProps!.readonly = true
+    }
+    tableObject.currentRow = row
+    getCatesByCode(myUserId, row.code)
+    dialogVisible.value = true
   }
-  tableObject.currentRow = row
-  getCatesByCode(myUserId, row.code)
-  dialogVisible.value = true
+  
 }
 const addAction = () => {
   if (crudSchemas.length >= 1) {
@@ -407,20 +419,8 @@ const addAction = () => {
     category_ids: [+cateId],
     score: 0
   }
-  //---------------------
-  // let ids = [];
-  // ids.push(cateId)
-  // myCatesOfcode.value = ids
-  // tableObject!.currentRow!.category_ids = myCatesOfcode.value
-
-  // console.log(1, '1')
-
-  // tableObject.currentRow.category_ids=[cateId as string]
-  // tableObject.currentRow?.category_ids=myCateIds.value
   dialogVisible.value = true
 }
-
-// console.log('crudSchemas=====',myCates,'+==========+',crudSchemas[6].form.componentProps)
 
 const { allSchemas } = useCrudSchemas(crudSchemas)
 
@@ -432,16 +432,44 @@ const openTv = (row) => {
   window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=TSE%3A'+row.code, '_blank')
 }
 const delLoading = ref(false)
-const delData = async (row: StockData | null, multiple: boolean) => {
+
+const delData = async (row: StockData | null, multiple: boolean, delFlag: number) => {
+
   tableObject.currentRow = row
   const { delList, getSelections } = methods
   const selections = await getSelections()
   delLoading.value = true
-  await delList(
-    multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number],
-    multiple
+
+  if(delFlag==1){
+    await rmfStockListApi(
+      multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number]// ,multiple
+    ).finally(() => {
+      delLoading.value = false
+      getList()
+    })
+  }else{
+    await delList(
+      multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number],
+      multiple
+    ).finally(() => {
+      delLoading.value = false
+    })
+  }
+}
+
+const recData = async (row: StockData | null, multiple: boolean) => {
+
+  console.log('recData==========');
+  tableObject.currentRow = row
+  const {  getSelections } = methods
+  const selections = await getSelections()
+  delLoading.value = true
+
+  await recStockListApi(
+    multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number]// ,multiple
   ).finally(() => {
     delLoading.value = false
+    getList()
   })
 }
 
@@ -476,13 +504,16 @@ const save = async () => {
 <template>
   <ContentWrap>
     <div class="mb-10px float-left">
-      <ElButton :disabled="others||delFlag==1" :icon="plus" type="primary" @click="addAction()" />
+      <ElButton v-if="delFlag!=1" :disabled="others||delFlag==1" :icon="plus" type="primary" @click="addAction()" />
+
+      <ElButton v-if="delFlag==1" :icon="edit" type="primary" @click="recData(null,true)" />
+
       <ElButton 
         :disabled="others&&delFlag==0"
         :icon="del"
         :loading="delLoading"
         type="danger"
-        @click="delData(null, true)"
+        @click="delData(null, true,delFlag)"
       />
     </div>
     <SearchButton
@@ -511,7 +542,7 @@ const save = async () => {
           :disabled="others && delFlag==0"
           :icon="del"
           type="danger"
-          @click="delData(row, false)"
+          @click="delData(row, false,delFlag)"
         />
       </template>
     </Table>

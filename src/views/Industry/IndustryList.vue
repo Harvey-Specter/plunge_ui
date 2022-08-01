@@ -120,7 +120,7 @@ const crudSchemas = reactive<CrudSchema[]>([
           // click: stockByIndustry(row),
           underline: false,
           type: 'primary',
-          href: '/#/stock/StockList?del=1&from=industry&indId=' + row.cate33_code
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code+'&size=0'
         },
         // ElButton,
         // {
