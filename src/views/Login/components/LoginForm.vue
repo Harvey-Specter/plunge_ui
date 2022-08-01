@@ -166,6 +166,25 @@ const getRole = async () => {
           }
         }
       ]
+    },
+    {
+      path: '/industry',
+      component: '#',
+      redirect: '/industry/index',
+      name: 'Industry',
+      meta: {},
+      children: [
+        {
+          path: 'index',
+          component: 'views/Industry/IndustryList',
+          name: 'IndustryList',
+          redirect: '',
+          meta: {
+            title: t('stock.industry_sector'),
+            icon: 'bx:bxs-component'
+          }
+        }
+      ]
     }
   ]
   const { wsCache } = useCache()

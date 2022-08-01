@@ -143,6 +143,23 @@ export const asyncRouterMap: AppRouteRecordRaw[] = [
     ]
   },
   {
+    path: '/industry',
+    component: Layout,
+    name: 'Industry',
+    meta: {},
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/Industry/IndustryList.vue'),
+        name: 'IndustryList',
+        meta: {
+          title: t('stock.industry_sector'),
+          icon: 'bx:bxs-component'
+        }
+      }
+    ]
+  },
+  {
     path: '/group',
     component: Layout,
     name: 'Group',

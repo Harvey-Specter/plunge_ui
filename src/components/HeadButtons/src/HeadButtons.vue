@@ -34,7 +34,6 @@ const { push } = useRouter()
 let router = useRouter()
 
 const openTrash = () => {
-  
   let url = '/stock/StockList'
   let queryParam = {
     del: 1
@@ -53,10 +52,15 @@ const openTrash = () => {
   push({ path: url, query: queryParam })
 }
 
+const openIndustry = () => {
+  let url = '/industry/index'
+  push({ path: url })
+}
 </script>
 
 <template>
-  <ElButton plain  type="" click="delData(null, true)" size="small" link >{{ t('stock.industry_sector') }}</ElButton>        
-  <ElButton plain  type="" @click="openTrash" size="small" link>{{ t('stock.trash') }}</ElButton>
-
+  <ElButton plain type="" @click="openIndustry" size="small" link>{{
+    t('stock.industry_sector')
+  }}</ElButton>
+  <ElButton plain type="" @click="openTrash" size="small" link>{{ t('stock.trash') }}</ElButton>
 </template>
