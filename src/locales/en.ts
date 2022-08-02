@@ -82,8 +82,9 @@ export default {
     small: 'Small'
   },
   login: {
-    welcome: 'Welcome to the system',
-    message: 'Backstage management system',
+    welcome: 'Welcome to Plunge',
+    message:
+      'Whatever is happening in the market right now, these things have happened in the past and will happen in the future.',
     username: 'Username',
     password: 'Password',
     register: 'Register',
@@ -432,9 +433,40 @@ export default {
     title: 'InputPassword',
     inputPasswordDes: 'Secondary packaging of Input components based on ElementPlus'
   },
-  stock:{
-    industry_sector: 'IndustrySector',
-    industry_details: 'Industry Details',
-    trash: 'Trash'
+  stock: {
+    action: 'Action',
+    tvFrame: 'Chart',
+    groupList: 'Block List',
+    opengroup: 'Enter',
+    code: 'ode',
+    day: 'Choose at',
+    market: 'market',
+    market_CH: 'China',
+    market_JP: 'Janpa',
+    market_X: 'unknow',
+    remark: 'remark',
+    pattern: 'pattern',
+    create_at: 'create at',
+    headShoulder: 'Head Shoulder',
+    getingChips: 'Geting chips',
+    stars: 'Cutinue',
+    gap: 'Suport at gap',
+    save_as_block: 'save in block',
+    industry_sector: 'Industry Sector',
+    industry_details: 'Industry Detail',
+    trash: 'trash',
+    name: 'name',
+    industry: 'industry',
+    size: 'size',
+    rate: 'rate',
+    others: 'others'
+  },
+  group: {
+    code: 'code',
+    name: 'name',
+    remark: 'remark',
+    create_time: 'create at',
+    stock_count: 'stock count',
+    stocks: 'stock codes'
   }
 }

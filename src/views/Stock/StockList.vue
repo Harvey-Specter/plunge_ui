@@ -12,7 +12,8 @@ import {
   recStockListApi,
   rmfStockListApi,
   getCatesByUserId,
-  getCatesByUserIdCode
+  getCatesByUserIdCode,
+  getStockByCode
 } from '@/api/stock'
 
 import { useTable } from '@/hooks/web/useTable'
@@ -33,12 +34,16 @@ const route = useRoute()
 
 console.log('route.query========', route.query)
 
-const cateId = route.query.id as unknown as number
+let cateId = route.query.id as unknown as number
 const userId = route.query.userId
 const delFlag0 = route.query.del
-const from = route.query.industry
+const from = route.query.from
 const indId = route.query.indId
 const size = route.query.size
+
+if (!cateId) {
+  cateId = -1
+}
 
 let delFlag = 0
 if (delFlag0) {
@@ -92,7 +97,24 @@ const myCateIds = ref([])
 const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900'])
 
 // const t1 = ref( 3 )
-
+const getStockInfo = async (code: string) => {
+  const res = await getStockByCode(code)
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+  // console.log('getCates==res=====', res)
+  if (res) {
+    myCates = res.data
+    let ids = []
+    for (let i = 0; i < res.data.length; i++) {
+      ids.push(res.data[i].value as never)
+    }
+    myCatesOfcode.value = ids
+    // tableObject!.currentRow!.category_ids = myCatesOfcode.value
+    // console.log(myCates,myCateIds.value)
+  }
+}
 const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'code',
@@ -103,7 +125,8 @@ const crudSchemas = reactive<CrudSchema[]>([
     // type: 'index',
     form: {
       componentProps: {
-        readonly: true
+        readonly: true,
+        onChange: getStockInfo
       },
       colProps: {
         span: 12
@@ -115,7 +138,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'name',
-    label: t('stock.code'),
+    label: t('stock.name'),
     search: {
       show: true
     },
@@ -134,7 +157,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'cate33',
-    label: t('stock.day'),
+    label: t('stock.industry'),
     search: {
       show: false
     },
@@ -245,13 +268,13 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'score',
-    label: t('formDemo.rate'),
+    label: t('stock.rate'),
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
         {
           type:
-            cellValue === 0
+            cellValue === 0 || !cellValue
               ? 'info'
               : cellValue === 1
               ? 'danger'
@@ -262,7 +285,8 @@ const crudSchemas = reactive<CrudSchema[]>([
               : cellValue === 4
               ? ''
               : 'success',
-          effect: 'dark',
+
+          effect: cellValue ? 'dark' : 'light',
           round: true
         },
         () => cellValue // cellValue
@@ -329,7 +353,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'action',
     width: '260px',
-    label: t('tableDemo.action'),
+    label: t('stock.action'),
     form: {
       show: false
     },
@@ -384,6 +408,7 @@ const getCatesByCode = async (userId: string, code: string) => {
     //console.log(myCates,myCateIds.value)
   }
 }
+
 const action = async (row: StockData, type: string) => {
   console.log('action_delflag====', delFlag)
 
@@ -441,8 +466,12 @@ const delData = async (row: StockData | null, multiple: boolean, delFlag: number
   tableObject.currentRow = row
   const { delList, getSelections } = methods
   const selections = await getSelections()
-  delLoading.value = true
 
+  // console.log('selections',selections.length);return
+  if (multiple && selections.length == 0) {
+    return
+  }
+  delLoading.value = true
   if (delFlag == 1) {
     await rmfStockListApi(
       multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number] // ,multiple
@@ -456,6 +485,7 @@ const delData = async (row: StockData | null, multiple: boolean, delFlag: number
       multiple
     ).finally(() => {
       delLoading.value = false
+      getList()
     })
   }
 }
@@ -465,6 +495,11 @@ const recData = async (row: StockData | null, multiple: boolean) => {
   tableObject.currentRow = row
   const { getSelections } = methods
   const selections = await getSelections()
+
+  if (multiple && selections.length == 0) {
+    return
+  }
+
   delLoading.value = true
 
   await recStockListApi(

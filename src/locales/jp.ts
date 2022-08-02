@@ -83,7 +83,8 @@ export default {
   },
   login: {
     welcome: 'システムへようこそ, パターンに一致する株を探す',
-    message: '人に優しくすると、自分に優しくなれます。',
+    message:
+      '現在市場で何が起こっていようと、これらのことは過去に起こったことであり、将来も起こるでしょう.',
     username: 'ユーザー名',
     password: 'パスワード',
     register: '登録',
@@ -101,12 +102,13 @@ export default {
     codePlaceholder: '確認コードを入力してください'
   },
   stock: {
+    action: '操作',
     tvFrame: 'チャート',
     groupList: 'プレート管理',
     opengroup: '入力',
     code: 'コード',
     day: '選択した日付',
-    market: 'マーケット',
+    market: '市場',
     market_CH: '中国',
     market_JP: '日本',
     market_X: '不明',
@@ -120,7 +122,12 @@ export default {
     save_as_block: 'ボードに保存',
     industry_sector: '産業部門',
     industry_details: '業界の詳細',
-    trash: 'ごみ箱'
+    trash: 'ごみ箱',
+    name: '銘柄名',
+    industry: '業種',
+    size: '規模',
+    rate: 'スコア',
+    others: 'その他'
   },
   group: {
     code: 'エイリアス',

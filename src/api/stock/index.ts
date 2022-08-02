@@ -11,7 +11,7 @@ export const getStockListApi = async (params: any): Promise<IResponse> => {
 }
 
 export const saveStockApi = async (data: Partial<StockData>): Promise<IResponse> => {
-  const res = await request.post({ url: '/categories/'+data.category_id+'/stocks', data })
+  const res = await request.post({ url: '/categories/' + data.category_id + '/stocks', data })
   return res && res.data
 }
 
@@ -47,6 +47,14 @@ export const getCatesByUserIdCode = async (userId: string, code: string): Promis
   const res = await request.get({
     url: '/categories/getCatesByUserIdCode',
     params: { userId: userId, code: code }
+  })
+  return res && res.data
+}
+
+export const getStockByCode = async (code: string): Promise<IResponse> => {
+  const res = await request.get({
+    url: '/stocks/getStockByCode',
+    params: { code: code }
   })
   return res && res.data
 }

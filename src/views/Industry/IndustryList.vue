@@ -144,8 +144,8 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'l70',
-    label: 'TOPIX Large70',
+    field: 'c30',
+    label: 'TOPIX Core30',
     disabled: true,
     formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
       return h(
@@ -166,8 +166,8 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
-    field: 'c30',
-    label: 'TOPIX Core30',
+    field: 'l70',
+    label: 'TOPIX Large70',
     disabled: true,
     formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
       return h(
@@ -196,7 +196,7 @@ const crudSchemas = reactive<CrudSchema[]>([
         {
           underline: false,
           type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=3'
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=4'
         },
         () => cellValue
       )
@@ -218,7 +218,7 @@ const crudSchemas = reactive<CrudSchema[]>([
         {
           underline: false,
           type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=4'
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=6'
         },
         () => cellValue
       )
@@ -240,7 +240,29 @@ const crudSchemas = reactive<CrudSchema[]>([
         {
           underline: false,
           type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=5'
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=7'
+        },
+        () => cellValue
+      )
+    },
+    disabled: true,
+    form: {
+      show: false,
+      componentProps: {
+        disabled: true
+      }
+    }
+  },
+  {
+    field: 'other',
+    label: t('stock.others'),
+    formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
+      return h(
+        ElLink,
+        {
+          underline: false,
+          type: 'primary',
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=-'
         },
         () => cellValue
       )
@@ -253,7 +275,6 @@ const crudSchemas = reactive<CrudSchema[]>([
       }
     }
   }
-
   // {
   //   field: 'action',
   //   width: '260px',

@@ -83,7 +83,7 @@ export default {
   },
   login: {
     welcome: '欢迎使用本系统',
-    message: '开箱即用的中后台管理系统',
+    message: '无论现在市场中正在发生什么，这些事都在过去发生过，在未来也将发生。',
     username: '用户名',
     password: '密码',
     register: '注册',
@@ -428,6 +428,7 @@ export default {
     inputPasswordDes: '基于 ElementPlus 的 Input 组件二次封装'
   },
   stock: {
+    action: '操作',
     tvFrame: '图表',
     groupList: '板块管理',
     opengroup: '进入',
@@ -444,9 +445,15 @@ export default {
     getingChips: '吸筹',
     stars: '连续收星',
     gap: '缺口支撑',
+    save_as_block: '保存到板块',
     industry_sector: '行业板块',
     Industry_details: '行业详情',
-    trash: '回收站'
+    trash: '回收站',
+    name: '銘柄名',
+    industry: '行业',
+    size: '规模',
+    rate: '评分',
+    others: '其他'
   },
   group: {
     code: '别名',

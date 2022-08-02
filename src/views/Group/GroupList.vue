@@ -33,7 +33,6 @@ const appStore = useAppStoreWithOut()
 const { wsCache } = useCache()
 const userInfo = wsCache.get(appStore.getUserInfo)
 
-
 const userId = ref('')
 
 const currUser = async () => {
@@ -45,7 +44,7 @@ const currUser = async () => {
   console.log('currUser==res=====', res)
   if (res) {
     userId.value = res.data.id
-    userInfo.id=res.data.id
+    userInfo.id = res.data.id
     wsCache.set(appStore.getUserInfo, userInfo)
   }
 }
@@ -165,7 +164,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'action',
     width: '260px',
-    label: t('tableDemo.action'),
+    label: t('stock.action'),
     form: {
       show: false
     },
@@ -243,7 +242,7 @@ const openDetail = (row: GroupData) => {
   let url = '/stock/StockList' + row.id
   let queryParam = {
     id: row.id,
-    userId: row.user_id,
+    userId: row.user_id
     // myUserId: userId.value
     // code: row.code.replace(/ /g, '')
   }
