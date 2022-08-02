@@ -189,8 +189,9 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'pattern',
+    table: { show: from!='industry' },
     search: {
-      show: true,
+      show: from!='industry',
       component: 'Select',
       componentProps: {
         readonly: others,
@@ -269,6 +270,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'score',
     label: t('stock.rate'),
+    table: { show: from!='industry' },
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
@@ -304,6 +306,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'created_at',
     label: t('stock.create_at'),
+    table: { show: from!='industry' },
     form: {
       show: false
     }

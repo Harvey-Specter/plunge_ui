@@ -152,8 +152,8 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue==='0'?'info':'primary',
+          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
@@ -174,8 +174,8 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=2'
+          type: cellValue==='0'?'info':'primary',
+          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
@@ -195,8 +195,8 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=4'
+          type: cellValue==='0'?'info':'primary',
+          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
@@ -217,8 +217,8 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=6'
+          type: cellValue==='0'?'info':'primary',
+          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
@@ -239,8 +239,8 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=7'
+          type: cellValue==='0'?'info':'primary',
+          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
@@ -255,14 +255,14 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'other',
-    label: t('stock.others'),
+    label: '-',
     formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
       return h(
         ElLink,
         {
           underline: false,
-          type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=-'
+          type: cellValue==='0'?'info':'primary',
+          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
