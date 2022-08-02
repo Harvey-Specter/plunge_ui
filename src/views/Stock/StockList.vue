@@ -26,32 +26,35 @@ import { useIcon } from '@/hooks/web/useIcon'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStoreWithOut } from '@/store/modules/app'
 
-
 const route = useRoute()
 // const qCode = route.query.code
 
 // const myUserId = route.query.myUserId as string
 
-console.log('route.query========',route.query);
+console.log('route.query========', route.query)
 
 const cateId = route.query.id as unknown as number
-const userId  = route.query.userId
-const delFlag0  = route.query.del
+const userId = route.query.userId
+const delFlag0 = route.query.del
+const from = route.query.industry
+const indId = route.query.indId
+const size = route.query.size
+
 let delFlag = 0
-if(delFlag0){
+if (delFlag0) {
   delFlag = 1
 }
-console.log('delFlag----',delFlag)
+console.log('delFlag----', delFlag)
 const appStore = useAppStoreWithOut()
 const { wsCache } = useCache()
 const userInfo = wsCache.get(appStore.getUserInfo)
 
-const myUserId = userInfo.id as string 
+const myUserId = userInfo.id as string
 
-console.log(myUserId,'========',userId);
-let others=true
-if(userId==myUserId){
-  others=false
+console.log(myUserId, '========', userId)
+let others = true
+if (userId == myUserId) {
+  others = false
 }
 // console.log('userInfo====',userInfo);
 // console.log('route.query',route.query)
@@ -69,6 +72,9 @@ const { getList, setSearchParams } = methods
 tableObject.params.id = cateId
 tableObject.params.del = delFlag
 tableObject.params.userId = myUserId
+tableObject.params.from = from
+tableObject.params.indId = indId
+tableObject.params.size = size
 
 getList()
 
@@ -77,8 +83,8 @@ const { t } = useI18n()
 const plus = useIcon({ icon: 'ant-design:plus-outlined' })
 const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
 const del = useIcon({ icon: 'ep:delete' })
-let edit =  useIcon({ icon: 'bx:edit' })
-if(delFlag == 1){
+let edit = useIcon({ icon: 'bx:edit' })
+if (delFlag == 1) {
   edit = useIcon({ icon: 'fa-solid:undo' })
 }
 const actionType = ref('')
@@ -240,12 +246,12 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'score',
     label: t('formDemo.rate'),
-    formatter: ( _: Recordable, __: TableColumn, cellValue: number) => {
+    formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
         {
           type:
-               cellValue === 0
+            cellValue === 0
               ? 'info'
               : cellValue === 1
               ? 'danger'
@@ -255,19 +261,19 @@ const crudSchemas = reactive<CrudSchema[]>([
               ? 'warning'
               : cellValue === 4
               ? ''
-              : 'success' ,
-              effect: 'dark',
-              round: true
+              : 'success',
+          effect: 'dark',
+          round: true
         },
-        ()=>cellValue  // cellValue
+        () => cellValue // cellValue
       )
     },
     form: {
       component: 'Rate',
       componentProps: {
         readonly: others,
-        colors: colors, 
-        size: "large" 
+        colors: colors,
+        size: 'large'
       }
     }
   },
@@ -379,14 +385,13 @@ const getCatesByCode = async (userId: string, code: string) => {
   }
 }
 const action = async (row: StockData, type: string) => {
+  console.log('action_delflag====', delFlag)
 
-  console.log('action_delflag====',delFlag)
-
-  if(delFlag==1){
+  if (delFlag == 1) {
     console.log('now is in trash ; Do recover')
-    await recData(row,false);
+    await recData(row, false)
     getList()
-  }else{
+  } else {
     dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
     actionType.value = type
     if (crudSchemas.length >= 1) {
@@ -396,7 +401,6 @@ const action = async (row: StockData, type: string) => {
     getCatesByCode(myUserId, row.code)
     dialogVisible.value = true
   }
-  
 }
 const addAction = () => {
   if (crudSchemas.length >= 1) {
@@ -429,25 +433,24 @@ const dialogVisible = ref(false)
 const dialogTitle = ref('')
 
 const openTv = (row) => {
-  window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=TSE%3A'+row.code, '_blank')
+  window.open('https://www.tradingview.com/chart/CFSEAW1L/?symbol=TSE%3A' + row.code, '_blank')
 }
 const delLoading = ref(false)
 
 const delData = async (row: StockData | null, multiple: boolean, delFlag: number) => {
-
   tableObject.currentRow = row
   const { delList, getSelections } = methods
   const selections = await getSelections()
   delLoading.value = true
 
-  if(delFlag==1){
+  if (delFlag == 1) {
     await rmfStockListApi(
-      multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number]// ,multiple
+      multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number] // ,multiple
     ).finally(() => {
       delLoading.value = false
       getList()
     })
-  }else{
+  } else {
     await delList(
       multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number],
       multiple
@@ -458,15 +461,14 @@ const delData = async (row: StockData | null, multiple: boolean, delFlag: number
 }
 
 const recData = async (row: StockData | null, multiple: boolean) => {
-
-  console.log('recData==========');
+  console.log('recData==========')
   tableObject.currentRow = row
-  const {  getSelections } = methods
+  const { getSelections } = methods
   const selections = await getSelections()
   delLoading.value = true
 
   await recStockListApi(
-    multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number]// ,multiple
+    multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number] // ,multiple
   ).finally(() => {
     delLoading.value = false
     getList()
@@ -504,16 +506,22 @@ const save = async () => {
 <template>
   <ContentWrap>
     <div class="mb-10px float-left">
-      <ElButton v-if="delFlag!=1" :disabled="others||delFlag==1" :icon="plus" type="primary" @click="addAction()" />
+      <ElButton
+        v-if="delFlag != 1"
+        :disabled="others || delFlag == 1"
+        :icon="plus"
+        type="primary"
+        @click="addAction()"
+      />
 
-      <ElButton v-if="delFlag==1" :icon="edit" type="primary" @click="recData(null,true)" />
+      <ElButton v-if="delFlag == 1" :icon="edit" type="primary" @click="recData(null, true)" />
 
-      <ElButton 
-        :disabled="others&&delFlag==0"
+      <ElButton
+        :disabled="others && delFlag == 0"
         :icon="del"
         :loading="delLoading"
         type="danger"
-        @click="delData(null, true,delFlag)"
+        @click="delData(null, true, delFlag)"
       />
     </div>
     <SearchButton
@@ -539,10 +547,10 @@ const save = async () => {
         <ElButton :icon="edit" type="primary" @click="action(row, 'edit')" />
 
         <ElButton
-          :disabled="others && delFlag==0"
+          :disabled="others && delFlag == 0"
           :icon="del"
           type="danger"
-          @click="delData(row, false,delFlag)"
+          @click="delData(row, false, delFlag)"
         />
       </template>
     </Table>

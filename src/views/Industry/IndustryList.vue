@@ -120,7 +120,7 @@ const crudSchemas = reactive<CrudSchema[]>([
           // click: stockByIndustry(row),
           underline: false,
           type: 'primary',
-          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code+'&size=0'
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=0'
         },
         // ElButton,
         // {
@@ -146,8 +146,18 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'l70',
     label: 'TOPIX Large70',
-    // type: 'count',
     disabled: true,
+    formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
+      return h(
+        ElLink,
+        {
+          underline: false,
+          type: 'primary',
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+        },
+        () => cellValue
+      )
+    },
     form: {
       show: false,
       componentProps: {
@@ -158,8 +168,18 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'c30',
     label: 'TOPIX Core30',
-    // type: 'count',
     disabled: true,
+    formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
+      return h(
+        ElLink,
+        {
+          underline: false,
+          type: 'primary',
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=2'
+        },
+        () => cellValue
+      )
+    },
     form: {
       show: false,
       componentProps: {
@@ -170,7 +190,17 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'm400',
     label: 'TOPIX Mid400',
-    // type: 'count',
+    formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
+      return h(
+        ElLink,
+        {
+          underline: false,
+          type: 'primary',
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=3'
+        },
+        () => cellValue
+      )
+    },
     disabled: true,
     form: {
       show: false,
@@ -182,7 +212,17 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 's1',
     label: 'TOPIX Small 1',
-    // type: 'count',
+    formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
+      return h(
+        ElLink,
+        {
+          underline: false,
+          type: 'primary',
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=4'
+        },
+        () => cellValue
+      )
+    },
     disabled: true,
     form: {
       show: false,
@@ -194,7 +234,17 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 's2',
     label: 'TOPIX Small 2',
-    // type: 'count',
+    formatter: (row: Recordable, __: TableColumn, cellValue: string) => {
+      return h(
+        ElLink,
+        {
+          underline: false,
+          type: 'primary',
+          href: '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=5'
+        },
+        () => cellValue
+      )
+    },
     disabled: true,
     form: {
       show: false,

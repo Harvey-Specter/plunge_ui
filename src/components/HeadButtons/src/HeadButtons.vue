@@ -56,9 +56,17 @@ const openIndustry = () => {
   let url = '/industry/index'
   push({ path: url })
 }
+
+const openGroupList = () => {
+  let url = '/group/index'
+  push({ path: url })
+}
 </script>
 
 <template>
+  <ElButton plain type="" @click="openGroupList" size="small" link>{{
+    t('stock.groupList')
+  }}</ElButton>
   <ElButton plain type="" @click="openIndustry" size="small" link>{{
     t('stock.industry_sector')
   }}</ElButton>
