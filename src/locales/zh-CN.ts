@@ -449,7 +449,7 @@ export default {
     industry_sector: '行业板块',
     Industry_details: '行业详情',
     trash: '回收站',
-    name: '銘柄名',
+    name: '名称',
     industry: '行业',
     size: '规模',
     rate: '评分',

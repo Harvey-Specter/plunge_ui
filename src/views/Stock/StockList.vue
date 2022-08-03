@@ -106,13 +106,12 @@ const getStockInfo = async (code: string) => {
   // console.log('getCates==res=====', res)
   if (res) {
     myCates = res.data
-    let ids = []
-    for (let i = 0; i < res.data.length; i++) {
-      ids.push(res.data[i].value as never)
+    if (res.data.length > 0) {
+      tableObject.currentRow!.cate33 = res.data[0].cate33
+      tableObject.currentRow!.name = res.data[0].name
+      tableObject.currentRow!.size = res.data[0].size
+      tableObject.currentRow!.code = res.data[0].code
     }
-    myCatesOfcode.value = ids
-    // tableObject!.currentRow!.category_ids = myCatesOfcode.value
-    // console.log(myCates,myCateIds.value)
   }
 }
 const crudSchemas = reactive<CrudSchema[]>([
@@ -189,9 +188,10 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'pattern',
-    table: { show: from!='industry' },
+    table: { show: from != 'industry' },
     search: {
-      show: from!='industry',
+      // show: from!='industry',
+      show: false,
       component: 'Select',
       componentProps: {
         readonly: others,
@@ -270,7 +270,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'score',
     label: t('stock.rate'),
-    table: { show: from!='industry' },
+    table: { show: from != 'industry' },
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
         ElTag,
@@ -306,7 +306,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'created_at',
     label: t('stock.create_at'),
-    table: { show: from!='industry' },
+    table: { show: from != 'industry' },
     form: {
       show: false
     }
@@ -439,7 +439,7 @@ const addAction = () => {
 
   tableObject.currentRow = {
     id: NaN,
-    name: '0',
+    name: '',
     cate33: '',
     code: '',
     user_id: myUserId,
@@ -449,7 +449,8 @@ const addAction = () => {
     remark: '',
     created_at: '',
     category_ids: [+cateId],
-    score: 0
+    score: 0,
+    size: ''
   }
   dialogVisible.value = true
 }

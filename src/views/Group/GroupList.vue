@@ -91,15 +91,18 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'name',
     label: t('group.name'),
     search: {
-      show: true
+      show: true,
+      componentProps: {
+        onChange: genCode
+      }
     },
     form: {
       colProps: {
         span: 24
-      },
-      componentProps: {
-        onChange: genCode
       }
+      // componentProps: {
+      //   onChange: genCode
+      // }
     },
     detail: {
       span: 12
@@ -252,6 +255,7 @@ const openDetail = (row: GroupData) => {
     name: 'stock_' + row.id,
     meta: {
       title: row.name,
+      icon: 'carbon:skill-level-advanced',
       breadcrumb: true
     }
   }

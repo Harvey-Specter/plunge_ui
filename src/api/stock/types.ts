@@ -11,6 +11,7 @@ export type StockData = {
   created_at: string
   category_ids: number[]
   score: number
+  size: string
 }
 
 // | id          | int unsigned | NO   | PRI | NULL    | auto_increment |

@@ -152,8 +152,11 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: cellValue==='0'?'info':'primary',
-          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue === '0' ? 'info' : 'primary',
+          href:
+            cellValue === '0'
+              ? '/#/industry/index'
+              : '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
         },
         () => cellValue
       )
@@ -174,8 +177,11 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: cellValue==='0'?'info':'primary',
-          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue === '0' ? 'info' : 'primary',
+          href:
+            cellValue === '0'
+              ? '/#/industry/index'
+              : '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=2'
         },
         () => cellValue
       )
@@ -195,8 +201,11 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: cellValue==='0'?'info':'primary',
-          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue === '0' ? 'info' : 'primary',
+          href:
+            cellValue === '0'
+              ? '/#/industry/index'
+              : '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=4'
         },
         () => cellValue
       )
@@ -217,8 +226,11 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: cellValue==='0'?'info':'primary',
-          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue === '0' ? 'info' : 'primary',
+          href:
+            cellValue === '0'
+              ? '/#/industry/index'
+              : '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=6'
         },
         () => cellValue
       )
@@ -239,8 +251,11 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: cellValue==='0'?'info':'primary',
-          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue === '0' ? 'info' : 'primary',
+          href:
+            cellValue === '0'
+              ? '/#/industry/index'
+              : '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=7'
         },
         () => cellValue
       )
@@ -261,8 +276,11 @@ const crudSchemas = reactive<CrudSchema[]>([
         ElLink,
         {
           underline: false,
-          type: cellValue==='0'?'info':'primary',
-          href: cellValue==='0'?'/#/industry/index':'/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=1'
+          type: cellValue === '0' ? 'info' : 'primary',
+          href:
+            cellValue === '0'
+              ? '/#/industry/index'
+              : '/#/industry/stock?&from=industry&indId=' + row.cate33_code + '&size=-'
         },
         () => cellValue
       )

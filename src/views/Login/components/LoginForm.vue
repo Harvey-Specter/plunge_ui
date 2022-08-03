@@ -200,7 +200,7 @@ const getRole = async () => {
           redirect: '',
           meta: {
             title: t('stock.industry_details'),
-            icon: 'carbon:skill-level-advanced'
+            icon: 'carbon:industry'
           }
         }
       ]
