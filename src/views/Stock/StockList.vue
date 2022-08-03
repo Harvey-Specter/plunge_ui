@@ -211,6 +211,10 @@ const crudSchemas = reactive<CrudSchema[]>([
           {
             label: t('stock.gap'),
             value: '4'
+          },
+          {
+            label: t('stock.others'),
+            value: '5'
           }
         ]
       }
@@ -226,8 +230,10 @@ const crudSchemas = reactive<CrudSchema[]>([
               : cellValue === '2'
               ? 'warning'
               : cellValue === '3'
-              ? ''
-              : 'danger'
+              ? 'danger'
+              : cellValue === '4'
+              ? 'info'
+              : ''
         },
         () =>
           cellValue === '1'
@@ -236,7 +242,9 @@ const crudSchemas = reactive<CrudSchema[]>([
             ? t('stock.getingChips')
             : cellValue === '3'
             ? t('stock.stars')
-            : t('stock.gap')
+            : cellValue === '4'
+            ? t('stock.gap')
+            : t('stock.others')
       )
     },
     form: {
@@ -262,6 +270,10 @@ const crudSchemas = reactive<CrudSchema[]>([
           {
             label: t('stock.gap'),
             value: '4'
+          },
+          {
+            label: t('stock.others'),
+            value: '5'
           }
         ]
       }
