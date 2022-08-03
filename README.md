@@ -1,8 +1,7 @@
-<div align="center"> <a href="https://github.com/kailong321200875/vue-element-plus-admin"> <img width="100" src="./public/logo.png"> </a> <br> <br>
+<div align="center"> <a href="https://github.com/Harvey-Specter/plunge_ui"> <img width="120" src="./logo_1024.png"> </a><br/><br/>
 
-[![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
-
-<h1>vue-element-plus-admin</h1>
+[![license](./mit_lic.svg)](LICENSE)
+<h1>Plunge UI</h1>
 </div>
 
 **English** | [中文](./README.zh-CN.md)
