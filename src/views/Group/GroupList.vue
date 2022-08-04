@@ -10,7 +10,7 @@ import {
   saveGroupApi,
   delGroupListApi,
   getStocksByCategoryId,
-  cloneData
+  cloneData,getGroupAll
 } from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
 import { GroupData } from '@/api/group/types'
@@ -39,6 +39,25 @@ const { register, tableObject, methods } = useTable<GroupData>({
 const appStore = useAppStoreWithOut()
 const { wsCache } = useCache()
 const userInfo = wsCache.get(appStore.getUserInfo)
+
+let allGroup=[]
+
+const allGroupList = async () => {
+  const res = await getGroupAll()
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+  console.log('allGroupList==res=====', res)
+  if (res) {
+    allGroup = res.data
+
+    if (groupSchema.length >= 2) {
+      groupSchema[0]!.componentProps!.options = allGroup
+    }
+  }
+}
+allGroupList()
 
 const userId = ref('')
 
@@ -84,29 +103,50 @@ const genCode = (val: string) => {
   // })
   //console.log('genCode--val==end ', val)
 }
+// let expressionStr=''
+const formRef = ref<FormExpose>()
+
+const getLabelFromVal=(val:number)=>{
+  for(let i=0 ;i< allGroup.length;i++){
+    console.log('grp===',allGroup[i],val)
+    if(allGroup[i].value==val){
+      return allGroup[i].label
+    }
+  }
+}
+
+const genExp=(val: string) => {
+  // console.log('genExp--val===', val)
+  let label= getLabelFromVal(val)
+  setValue(false,label)
+}
+
+const setValue = (reset: boolean,val:number|string|null) => {
+  const elFormRef = unref(formRef)?.getElFormRef()
+  if (reset) {
+    elFormRef?.resetFields()
+  } else {
+    unref(formRef)?.setValues({
+      expression: val,
+    })
+  }
+}
 
 const groupSchema = reactive<FormSchema[]>([
   {
     field: 'cate1',
     label: t('stock.theGroup') + '1',
     component: 'Select',
+    
     colProps: {
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       style: {
         width: '400px'
       },
-      options: [
-        {
-          label: 'option1',
-          value: '1'
-        },
-        {
-          label: 'option2',
-          value: '2'
-        }
-      ]
+      options: allGroup
     }
   },
   {
@@ -117,18 +157,19 @@ const groupSchema = reactive<FormSchema[]>([
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       options: [
         {
           label: t('stock.union'),
-          value: '1'
+          value: 1
         },
         {
           label: t('stock.intersect'),
-          value: '2'
+          value: 2
         },
         {
           label: t('stock.minus'),
-          value: '3'
+          value: 3
         }
       ]
     }
@@ -167,15 +208,15 @@ const groupSchema = reactive<FormSchema[]>([
       options: [
         {
           label: t('stock.union'),
-          value: '1'
+          value: 1
         },
         {
           label: t('stock.intersect'),
-          value: '2'
+          value: 2
         },
         {
           label: t('stock.minus'),
-          value: '3'
+          value: 3
         }
       ]
     }
@@ -214,15 +255,15 @@ const groupSchema = reactive<FormSchema[]>([
       options: [
         {
           label: t('stock.union'),
-          value: '1'
+          value: 1
         },
         {
           label: t('stock.intersect'),
-          value: '2'
+          value: 2
         },
         {
           label: t('stock.minus'),
-          value: '3'
+          value: 3
         }
       ]
     }
@@ -249,7 +290,28 @@ const groupSchema = reactive<FormSchema[]>([
         }
       ]
     }
-  }
+  },
+  {
+    field: 'expression',
+    label: t('stock.expression') ,
+    component: 'Input',
+    colProps: {
+      span: 24
+    },
+    componentProps: {
+      readonly: true,
+    }
+  },
+  {
+    field: 'newCate',
+    label: t('stock.newCate') ,
+    component: 'Input',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+    }
+  },
 ])
 //-----------------------
 const crudSchemas = reactive<CrudSchema[]>([
@@ -475,9 +537,6 @@ const save = async () => {
     }
   })
 }
-
-const formRef = ref<FormExpose>()
-
 const formSubmit = () => {
   unref(formRef)
     ?.getElFormRef()
@@ -549,7 +608,7 @@ const formSubmit = () => {
     </Table>
   </ContentWrap>
 
-  <Dialog v-model="dialogVisible2" :title="t('stock.setCalc')" :maxHeight="260">
+  <Dialog v-model="dialogVisible2" :title="t('stock.setCalc')" :maxHeight="320">
     <Form ref="formRef" :schema="groupSchema" />
     <template #footer>
       <ElButton type="primary" @click="formSubmit">{{ t('dialogDemo.submit') }}</ElButton>

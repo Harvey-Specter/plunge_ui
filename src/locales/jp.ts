@@ -133,7 +133,9 @@ export default {
     union: '連合',
     intersect: '交差',
     minus: '補体',
-    newGroup: '新着プレート'
+    newGroup: '新着プレート',
+    expression: '表現',
+    newCate:'新プレート'
   },
   group: {
     code: 'エイリアス',

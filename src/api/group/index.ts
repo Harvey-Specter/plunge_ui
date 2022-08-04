@@ -34,3 +34,8 @@ export const cloneData = async (data: Partial<GroupData> | number): Promise<IRes
   const res = await request.post({ url: '/categories/clone', data })
   return res && res.data
 }
+
+export const getGroupAll = async (): Promise<IResponse> => {
+  const res = await request.get({ url: '/categories/getAll' })
+  return res && res.data
+}

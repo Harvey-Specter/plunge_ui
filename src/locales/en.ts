@@ -465,7 +465,9 @@ export default {
     union: 'union',
     intersect: 'inter section',
     minus: 'minus',
-    newGroup: 'new group'
+    newGroup: 'new group',
+    expression: 'expression',
+    newCate:'new category'
   },
   group: {
     code: 'code',

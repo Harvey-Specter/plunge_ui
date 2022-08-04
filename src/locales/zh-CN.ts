@@ -459,7 +459,9 @@ export default {
     union: '并集',
     intersect: '交集',
     minus: '补给',
-    newGroup: '新建'
+    newGroup: '新建',
+    expression: '表达式',
+    newCate:'新プレート'
   },
   group: {
     code: '别名',
