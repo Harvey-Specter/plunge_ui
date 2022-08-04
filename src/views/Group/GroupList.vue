@@ -3,12 +3,19 @@ import { ContentWrap } from '@/components/ContentWrap'
 import { SearchButton } from '@/components/SearchButton'
 import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
-import { ElButton } from 'element-plus'
+import { ElButton, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
 import { Table } from '@/components/Table'
-import { getGroupListApi, saveGroupApi, delGroupListApi, getStocksByCategoryId } from '@/api/group'
+import {
+  getGroupListApi,
+  saveGroupApi,
+  delGroupListApi,
+  getStocksByCategoryId,
+  cloneData
+} from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
 import { GroupData } from '@/api/group/types'
 import { ref, unref, reactive } from 'vue'
+import { Form, FormExpose } from '@/components/Form'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
@@ -54,9 +61,11 @@ const { getList, setSearchParams } = methods
 const { push } = useRouter()
 const plus = useIcon({ icon: 'ant-design:plus-outlined' })
 // const chart = useIcon({ icon: 'icon-park-outline:stock-market' })
-const table = useIcon({ icon: 'carbon:table' })
+const table = useIcon({ icon: 'fluent:arrow-enter-20-filled' })
 const del = useIcon({ icon: 'ep:delete' })
-const edit = useIcon({ icon: 'bx:edit' })
+// const edit = useIcon({ icon: 'bx:edit' })
+// const clone = useIcon({ icon: 'akar-icons:copy' })
+const more = useIcon({ icon: 'ant-design:caret-down-filled' })
 
 // const store = usePermissionStore()
 // console.log('store===', store.getRouters.length, store.getRouters)
@@ -75,6 +84,174 @@ const genCode = (val: string) => {
   // })
   //console.log('genCode--val==end ', val)
 }
+
+const groupSchema = reactive<FormSchema[]>([
+  {
+    field: 'cate1',
+    label: t('stock.theGroup') + '1',
+    component: 'Select',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      style: {
+        width: '400px'
+      },
+      options: [
+        {
+          label: 'option1',
+          value: '1'
+        },
+        {
+          label: 'option2',
+          value: '2'
+        }
+      ]
+    }
+  },
+  {
+    field: 'clac1',
+    label: '',
+    component: 'RadioButton',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      options: [
+        {
+          label: t('stock.union'),
+          value: '1'
+        },
+        {
+          label: t('stock.intersect'),
+          value: '2'
+        },
+        {
+          label: t('stock.minus'),
+          value: '3'
+        }
+      ]
+    }
+  },
+  {
+    field: 'cate2',
+    label: t('stock.theGroup') + '2',
+    component: 'Select',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      style: {
+        width: '400px'
+      },
+      options: [
+        {
+          label: 'option1',
+          value: '1'
+        },
+        {
+          label: 'option2',
+          value: '2'
+        }
+      ]
+    }
+  },
+  {
+    field: 'clac2',
+    label: '',
+    component: 'RadioButton',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      options: [
+        {
+          label: t('stock.union'),
+          value: '1'
+        },
+        {
+          label: t('stock.intersect'),
+          value: '2'
+        },
+        {
+          label: t('stock.minus'),
+          value: '3'
+        }
+      ]
+    }
+  },
+  {
+    field: 'cate3',
+    label: t('stock.theGroup') + '3',
+    component: 'Select',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      style: {
+        width: '400px'
+      },
+      options: [
+        {
+          label: 'option1',
+          value: '1'
+        },
+        {
+          label: 'option2',
+          value: '2'
+        }
+      ]
+    }
+  },
+  {
+    field: 'clac3',
+    label: '',
+    component: 'RadioButton',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      options: [
+        {
+          label: t('stock.union'),
+          value: '1'
+        },
+        {
+          label: t('stock.intersect'),
+          value: '2'
+        },
+        {
+          label: t('stock.minus'),
+          value: '3'
+        }
+      ]
+    }
+  },
+  {
+    field: 'cate4',
+    label: t('stock.theGroup') + '4',
+    component: 'Select',
+    colProps: {
+      span: 12
+    },
+    componentProps: {
+      style: {
+        width: '400px'
+      },
+      options: [
+        {
+          label: 'option1',
+          value: '1'
+        },
+        {
+          label: 'option2',
+          value: '2'
+        }
+      ]
+    }
+  }
+])
+//-----------------------
 const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'index',
@@ -183,6 +360,8 @@ const dialogVisible = ref(false)
 
 const dialogTitle = ref('')
 
+const dialogVisible2 = ref(false)
+
 const delLoading = ref(false)
 
 const delData = async (row: GroupData | null, multiple: boolean) => {
@@ -214,7 +393,6 @@ const actionType = ref('')
 //const save = async () => {
 const action = async (row: GroupData, type: string) => {
   // console.log('action--type===', type, row)
-
   dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
   actionType.value = type
   tableObject.currentRow = row
@@ -233,6 +411,16 @@ const action = async (row: GroupData, type: string) => {
     tableObject.currentRow.stocks = stockCodes.join(',')
   }
   dialogVisible.value = true
+}
+
+const cloneGroup = async (row: GroupData) => {
+  tableObject.currentRow = row
+
+  delLoading.value = true
+  await cloneData(row).finally(() => {
+    delLoading.value = false
+    getList()
+  })
 }
 
 const addAction = (type: string) => {
@@ -287,6 +475,20 @@ const save = async () => {
     }
   })
 }
+
+const formRef = ref<FormExpose>()
+
+const formSubmit = () => {
+  unref(formRef)
+    ?.getElFormRef()
+    ?.validate((valid) => {
+      if (valid) {
+        console.log('submit success')
+      } else {
+        console.log('submit fail')
+      }
+    })
+}
 </script>
 
 <template>
@@ -294,14 +496,15 @@ const save = async () => {
     <div class="mb-10px float-left">
       <ElButton type="primary" :icon="plus" @click="addAction('edit')" />
       <ElButton :loading="delLoading" :icon="del" type="danger" @click="delData(null, true)" />
+      <ElButton type="warning" @click="dialogVisible2 = !dialogVisible2">{{
+        t('stock.setCalc')
+      }}</ElButton>
     </div>
-
     <SearchButton
       :schema="allSchemas.searchSchema"
       @search="setSearchParams"
       @reset="setSearchParams"
     />
-
     <Table
       v-model:pageSize="tableObject.pageSize"
       v-model:currentPage="tableObject.currentPage"
@@ -316,22 +519,43 @@ const save = async () => {
       <template #action="{ row }">
         <ElButton :icon="table" type="success" @click="openDetail(row)" />
 
-        <ElButton
+        <!-- ElButton
           :disabled="userId != row.user_id"
           type="primary"
           :icon="edit"
           @click="action(row, 'edit')"
         />
 
+        <ElButton :icon="clone" type="warning" @click="cloneGroup(row)" />
+
         <ElButton
           :disabled="userId != row.user_id"
           type="danger"
           :icon="del"
           @click="delData(row, false)"
-        />
+        / -->
+
+        <ElDropdown trigger="click">
+          <ElButton :icon="more" type="primary" />
+
+          <template #dropdown>
+            <ElDropdownMenu>
+              <ElDropdownItem @click="action(row, 'edit')"> edit </ElDropdownItem>
+              <ElDropdownItem @click="cloneGroup(row)"> clone </ElDropdownItem>
+            </ElDropdownMenu>
+          </template>
+        </ElDropdown>
       </template>
     </Table>
   </ContentWrap>
+
+  <Dialog v-model="dialogVisible2" :title="t('stock.setCalc')" :maxHeight="260">
+    <Form ref="formRef" :schema="groupSchema" />
+    <template #footer>
+      <ElButton type="primary" @click="formSubmit">{{ t('dialogDemo.submit') }}</ElButton>
+      <ElButton @click="dialogVisible2 = false">{{ t('dialogDemo.close') }}</ElButton>
+    </template>
+  </Dialog>
 
   <Dialog v-model="dialogVisible" :title="dialogTitle">
     <Write

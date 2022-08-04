@@ -67,6 +67,9 @@ const openGroupList = () => {
   <ElButton plain type="" @click="openGroupList" size="small" link>{{
     t('stock.groupList')
   }}</ElButton>
+  <!-- ElButton plain type="" @click="openIndustry" size="small" link>{{
+    t('stock.setCalc')
+  }}</ElButton -->
   <ElButton plain type="" @click="openIndustry" size="small" link>{{
     t('stock.industry_sector')
   }}</ElButton>

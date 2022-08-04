@@ -3,7 +3,7 @@ import { ContentWrap } from '@/components/ContentWrap'
 import { SearchButton } from '@/components/SearchButton'
 import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
-import { ElButton, ElTag } from 'element-plus'
+import { ElButton, ElTag, ElMessageBox } from 'element-plus'
 import { Table } from '@/components/Table'
 import {
   getStockListApi,
@@ -348,6 +348,36 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
+    field: 'newCateName',
+    label: t('stock.newGroup'),
+    table: {
+      show: false
+    },
+    form: {
+      show: true,
+      component: 'Input',
+      componentProps: {
+        //readonly: others,
+        // rows: 10
+      }
+    }
+  },
+  {
+    field: 'cateName',
+    label: t('stock.theGroup'),
+    table: {
+      show: delFlag == 1
+    },
+    form: {
+      show: false,
+      component: 'Input',
+      componentProps: {
+        //readonly: others,
+        // rows: 10
+      }
+    }
+  },
+  {
     field: 'remark',
     label: t('group.remark'),
     table: {
@@ -462,7 +492,8 @@ const addAction = () => {
     created_at: '',
     category_ids: [+cateId],
     score: 0,
-    size: ''
+    size: '',
+    cateName: ''
   }
   dialogVisible.value = true
 }
@@ -489,11 +520,17 @@ const delData = async (row: StockData | null, multiple: boolean, delFlag: number
   }
   delLoading.value = true
   if (delFlag == 1) {
-    await rmfStockListApi(
-      multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number] // ,multiple
-    ).finally(() => {
-      delLoading.value = false
-      getList()
+    ElMessageBox.confirm(t('common.delMessage'), t('common.delWarning'), {
+      confirmButtonText: t('common.delOk'),
+      cancelButtonText: t('common.delCancel'),
+      type: 'warning'
+    }).then(async () => {
+      await rmfStockListApi(
+        multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as number] // ,multiple
+      ).finally(() => {
+        delLoading.value = false
+        getList()
+      })
     })
   } else {
     await delList(

@@ -12,6 +12,7 @@ export type StockData = {
   category_ids: number[]
   score: number
   size: string
+  cateName: string
 }
 
 // | id          | int unsigned | NO   | PRI | NULL    | auto_increment |

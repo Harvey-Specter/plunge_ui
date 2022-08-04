@@ -29,3 +29,8 @@ export const delGroupListApi = async (ids: string[] | number[]): Promise<IRespon
   const res = await request.post({ url: '/categories/delCate', data: { ids: idsStr } })
   return res && res.data
 }
+
+export const cloneData = async (data: Partial<GroupData> | number): Promise<IResponse> => {
+  const res = await request.post({ url: '/categories/clone', data })
+  return res && res.data
+}

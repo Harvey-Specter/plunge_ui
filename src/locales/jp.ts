@@ -127,7 +127,13 @@ export default {
     industry: '業種',
     size: '規模',
     rate: 'スコア',
-    others: 'その他'
+    others: 'その他',
+    theGroup: 'プレート',
+    setCalc: '組み合わせ計算',
+    union: '連合',
+    intersect: '交差',
+    minus: '補体',
+    newGroup: '新着プレート'
   },
   group: {
     code: 'エイリアス',

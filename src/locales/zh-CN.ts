@@ -453,7 +453,13 @@ export default {
     industry: '行业',
     size: '规模',
     rate: '评分',
-    others: '其他'
+    others: '其他',
+    theGroup: '所在版块',
+    setCalc: '组合计算',
+    union: '并集',
+    intersect: '交集',
+    minus: '补给',
+    newGroup: '新建'
   },
   group: {
     code: '别名',

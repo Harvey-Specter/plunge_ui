@@ -459,7 +459,13 @@ export default {
     industry: 'industry',
     size: 'size',
     rate: 'rate',
-    others: 'others'
+    others: 'others',
+    theGroup: 'section',
+    setCalc: 'set calc',
+    union: 'union',
+    intersect: 'inter section',
+    minus: 'minus',
+    newGroup: 'new group'
   },
   group: {
     code: 'code',
