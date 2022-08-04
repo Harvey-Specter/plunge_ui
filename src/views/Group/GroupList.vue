@@ -115,7 +115,7 @@ const getLabelFromVal=(val:number)=>{
   }
 }
 
-const genExp=(val: string) => {
+const genExp=(val: number) => {
   // console.log('genExp--val===', val)
   let label= getLabelFromVal(val)
   setValue(false,label)
