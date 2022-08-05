@@ -9,6 +9,6 @@ export type GroupData = {
   stocks: string
 }
 export type Option = {
-  lable: string
-  value: string
+  label: string
+  value: number
 }

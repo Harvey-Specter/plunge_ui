@@ -135,7 +135,7 @@ export default {
     minus: '補体',
     newGroup: '新着プレート',
     expression: '表現',
-    newCate:'新プレート'
+    newCate: '新プレート'
   },
   group: {
     code: 'エイリアス',
@@ -143,7 +143,12 @@ export default {
     remark: '備考',
     create_time: '作成時間',
     stock_count: '在庫数',
-    stocks: '銘柄コード'
+    stocks: '銘柄コード',
+    edit: '編集',
+    clone: 'クローン',
+    analyze: '分析',
+    delete: '消去',
+    groupAnalyze: 'プレート分析'
   },
   router: {
     login: 'Login',

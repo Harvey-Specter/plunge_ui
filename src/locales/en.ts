@@ -467,7 +467,7 @@ export default {
     minus: 'minus',
     newGroup: 'new group',
     expression: 'expression',
-    newCate:'new category'
+    newCate: 'new category'
   },
   group: {
     code: 'code',
@@ -475,6 +475,11 @@ export default {
     remark: 'remark',
     create_time: 'create at',
     stock_count: 'stock count',
-    stocks: 'stock codes'
+    stocks: 'stock codes',
+    edit: 'edit',
+    clone: 'clone',
+    analyze: 'analyze',
+    delete: 'delete',
+    groupAnalyze: 'Analyze'
   }
 }

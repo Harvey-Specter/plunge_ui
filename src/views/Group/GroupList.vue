@@ -10,10 +10,11 @@ import {
   saveGroupApi,
   delGroupListApi,
   getStocksByCategoryId,
-  cloneData,getGroupAll
+  cloneData,
+  getGroupAll
 } from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
-import { GroupData } from '@/api/group/types'
+import { GroupData, Option } from '@/api/group/types'
 import { ref, unref, reactive } from 'vue'
 import { Form, FormExpose } from '@/components/Form'
 import Write from './components/Write.vue'
@@ -22,11 +23,54 @@ import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { useRouter, RouteRecordRaw } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
 import { getCurrentUser } from '@/api/login'
-
+import { pieOptions } from '@/views/Dashboard/echarts-data'
+import { Echart } from '@/components/Echart'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStoreWithOut } from '@/store/modules/app'
-
+// import { EChartsOption } from 'echarts'
 // import { usePermissionStore } from '@/store/modules/permission'
+
+const { t } = useI18n()
+
+//const pieOptions = reactive<EChartsOption>({
+
+// const pieOptions: EChartsOption = {
+//   title: {
+//     text: t('analysis.userAccessSource'),
+//     left: 'center'
+//   },
+//   tooltip: {
+//     trigger: 'item',
+//     formatter: '{a} <br/>{b} : {c} ({d}%)'
+//   },
+//   legend: {
+//     orient: 'vertical',
+//     left: 'left',
+//     data: [
+//       t('analysis.directAccess'),
+//       t('analysis.mailMarketing'),
+//       t('analysis.allianceAdvertising'),
+//       t('analysis.videoAdvertising'),
+//       t('analysis.searchEngines')
+//     ]
+//   },
+//   series: [
+//     {
+//       name: t('analysis.userAccessSource'),
+//       type: 'pie',
+//       radius: '55%',
+//       center: ['50%', '60%'],
+//       data: [
+//         { value: 335, name: t('analysis.directAccess') },
+//         { value: 310, name: t('analysis.mailMarketing') },
+//         { value: 234, name: t('analysis.allianceAdvertising') },
+//         { value: 135, name: t('analysis.videoAdvertising') },
+//         { value: 1548, name: t('analysis.searchEngines') }
+//       ]
+//     }
+//   ]
+// }
+// )
 
 const { register, tableObject, methods } = useTable<GroupData>({
   getListApi: getGroupListApi,
@@ -40,7 +84,7 @@ const appStore = useAppStoreWithOut()
 const { wsCache } = useCache()
 const userInfo = wsCache.get(appStore.getUserInfo)
 
-let allGroup=[]
+let allGroup: Option[] = []
 
 const allGroupList = async () => {
   const res = await getGroupAll()
@@ -91,8 +135,6 @@ const more = useIcon({ icon: 'ant-design:caret-down-filled' })
 let router = useRouter()
 getList()
 
-const { t } = useI18n()
-
 const writeRef = ref<ComponentRef<typeof Write>>()
 // const write = unref(writeRef)
 
@@ -106,28 +148,28 @@ const genCode = (val: string) => {
 // let expressionStr=''
 const formRef = ref<FormExpose>()
 
-const getLabelFromVal=(val:number)=>{
-  for(let i=0 ;i< allGroup.length;i++){
-    console.log('grp===',allGroup[i],val)
-    if(allGroup[i].value==val){
+const getLabelFromVal = (val: number) => {
+  for (let i = 0; i < allGroup.length; i++) {
+    console.log('grp===', allGroup[i], val)
+    if (allGroup[i].value == val) {
       return allGroup[i].label
     }
   }
 }
 
-const genExp=(val: number) => {
+const genExp = (val: number) => {
   // console.log('genExp--val===', val)
-  let label= getLabelFromVal(val)
-  setValue(false,label)
+  let label = getLabelFromVal(val)
+  setValue(false, label)
 }
 
-const setValue = (reset: boolean,val:number|string|null) => {
+const setValue = (reset: boolean, val: number | string | null | undefined) => {
   const elFormRef = unref(formRef)?.getElFormRef()
   if (reset) {
     elFormRef?.resetFields()
   } else {
     unref(formRef)?.setValues({
-      expression: val,
+      expression: val
     })
   }
 }
@@ -137,7 +179,7 @@ const groupSchema = reactive<FormSchema[]>([
     field: 'cate1',
     label: t('stock.theGroup') + '1',
     component: 'Select',
-    
+
     colProps: {
       span: 12
     },
@@ -293,25 +335,24 @@ const groupSchema = reactive<FormSchema[]>([
   },
   {
     field: 'expression',
-    label: t('stock.expression') ,
+    label: t('stock.expression'),
     component: 'Input',
     colProps: {
       span: 24
     },
     componentProps: {
-      readonly: true,
+      readonly: true
     }
   },
   {
     field: 'newCate',
-    label: t('stock.newCate') ,
+    label: t('stock.newCate'),
     component: 'Input',
     colProps: {
       span: 12
     },
-    componentProps: {
-    }
-  },
+    componentProps: {}
+  }
 ])
 //-----------------------
 const crudSchemas = reactive<CrudSchema[]>([
@@ -420,6 +461,8 @@ const { allSchemas } = useCrudSchemas(crudSchemas)
 
 const dialogVisible = ref(false)
 
+const chartVisible = ref(false)
+
 const dialogTitle = ref('')
 
 const dialogVisible2 = ref(false)
@@ -437,6 +480,20 @@ const delData = async (row: GroupData | null, multiple: boolean) => {
   ).finally(() => {
     delLoading.value = false
   })
+}
+
+const analyze = async (row: GroupData | null) => {
+  chartVisible.value = true
+  tableObject.currentRow = row
+  // const { delList, getSelections } = methods
+  // const selections = await getSelections()
+  // delLoading.value = true
+  // await delList(
+  //   multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as string],
+  //   multiple
+  // ).finally(() => {
+  //   delLoading.value = false
+  // })
 }
 
 // getList: async () => {
@@ -599,8 +656,12 @@ const formSubmit = () => {
 
           <template #dropdown>
             <ElDropdownMenu>
-              <ElDropdownItem @click="action(row, 'edit')"> edit </ElDropdownItem>
-              <ElDropdownItem @click="cloneGroup(row)"> clone </ElDropdownItem>
+              <ElDropdownItem @click="action(row, 'edit')"> {{ t('group.edit') }} </ElDropdownItem>
+              <ElDropdownItem @click="cloneGroup(row)"> {{ t('group.clone') }} </ElDropdownItem>
+              <ElDropdownItem @click="analyze(row)"> {{ t('group.analyze') }} </ElDropdownItem>
+              <ElDropdownItem @click="delData(row, false)">
+                {{ t('group.delete') }}
+              </ElDropdownItem>
             </ElDropdownMenu>
           </template>
         </ElDropdown>
@@ -613,6 +674,14 @@ const formSubmit = () => {
     <template #footer>
       <ElButton type="primary" @click="formSubmit">{{ t('dialogDemo.submit') }}</ElButton>
       <ElButton @click="dialogVisible2 = false">{{ t('dialogDemo.close') }}</ElButton>
+    </template>
+  </Dialog>
+
+  <Dialog v-model="chartVisible" :title="t('group.groupAnalyze')" :maxHeight="420">
+    <Echart :options="pieOptions" :height="300" />
+
+    <template #footer>
+      <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
     </template>
   </Dialog>
 

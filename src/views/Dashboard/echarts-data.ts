@@ -82,17 +82,17 @@ export const pieOptions: EChartsOption = {
     trigger: 'item',
     formatter: '{a} <br/>{b} : {c} ({d}%)'
   },
-  legend: {
-    orient: 'vertical',
-    left: 'left',
-    data: [
-      t('analysis.directAccess'),
-      t('analysis.mailMarketing'),
-      t('analysis.allianceAdvertising'),
-      t('analysis.videoAdvertising'),
-      t('analysis.searchEngines')
-    ]
-  },
+  // legend: {
+  //   orient: 'vertical',
+  //   left: 'left',
+  //   data: [
+  //     t('analysis.directAccess'),
+  //     t('analysis.mailMarketing'),
+  //     t('analysis.allianceAdvertising'),
+  //     t('analysis.videoAdvertising'),
+  //     t('analysis.searchEngines')
+  //   ]
+  // },
   series: [
     {
       name: t('analysis.userAccessSource'),
