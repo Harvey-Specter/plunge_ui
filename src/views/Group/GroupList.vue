@@ -11,11 +11,12 @@ import {
   delGroupListApi,
   getStocksByCategoryId,
   cloneData,
-  getGroupAll
+  getGroupAll,
+  getAnalyzeApi
 } from '@/api/group'
 import { useTable } from '@/hooks/web/useTable'
 import { GroupData, Option } from '@/api/group/types'
-import { ref, unref, reactive } from 'vue'
+import { ref, unref, reactive,nextTick } from 'vue'
 import { Form, FormExpose } from '@/components/Form'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
@@ -27,12 +28,12 @@ import { pieOptions } from '@/views/Dashboard/echarts-data'
 import { Echart } from '@/components/Echart'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStoreWithOut } from '@/store/modules/app'
-// import { EChartsOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 // import { usePermissionStore } from '@/store/modules/permission'
 
 const { t } = useI18n()
 
-//const pieOptions = reactive<EChartsOption>({
+// const pieOptions = reactive<EChartsOption>({
 
 // const pieOptions: EChartsOption = {
 //   title: {
@@ -71,6 +72,8 @@ const { t } = useI18n()
 //   ]
 // }
 // )
+
+const pieOptionsInd= reactive<EChartsOption>(pieOptions)
 
 const { register, tableObject, methods } = useTable<GroupData>({
   getListApi: getGroupListApi,
@@ -483,17 +486,25 @@ const delData = async (row: GroupData | null, multiple: boolean) => {
 }
 
 const analyze = async (row: GroupData | null) => {
-  chartVisible.value = true
+  
   tableObject.currentRow = row
-  // const { delList, getSelections } = methods
-  // const selections = await getSelections()
-  // delLoading.value = true
-  // await delList(
-  //   multiple ? selections.map((v) => v.id) : [tableObject.currentRow?.id as string],
-  //   multiple
-  // ).finally(() => {
-  //   delLoading.value = false
-  // })
+  chartVisible.value = true
+ const res = await getAnalyzeApi(row?.id)
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+
+  console.log(res)
+  if(res){
+    
+    nextTick(()=>{
+      
+      pieOptionsInd!.series![0]!.data=res.data.ind
+      console.log('pieOptionsInd,',pieOptionsInd)  
+      
+    })
+  }
 }
 
 // getList: async () => {
@@ -678,7 +689,7 @@ const formSubmit = () => {
   </Dialog>
 
   <Dialog v-model="chartVisible" :title="t('group.groupAnalyze')" :maxHeight="420">
-    <Echart :options="pieOptions" :height="300" />
+    <Echart :options="pieOptionsInd" :height="300" />
 
     <template #footer>
       <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
