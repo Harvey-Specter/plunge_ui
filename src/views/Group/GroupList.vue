@@ -25,55 +25,43 @@ import { useRouter, RouteRecordRaw } from 'vue-router'
 import { useIcon } from '@/hooks/web/useIcon'
 import { getCurrentUser } from '@/api/login'
 import { pieOptions } from '@/views/Dashboard/echarts-data'
-import { Echart } from '@/components/Echart'
+// import { Echart } from '@/components/Echart'
 import { useCache } from '@/hooks/web/useCache'
 import { useAppStoreWithOut } from '@/store/modules/app'
 import { EChartsOption } from 'echarts'
+import Analyze from './components/Analyze.vue'
 // import { usePermissionStore } from '@/store/modules/permission'
-
 const { t } = useI18n()
 
-// const pieOptions = reactive<EChartsOption>({
-
-// const pieOptions: EChartsOption = {
-//   title: {
-//     text: t('analysis.userAccessSource'),
-//     left: 'center'
-//   },
-//   tooltip: {
-//     trigger: 'item',
-//     formatter: '{a} <br/>{b} : {c} ({d}%)'
-//   },
-//   legend: {
-//     orient: 'vertical',
-//     left: 'left',
-//     data: [
-//       t('analysis.directAccess'),
-//       t('analysis.mailMarketing'),
-//       t('analysis.allianceAdvertising'),
-//       t('analysis.videoAdvertising'),
-//       t('analysis.searchEngines')
-//     ]
-//   },
-//   series: [
-//     {
-//       name: t('analysis.userAccessSource'),
-//       type: 'pie',
-//       radius: '55%',
-//       center: ['50%', '60%'],
-//       data: [
-//         { value: 335, name: t('analysis.directAccess') },
-//         { value: 310, name: t('analysis.mailMarketing') },
-//         { value: 234, name: t('analysis.allianceAdvertising') },
-//         { value: 135, name: t('analysis.videoAdvertising') },
-//         { value: 1548, name: t('analysis.searchEngines') }
-//       ]
-//     }
-//   ]
-// }
-// )
-
 const pieOptionsInd= reactive<EChartsOption>(pieOptions)
+// Industrial_Distribution: 'industrial distribution',
+//     Size_Distribution: 'size distribution'
+const pieOptionsSize= reactive<EChartsOption>({
+  title: {
+    text: t('group.Size_Distribution'),
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b} : {c} ({d}%)'
+  },
+  series: [
+    {
+      name: t('analysis.userAccessSource'),
+      type: 'pie',
+      radius: '55%',
+      center: ['50%', '60%'],
+      data: [
+        { value: 335, name: t('analysis.directAccess') },
+        { value: 310, name: t('analysis.mailMarketing') },
+        { value: 234, name: t('analysis.allianceAdvertising') },
+        { value: 135, name: t('analysis.videoAdvertising') },
+        { value: 1548, name: t('analysis.searchEngines') }
+      ]
+    }
+  ]
+})
+
 
 const { register, tableObject, methods } = useTable<GroupData>({
   getListApi: getGroupListApi,
@@ -499,10 +487,9 @@ const analyze = async (row: GroupData | null) => {
   if(res){
     
     nextTick(()=>{
-      
       pieOptionsInd!.series![0]!.data=res.data.ind
+      pieOptionsSize!.series![0]!.data=res.data.size
       console.log('pieOptionsInd,',pieOptionsInd)  
-      
     })
   }
 }
@@ -523,9 +510,11 @@ const actionType = ref('')
 //const save = async () => {
 const action = async (row: GroupData, type: string) => {
   // console.log('action--type===', type, row)
-  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
+  dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'group.analyze')
   actionType.value = type
   tableObject.currentRow = row
+
+if(type === 'edit'){
   const res = await getStocksByCategoryId({ id: row.id })
     .catch(() => {})
     .finally(() => {
@@ -539,8 +528,34 @@ const action = async (row: GroupData, type: string) => {
       stockCodes.push(item.code as never)
     }
     tableObject.currentRow.stocks = stockCodes.join(',')
+    dialogVisible.value = true
   }
+}else if(type === 'analyze'){
+
   dialogVisible.value = true
+
+  const res = await getAnalyzeApi(row?.id)
+    .catch(() => {})
+    .finally(() => {
+      loading.value = false
+    })
+
+  console.log(res)
+  if(res){
+    
+    nextTick(()=>{
+      
+      pieOptionsInd!.series![0]!.data=res.data.ind
+      pieOptionsSize!.series![0]!.data=res.data.size
+
+      console.log('pieOptionsInd,',pieOptionsInd)  
+      
+      
+    })
+  }
+}
+  
+  
 }
 
 const cloneGroup = async (row: GroupData) => {
@@ -669,7 +684,7 @@ const formSubmit = () => {
             <ElDropdownMenu>
               <ElDropdownItem @click="action(row, 'edit')"> {{ t('group.edit') }} </ElDropdownItem>
               <ElDropdownItem @click="cloneGroup(row)"> {{ t('group.clone') }} </ElDropdownItem>
-              <ElDropdownItem @click="analyze(row)"> {{ t('group.analyze') }} </ElDropdownItem>
+              <ElDropdownItem @click="action(row,'analyze')"> {{ t('group.analyze') }} </ElDropdownItem>
               <ElDropdownItem @click="delData(row, false)">
                 {{ t('group.delete') }}
               </ElDropdownItem>
@@ -688,15 +703,8 @@ const formSubmit = () => {
     </template>
   </Dialog>
 
-  <Dialog v-model="chartVisible" :title="t('group.groupAnalyze')" :maxHeight="420">
-    <Echart :options="pieOptionsInd" :height="300" />
+  <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
 
-    <template #footer>
-      <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
-    </template>
-  </Dialog>
-
-  <Dialog v-model="dialogVisible" :title="dialogTitle">
     <Write
       v-if="actionType === 'edit'"
       ref="writeRef"
@@ -708,6 +716,10 @@ const formSubmit = () => {
       v-if="actionType === 'detail'"
       :detail-schema="allSchemas.detailSchema"
       :current-row="tableObject.currentRow"
+    />
+
+    <Analyze
+      v-if="actionType === 'analyze'" :pieOptionsInd="pieOptionsInd" :pieOptionsSize="pieOptionsSize"
     />
 
     <template #footer>

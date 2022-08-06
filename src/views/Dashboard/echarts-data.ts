@@ -75,7 +75,7 @@ export const lineOptions: EChartsOption = {
 
 export const pieOptions: EChartsOption = {
   title: {
-    text: t('analysis.userAccessSource'),
+    text: t('group.Industrial_Distribution'),    
     left: 'center'
   },
   tooltip: {

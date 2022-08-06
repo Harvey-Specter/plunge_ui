@@ -148,7 +148,9 @@ export default {
     clone: 'クローン',
     analyze: '分析',
     delete: '消去',
-    groupAnalyze: 'プレート分析'
+    groupAnalyze: 'プレート分析',
+    Industrial_Distribution: '産業分布',
+    Size_Distribution: '規模分布'
   },
   router: {
     login: 'Login',

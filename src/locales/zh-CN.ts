@@ -461,7 +461,7 @@ export default {
     minus: '补给',
     newGroup: '新建',
     expression: '表达式',
-    newCate: '新プレート'
+    newCate: '新プレート',
   },
   group: {
     code: '别名',
@@ -474,6 +474,8 @@ export default {
     clone: '克隆',
     analyze: '分析',
     delete: '删除',
-    groupAnalyze: '板块分析'
+    groupAnalyze: '板块分析',
+    Industrial_Distribution: '行业分布',
+    Size_Distribution: '规模分布'
   }
 }

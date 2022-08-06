@@ -480,6 +480,8 @@ export default {
     clone: 'clone',
     analyze: 'analyze',
     delete: 'delete',
-    groupAnalyze: 'Analyze'
+    groupAnalyze: 'Analyze',
+    Industrial_Distribution: 'industrial distribution',
+    Size_Distribution: 'size distribution'
   }
 }
