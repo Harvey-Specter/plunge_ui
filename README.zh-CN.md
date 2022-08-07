@@ -24,15 +24,15 @@ Plunge_UI是Plunge项目的前端工程 ,目前只支持了日本股市的行情
 ## 预览
 
 <div align="center">
-   <img src="img/Snip20220807_9.png"  height=190>
-   <img src="img/Snip20220807_1.png" height=190>
-<img src="img/Snip20220807_2.png" height=190>
-<img src="img/Snip20220807_3.png" height=190>
-<img src="img/Snip20220807_4.png" height=190>
-<img src="img/Snip20220807_5.png" height=190>
-<img src="img/Snip20220807_6.png" height=190>
-<img src="img/Snip20220807_7.png" height=190>
-<img src="img/Snip20220807_8.png" height=190>
+   <img src="img/Snip20220807_9.png"  height=320>
+   <img src="img/Snip20220807_1.png" height=320>
+<img src="img/Snip20220807_2.png" height=320>
+<img src="img/Snip20220807_3.png" height=320>
+<img src="img/Snip20220807_4.png" height=320>
+<img src="img/Snip20220807_5.png" height=320>
+<img src="img/Snip20220807_6.png" height=320>
+<img src="img/Snip20220807_7.png" height=320>
+<img src="img/Snip20220807_8.png" height=320>
 </div>
 
 - [plunge](https://element-plus-admin.cn/) -  完整版站点
