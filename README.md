@@ -20,7 +20,7 @@ Plunge_UIはPlungeプロジェクトの先端工程であり、現在は日本�
 
 
 ## 関連プロジェクト
-[Plunge](https://github.com/Harvey-Specter/plunge) :  データ収集と処理   
+[Plunge](https://github.com/Harvey-Specter/plunge) :  データ収集と処理,plunge_Apiにデータを提供する
 [Plunge_API](https://github.com/Harvey-Specter/plunge_api) : フロントエンドにRestAPIサービスを提供
 
 ## プレビュー
