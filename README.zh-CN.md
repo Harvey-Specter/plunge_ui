@@ -25,7 +25,9 @@ Plunge_UI是Plunge项目的前端工程 ,目前只支持了日本股市的行情
 [Plunge_API](https://github.com/Harvey-Specter/plunge_api) : 为前端提供RestAPI服务
 ## 预览
 
+
 <div align="center">
+<figure>
    <img src="img/Snip20220807_9.png"  height=300>
    <img src="img/Snip20220807_1.png" height=300>
 <img src="img/Snip20220807_2.png" height=300>
@@ -34,7 +36,9 @@ Plunge_UI是Plunge项目的前端工程 ,目前只支持了日本股市的行情
 <img src="img/Snip20220807_5.png" height=300>
 <img src="img/Snip20220807_6.png" height=300>
 <img src="img/Snip20220807_8.png" height=300>
+</figure>
 </div>
+
 
 - [plunge](#) -  完整版站点
 
