@@ -229,4 +229,5 @@ Support modern browsers, not IE
         </a>
     </td></tr>
 </table>
+[![GitHub stats](https://github-readme-stats.vercel.app/api?username=Harvey-Specter&show_icons=true&theme=gruvbox)]
 <!-- readme: contributors -end -->
