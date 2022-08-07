@@ -44,7 +44,7 @@ const openTrash = () => {
     component: () => import('@/views/Stock/StockList.vue'),
     name: 'StockListDel',
     meta: {
-      title: '回收站',
+      title: t('stock.trash'),
       breadcrumb: true
     }
   }

@@ -119,7 +119,7 @@ export default {
     getingChips: 'チップの蓄積',
     stars: '連続星',
     gap: 'ギャップサポート',
-    save_as_block: 'ボードに保存',
+    save_as_block: 'プレートに保存',
     industry_sector: '産業部門',
     industry_details: '業界の詳細',
     trash: 'ごみ箱',
@@ -133,9 +133,12 @@ export default {
     union: '連合',
     intersect: '交差',
     minus: '補体',
-    newGroup: '新着プレート',
+    newGroup: '新プレートに保存',
     expression: '表現',
-    newCate: '新プレート'
+    newCate: '新プレート',
+    msgGroupNull: '保存するプレートを選択してください',
+    save: '保存',
+    cancel: 'キャンセル',
   },
   group: {
     code: 'エイリアス',

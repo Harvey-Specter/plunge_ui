@@ -13,6 +13,7 @@ export type StockData = {
   score: number
   size: string
   cateName: string
+  newCateName: string
 }
 
 // | id          | int unsigned | NO   | PRI | NULL    | auto_increment |

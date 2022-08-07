@@ -467,7 +467,11 @@ export default {
     minus: 'minus',
     newGroup: 'new group',
     expression: 'expression',
-    newCate: 'new category'
+    newCate: 'new category',
+    msgGroupNull: 'Please select a section to save in',
+    save: 'save',
+    cancel: 'cancel',
+    
   },
   group: {
     code: 'code',

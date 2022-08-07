@@ -141,7 +141,7 @@ const formRef = ref<FormExpose>()
 
 const getLabelFromVal = (val: number) => {
   for (let i = 0; i < allGroup.length; i++) {
-    console.log('grp===', allGroup[i], val)
+    //console.log('grp===', allGroup[i], val)
     if (allGroup[i].value == val) {
       return allGroup[i].label
     }
@@ -149,12 +149,12 @@ const getLabelFromVal = (val: number) => {
 }
 
 const genExp = (val: number) => {
-  // console.log('genExp--val===', val)
+  console.log('genExp--val===', tableObject.currentRow)
   let label = getLabelFromVal(val)
-  setValue(false, label)
+  setExpValue(false, label)
 }
 
-const setValue = (reset: boolean, val: number | string | null | undefined) => {
+const setExpValue = (reset: boolean, val: number | string | null | undefined) => {
   const elFormRef = unref(formRef)?.getElFormRef()
   if (reset) {
     elFormRef?.resetFields()
@@ -183,7 +183,7 @@ const groupSchema = reactive<FormSchema[]>([
     }
   },
   {
-    field: 'clac1',
+    field: 'calc1',
     label: '',
     component: 'RadioButton',
     colProps: {
@@ -215,6 +215,7 @@ const groupSchema = reactive<FormSchema[]>([
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       style: {
         width: '400px'
       },
@@ -231,13 +232,14 @@ const groupSchema = reactive<FormSchema[]>([
     }
   },
   {
-    field: 'clac2',
+    field: 'calc2',
     label: '',
     component: 'RadioButton',
     colProps: {
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       options: [
         {
           label: t('stock.union'),
@@ -262,6 +264,7 @@ const groupSchema = reactive<FormSchema[]>([
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       style: {
         width: '400px'
       },
@@ -278,13 +281,14 @@ const groupSchema = reactive<FormSchema[]>([
     }
   },
   {
-    field: 'clac3',
+    field: 'calc3',
     label: '',
     component: 'RadioButton',
     colProps: {
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       options: [
         {
           label: t('stock.union'),
@@ -309,6 +313,7 @@ const groupSchema = reactive<FormSchema[]>([
       span: 12
     },
     componentProps: {
+      onChange: genExp,
       style: {
         width: '400px'
       },
@@ -332,6 +337,7 @@ const groupSchema = reactive<FormSchema[]>([
       span: 24
     },
     componentProps: {
+      // onChange: genExp,
       readonly: true
     }
   },
@@ -638,9 +644,9 @@ const formSubmit = () => {
     <div class="mb-10px float-left">
       <ElButton type="primary" :icon="plus" @click="addAction('edit')" />
       <ElButton :loading="delLoading" :icon="del" type="danger" @click="delData(null, true)" />
-      <ElButton type="warning" @click="dialogVisible2 = !dialogVisible2">{{
+      <!-- ElButton type="warning" @click="dialogVisible2 = !dialogVisible2">{{
         t('stock.setCalc')
-      }}</ElButton>
+      }}</ElButton -->
     </div>
     <SearchButton
       :schema="allSchemas.searchSchema"
@@ -724,9 +730,9 @@ const formSubmit = () => {
 
     <template #footer>
       <ElButton v-if="actionType !== 'detail'" type="primary" :loading="loading" @click="save">
-        {{ t('exampleDemo.save') }}
+        {{ t('stock.save') }}
       </ElButton>
-      <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
+      <ElButton @click="dialogVisible = false">{{ t('stock.cancel') }}</ElButton>
     </template>
   </Dialog>
 </template>

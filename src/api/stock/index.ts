@@ -11,7 +11,8 @@ export const getStockListApi = async (params: any): Promise<IResponse> => {
 }
 
 export const saveStockApi = async (data: Partial<StockData>): Promise<IResponse> => {
-  const res = await request.post({ url: '/categories/' + data.category_id + '/stocks', data })
+  // const res = await request.post({ url: '/categories/' + data.category_id + '/stocks', data })
+  const res = await request.post({ url: '/stocks/saveStock', data })
   return res && res.data
 }
 

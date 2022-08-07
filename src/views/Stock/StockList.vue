@@ -3,7 +3,7 @@ import { ContentWrap } from '@/components/ContentWrap'
 import { SearchButton } from '@/components/SearchButton'
 import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
-import { ElButton, ElTag, ElMessageBox } from 'element-plus'
+import { ElButton, ElTag, ElMessageBox,ElMessage } from 'element-plus'
 import { Table } from '@/components/Table'
 import {
   getStockListApi,
@@ -118,6 +118,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'code',
     label: t('stock.code'),
+    type: 'count',
     search: {
       show: true
     },
@@ -194,7 +195,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: false,
       component: 'Select',
       componentProps: {
-        readonly: others,
+        readonly: false,
         options: [
           {
             label: t('stock.headShoulder'),
@@ -253,7 +254,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       },
       component: 'Select',
       componentProps: {
-        disabled: myUserId != userId,
+        disabled: false , // myUserId != userId,
         options: [
           {
             label: t('stock.headShoulder'),
@@ -281,6 +282,7 @@ const crudSchemas = reactive<CrudSchema[]>([
   },
   {
     field: 'score',
+    type: 'count',
     label: t('stock.rate'),
     table: { show: from != 'industry' },
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
@@ -299,7 +301,6 @@ const crudSchemas = reactive<CrudSchema[]>([
               : cellValue === 4
               ? ''
               : 'success',
-
           effect: cellValue ? 'dark' : 'light',
           round: true
         },
@@ -431,8 +432,8 @@ const getCates = async () => {
     }
   }
 }
-getCates()
 
+getCates()
 const myCatesOfcode = ref([])
 
 const getCatesByCode = async (userId: string, code: string) => {
@@ -462,11 +463,13 @@ const action = async (row: StockData, type: string) => {
     await recData(row, false)
     getList()
   } else {
+    getCates()
     dialogTitle.value = t(type === 'edit' ? 'exampleDemo.edit' : 'exampleDemo.detail')
     actionType.value = type
     if (crudSchemas.length >= 1) {
       crudSchemas[0]!.form!.componentProps!.readonly = true
     }
+    
     tableObject.currentRow = row
     getCatesByCode(myUserId, row.code)
     dialogVisible.value = true
@@ -493,7 +496,8 @@ const addAction = () => {
     category_ids: [+cateId],
     score: 0,
     size: '',
-    cateName: ''
+    cateName: '',
+    newCateName: '',
   }
   dialogVisible.value = true
 }
@@ -574,8 +578,14 @@ const save = async () => {
       // loading.value = true
       const data = (await write?.getFormData()) as StockData
       data.user_id = myUserId
-      console.log('stockSave====', data)
-      // return false
+      if( data.category_ids.length==0 ){
+        ElMessage.warning(t('stock.msgGroupNull'))
+        return false;
+      }
+      if( !data.category_id ){
+        data.category_id=-1
+      }
+      console.log('stockSave====', data) ; //return false ;
       const res = await saveStockApi(data)
         .catch(() => {})
         .finally(() => {
@@ -660,9 +670,9 @@ const save = async () => {
 
     <template #footer>
       <ElButton v-if="actionType !== 'detail'" type="primary" :loading="loading" @click="save">
-        {{ t('exampleDemo.save') }}
+        {{ t('stock.save') }}
       </ElButton>
-      <ElButton @click="dialogVisible = false">{{ t('dialogDemo.close') }}</ElButton>
+      <ElButton @click="dialogVisible = false">{{ t('stock.cancel') }}</ElButton>
     </template>
   </Dialog>
 </template>

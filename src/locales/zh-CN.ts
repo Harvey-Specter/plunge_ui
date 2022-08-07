@@ -461,7 +461,10 @@ export default {
     minus: '补给',
     newGroup: '新建',
     expression: '表达式',
-    newCate: '新プレート',
+    newCate: '新建板块',
+    msgGroupNull: '请选择要保存的板块',
+    save: '保存',
+    cancel: '取消',
   },
   group: {
     code: '别名',
