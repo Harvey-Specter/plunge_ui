@@ -20,7 +20,9 @@ Plunge_UI是Plunge项目的前端工程 ,目前只支持了日本股市的行情
 - **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
 - **TypeScript**: 应用程序级 JavaScript 的语言
 
-
+## 相关工程
+[Plunge](https://github.com/Harvey-Specter/plunge) :  数据采集和处理   
+[Plunge_API](https://github.com/Harvey-Specter/plunge_api) : 为前端提供RestAPI服务
 ## 预览
 
 <div align="center">
