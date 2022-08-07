@@ -1,5 +1,3 @@
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Harvey-Specter&show_icons=true&theme=gruvbox)](https://github.com/anuraghazra/github-readme-stats)
-
 <div align="center"> <a href="https://github.com/Harvey-Specter/plunge_ui"> <img width="120" src="./logo_1024.png"> </a><br/><br/>
 
 [![license](./mit_lic.svg)](LICENSE)
@@ -231,4 +229,5 @@ Support modern browsers, not IE
         </a>
     </td></tr>
 </table>
+[![GitHub stats](https://github-readme-stats.vercel.app/api?username=Harvey-Specter&show_icons=true&theme=gruvbox)]
 <!-- readme: contributors -end -->
