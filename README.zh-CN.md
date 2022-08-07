@@ -5,11 +5,11 @@
 <h1>Plunge_UI</h1>
 </div>
 
-[English](./README.md) | **中文**
+[日文](./README.md) | **中文**
 
 ## 介绍
 
-Plunge_UI是Plunge项目的前端工程 ,目前只支持了日本股市的行情分析功能,基于 [element-plus-admin](https://element-plus-admin.cn/) 开发
+Plunge_UI是Plunge项目的前端工程 ,目前只支持日本的股票市场,基于 [element-plus-admin](https://element-plus-admin.cn/) 开发
 
 ## 特性
 
@@ -40,7 +40,7 @@ Plunge_UI是Plunge项目的前端工程 ,目前只支持了日本股市的行情
 </div>
 
 
-- [plunge](#) -  完整版站点
+- [plunge](#) -  完整版站点(建设中)
 
 帐号：**test/test test/test**
 
