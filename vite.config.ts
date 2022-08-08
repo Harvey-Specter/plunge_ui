@@ -127,7 +127,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         }
       },
       hmr: {
-        overlay: false
+        // overlay: false
+        protocol: 'ws',
+        host: '127.0.0.1'
       },
       host: '0.0.0.0'
     },

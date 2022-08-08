@@ -218,8 +218,10 @@ const getRole = async () => {
   permissionStore.getAddRouters.forEach((route) => {
     addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
   })
-
+  console.log('permissionStore.getAddRouters=====2222===');
   permissionStore.setIsAddRouters(true)
+  console.log('permissionStore.getAddRouters=====33333===');
+
   push({ path: redirect.value || permissionStore.addRouters[0].path })
 
   // 下面是原来的代码

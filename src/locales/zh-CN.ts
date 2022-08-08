@@ -465,6 +465,9 @@ export default {
     msgGroupNull: '请选择要保存的板块',
     save: '保存',
     cancel: '取消',
+    intr: '取消',
+    prodDoc: '项目简介',
+    creator: '创建人'
   },
   group: {
     code: '别名',

@@ -415,6 +415,13 @@ const crudSchemas = reactive<CrudSchema[]>([
     }
   },
   {
+    field: 'user_name',
+    label: t('stock.creator'),
+    form: {
+      show: false,
+    }
+  },
+  {
     field: 'remark',
     label: t('group.remark'),
     form: {
@@ -688,10 +695,10 @@ const formSubmit = () => {
 
           <template #dropdown>
             <ElDropdownMenu>
-              <ElDropdownItem @click="action(row, 'edit')"> {{ t('group.edit') }} </ElDropdownItem>
+              <ElDropdownItem :disabled="userId!=row.user_id"  @click="action(row, 'edit')"> {{ t('group.edit') }} </ElDropdownItem>
               <ElDropdownItem @click="cloneGroup(row)"> {{ t('group.clone') }} </ElDropdownItem>
               <ElDropdownItem @click="action(row,'analyze')"> {{ t('group.analyze') }} </ElDropdownItem>
-              <ElDropdownItem @click="delData(row, false)">
+              <ElDropdownItem :disabled="userId!=row.user_id" @click="delData(row, false)">
                 {{ t('group.delete') }}
               </ElDropdownItem>
             </ElDropdownMenu>

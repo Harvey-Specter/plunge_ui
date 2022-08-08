@@ -48,7 +48,9 @@ export const usePermissionStore = defineStore({
           routerMap = generateRoutesFn2(routers as AppCustomRouteRecordRaw[])
         } else if (type === 'test') {
           // 模拟前端过滤菜单
-          routerMap = generateRoutesFn1(cloneDeep(asyncRouterMap), routers as string[])
+          routerMap = generateRoutesFn2(routers as AppCustomRouteRecordRaw[])
+
+//           routerMap = generateRoutesFn1(cloneDeep(asyncRouterMap), routers as string[])
         } else {
           // 直接读取静态路由表
           routerMap = cloneDeep(asyncRouterMap)

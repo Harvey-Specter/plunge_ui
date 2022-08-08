@@ -471,7 +471,8 @@ export default {
     msgGroupNull: 'Please select a section to save in',
     save: 'save',
     cancel: 'cancel',
-    
+    prodDoc: 'Project Readme',
+    creator: 'creator'
   },
   group: {
     code: 'code',

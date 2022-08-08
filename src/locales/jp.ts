@@ -139,6 +139,9 @@ export default {
     msgGroupNull: '保存するプレートを選択してください',
     save: '保存',
     cancel: 'キャンセル',
+    prodDoc: 'プロジェクトの説明',
+    creator: '創設者'
+    
   },
   group: {
     code: 'エイリアス',

@@ -55,7 +55,7 @@ const loginOut = () => {
 }
 
 const toDocument = () => {
-  window.open('https://element-plus-admin-doc.cn/')
+  window.open('https://github.com/Harvey-Specter/plunge_ui')
 }
 </script>
 
@@ -74,7 +74,7 @@ const toDocument = () => {
     <template #dropdown>
       <ElDropdownMenu>
         <ElDropdownItem>
-          <div @click="toDocument">{{ t('common.document') }}</div>
+          <div @click="toDocument">{{ t('stock.prodDoc') }}</div>
         </ElDropdownItem>
         <ElDropdownItem divided>
           <div @click="loginOut">{{ t('common.loginOut') }}</div>
