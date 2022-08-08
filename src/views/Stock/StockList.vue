@@ -387,7 +387,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Input',
       componentProps: {
-        readonly: others,
+        readonly: false,// others,
         type: 'textarea',
         rows: 10
       },
@@ -578,7 +578,7 @@ const save = async () => {
       // loading.value = true
       const data = (await write?.getFormData()) as StockData
       data.user_id = myUserId
-      if( data.category_ids.length==0 ){
+      if( data.category_ids.length==0 && data.newCateName==''){
         ElMessage.warning(t('stock.msgGroupNull'))
         return false;
       }
