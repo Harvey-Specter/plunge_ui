@@ -11,7 +11,7 @@ export const loginApi = async (data: UserType): Promise<IResponse<UserType>> => 
   // const res = await request.post({ url: '/user/login', data })
   console.log('loginApi data==', data)
   const res = await request.post({ url: '/authorizations', data: data })
-  //console.log('loginApi res==', res)
+  // console.log('loginApi res==', res)
   // console.log('loginApi res.data==', res.data)
   return res && res.data
 }
