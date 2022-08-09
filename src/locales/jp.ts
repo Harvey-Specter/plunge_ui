@@ -140,7 +140,8 @@ export default {
     save: '保存',
     cancel: 'キャンセル',
     prodDoc: 'プロジェクトの説明',
-    creator: '創設者'
+    creator: '創設者',
+    onlymine: '私を見て'
     
   },
   group: {

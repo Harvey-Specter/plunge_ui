@@ -467,7 +467,8 @@ export default {
     cancel: '取消',
     intr: '取消',
     prodDoc: '项目简介',
-    creator: '创建人'
+    creator: '创建人',
+    onlymine: '只看我的'
   },
   group: {
     code: '别名',

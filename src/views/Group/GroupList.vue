@@ -3,7 +3,7 @@ import { ContentWrap } from '@/components/ContentWrap'
 import { SearchButton } from '@/components/SearchButton'
 import { Dialog } from '@/components/Dialog'
 import { useI18n } from '@/hooks/web/useI18n'
-import { ElButton, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
+import { ElButton, ElDropdown, ElDropdownMenu, ElDropdownItem,ElCheckboxButton } from 'element-plus'
 import { Table } from '@/components/Table'
 import {
   getGroupListApi,
@@ -644,6 +644,14 @@ const formSubmit = () => {
       }
     })
 }
+const onlymefunc = (val: string) => {
+  if(val){
+    tableObject.params.userId= userId.value
+  }else{
+    tableObject.params.userId=null
+  }
+   getList()
+}
 </script>
 
 <template>
@@ -651,6 +659,10 @@ const formSubmit = () => {
     <div class="mb-10px float-left">
       <ElButton type="primary" :icon="plus" @click="addAction('edit')" />
       <ElButton :loading="delLoading" :icon="del" type="danger" @click="delData(null, true)" />
+      
+      <ElCheckboxButton  style="margin-left:10px" :onChange="onlymefunc"> 
+      {{t('stock.onlymine')}} </ElCheckboxButton>
+
       <!-- ElButton type="warning" @click="dialogVisible2 = !dialogVisible2">{{
         t('stock.setCalc')
       }}</ElButton -->
@@ -680,18 +692,15 @@ const formSubmit = () => {
           :icon="edit"
           @click="action(row, 'edit')"
         />
-
         <ElButton :icon="clone" type="warning" @click="cloneGroup(row)" />
-
         <ElButton
           :disabled="userId != row.user_id"
           type="danger"
           :icon="del"
           @click="delData(row, false)"
         / -->
-
-        <ElDropdown trigger="click">
-          <ElButton :icon="more" type="primary" />
+        <ElDropdown trigger="click"  style="margin-left:5px">
+          <ElButton :icon="more" type="primary"/>
 
           <template #dropdown>
             <ElDropdownMenu>

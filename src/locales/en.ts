@@ -472,7 +472,9 @@ export default {
     save: 'save',
     cancel: 'cancel',
     prodDoc: 'Project Readme',
-    creator: 'creator'
+    creator: 'creator',
+    onlymine: 'Only mine'
+
   },
   group: {
     code: 'code',
