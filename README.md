@@ -28,7 +28,7 @@ Plunge_UIはPlungeプロジェクトの先端工程であり、現在は日本�
 <div align="center">
 <figure>
    <img src="img/Snip20220807_9.png"  height=255>
-   <img src="img/Snip20220807_1.png" height=255>
+   <img src="img/Snip20220810_3.png" height=255>
 <img src="img/Snip20220807_2.png" height=255>
 <img src="img/Snip20220807_3.png" height=255>
 <img src="img/Snip20220807_4.png" height=255>
