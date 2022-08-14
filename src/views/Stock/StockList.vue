@@ -593,7 +593,7 @@ const save = async () => {
         })
       if (res) {
         dialogVisible.value = false
-        tableObject.currentPage = 1
+        // tableObject.currentPage = 1
         getList()
       }
     }
