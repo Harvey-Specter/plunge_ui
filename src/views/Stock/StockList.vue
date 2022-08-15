@@ -114,6 +114,13 @@ const getStockInfo = async (code: string) => {
     }
   }
 }
+
+const scoreChange = (score: string) => {
+  console.log('score',score)
+  tableObject.params.score = score
+  getList()
+}
+
 const crudSchemas = reactive<CrudSchema[]>([
   {
     field: 'code',
@@ -284,6 +291,16 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'score',
     type: 'count',
     label: t('stock.rate'),
+    search: {
+      show: from!='industry',
+      component: 'Rate',
+      componentProps: {
+        onChange: scoreChange,
+        readonly: others,
+        colors: colors,
+        size: 'large'
+      }
+    },
     table: { show: from != 'industry' },
     formatter: (_: Recordable, __: TableColumn, cellValue: number) => {
       return h(
