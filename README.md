@@ -1,6 +1,6 @@
 <div align="center"> <a href="https://github.com/kailong321200875/vue-element-plus-admin"> <img width="100" src="./public/logo.png"> </a> <br> <br>
 
-[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/@Lihong671) [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
+[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/@Lihong671)     [![Medium](https://img.shields.io/badge/Medium-12100E?logo=medium&logoColor=white)](https://medium.com/@lihong671)      [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)   
 
 <h1>Plunge_UI</h1>
 </div>
