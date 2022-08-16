@@ -8,7 +8,7 @@
 **日本語** | [中文](./README.zh-CN.md)
 ## 紹介
 
-Plunge_UIはPlungeプロジェクトの先端工程であり、現在は日本の株式市場をサポートしている。に基づく[element-plus-admin](https://element-plus-admin.cn/）開発
+Plunge_UIはPlungeプロジェクトの先端工程であり、現在は日本の株式市場をサポートしている。に基づく[element-plus-admin](https://element-plus-admin.cn/)開発
 
 ## プロパティ
 
