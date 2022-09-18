@@ -146,7 +146,7 @@ export default {
   },
   group: {
     code: 'エイリアス',
-    name: '名前',
+    name: '題名',
     remark: '備考',
     create_time: '作成時間',
     stock_count: '在庫数',
