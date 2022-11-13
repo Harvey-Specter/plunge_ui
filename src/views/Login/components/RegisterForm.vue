@@ -96,6 +96,7 @@ const rules: FormRules = {
   check_password: [required()]
   // code: [required()]
 }
+
 const toLogin = () => {
   emit('to-login')
 }

@@ -7,6 +7,7 @@ import { TableData } from '@/api/table/types'
 import { ref, h, reactive, unref } from 'vue'
 import { ElTag, ElButton } from 'element-plus'
 import { useTable } from '@/hooks/web/useTable'
+import { Pagination, TableColumn, TableSlotDefault } from '@/types/table'
 
 const { t } = useI18n()
 
@@ -79,7 +80,7 @@ getList()
 
 const tableRef = ref<TableExpose>()
 
-const acitonFn = (data: TableSlotDefault) => {
+const actionFn = (data: TableSlotDefault) => {
   console.log(data)
 }
 
@@ -125,6 +126,10 @@ const showExpandedRows = (show: boolean) => {
     expand: show
   })
 }
+
+const selectAllNone = () => {
+  unref(tableRef)?.elTableRef?.toggleAllSelection()
+}
 </script>
 
 <template>
@@ -146,6 +151,8 @@ const showExpandedRows = (show: boolean) => {
 
     <ElButton @click="showExpandedRows(true)">{{ t('tableDemo.showExpandedRows') }}</ElButton>
     <ElButton @click="showExpandedRows(false)">{{ t('tableDemo.hiddenExpandedRows') }}</ElButton>
+
+    <ElButton @click="selectAllNone">{{ t('tableDemo.selectAllNone') }}</ElButton>
   </ContentWrap>
   <ContentWrap :title="`RefTable ${t('tableDemo.example')}`">
     <Table
@@ -158,7 +165,7 @@ const showExpandedRows = (show: boolean) => {
       @register="register"
     >
       <template #action="data">
-        <ElButton type="primary" @click="acitonFn(data as TableSlotDefault)">
+        <ElButton type="primary" @click="actionFn(data as TableSlotDefault)">
           {{ t('tableDemo.action') }}
         </ElButton>
       </template>

@@ -2,98 +2,131 @@
 
 [![license](https://img.shields.io/github/license/kailong321200875/vue-element-plus-admin.svg)](LICENSE)
 
-<h1>Plunge_UI</h1>
+<h1>vue-element-plus-admin</h1>
 </div>
 
-**日本語** | [中文](./README.zh-CN.md)
-## 紹介
+**English** | [中文](./README.zh-CN.md)
 
-Plunge_UIはPlungeプロジェクトの先端工程であり、現在は日本の株式市場をサポートしている。に基づく[element-plus-admin](https://element-plus-admin.cn/）開発
+## Introduction
 
-## プロパティ
+vue-element-plus-admin is a free and open source middle and background template based on `element-plus`. Developed using the latest mainstream technologies such as `vue3`, `vite3` and `typescript`, the out of the box middle and background front-end solution can be used as the starting template of the project and learning reference. And always pay attention to the latest technological trends and update them as soon as possible.
 
-- **プレート管理**：特定の株式をプレートに構成し、プレートのコピーをサポート
-- **業界/規模分布**：市場内/プレート内の株式の業界/規模分布を表示できます。
-- **株式スコア**：プレート内の株式を表示してスコアを付けることができ、フォローアップに便利である。
-- **国際化**：中国語、日本語、英語をサポート
-- **最新技術スタック**：TypeScript、Vue 3/vite 2などのフロントエンド技術を使用して開発
+vue-element-plus-admin is positioned as a background integration scheme, which is not suitable for secondary development as a basic template. Because it integrates many functions that you may not use, it will cause a lot of code redundancy. If your project doesn't pay attention to this problem, you can also directly carry out secondary development based on it.
 
+If you need a basic template, please switch to the `tempalte` branch. `Tempalte` simply integrates some common layout functions such as layout and dynamic menu, which is more suitable for developers to carry out secondary development.
 
-## 関連プロジェクト
-[Plunge](https://github.com/Harvey-Specter/plunge) :  データ収集と処理,plunge_Apiにデータを提供する    
-[Plunge_API](https://github.com/Harvey-Specter/plunge_api) : フロントエンドにRestAPIサービスを提供
+## Feature
 
-## プレビュー
+- **State of The Art Development**：Use front-end front-end technology development such as Vue3/vite3
+- **TypeScript**: Application-level JavaScript language
+- **Theming**: Configurable themes
+- **International**：Built-in complete internationalization program
+- **Mock Server** Built-in mock data scheme
+- **Authority** Built-in complete dynamic routing permission generation scheme.
+- **Component** Multiple commonly used components are encapsulated twice
+- **Examples** Built-in rich examples
 
-<div align="center">
-<figure>
-   <img src="img/Snip20220807_9.png"  height=255>
-   <img src="img/Snip20220810_3.png" height=255>
-<img src="img/Snip20220807_2.png" height=255>
-<img src="img/Snip20220807_3.png" height=255>
-<img src="img/Snip20220807_4.png" height=255>
-<img src="img/Snip20220807_5.png" height=255>
-<img src="img/Snip20220807_6.png" height=255>
-<img src="img/Snip20220807_8.png" height=255>
-</figure>
-</div>
+## Preview
 
-- [plunge](https://plunge671.herokuapp.com/) -  完全版サイト（建設中,最初の訪問で少し遅い）
+- [vue-element-plus-admin](https://element-plus-admin.cn/) - Full version of the github site
+- [vue-element-plus-admin](https://kailong110120130.gitee.io/vue-element-plus-admin) - Full version of the gitee site
 
-アカウント：**test/test test/test**
+account: **admin/admin test/test**
 
-## 開発準備
+`admin` account is used to simulate the control permission of the server, and render whatever the server returns
 
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) - プロジェクト開発環境
-- [Vite](https://vitejs.dev/) - viteの特性を熟知する
-- [Vue3](https://v3.vuejs.org/) - Vueの基本文法に詳しい
-- [TypeScript](https://www.typescriptlang.org/) - ` TypeScript `の基本文法を熟知する
-- [Es6+](http://es6.ruanyifeng.com/) - es 6の基本文法に詳しい
-- [Vue-Router-Next](https://next.router.vuejs.org/) - vue-routerの基本的な使用方法に詳しい
-- [Element-Plus](https://element-plus.org/) - element-plusの基本的な使用方法
+`test` account is used to simulate the front-end control authority. The server only returns the menu key to be displayed, and the front-end performs matching rendering
 
-## インストールと使用
+## Documentation
 
-- コードの取得
+[Document Github](https://element-plus-admin-doc.cn/)
+
+[Document Gitee](https://kailong110120130.gitee.io/vue-element-plus-admin-doc)
+
+## Preparation
+
+- [node](http://nodejs.org/) and [git](https://git-scm.com/) - Project development environment
+- [Vite](https://vitejs.dev/) - Familiar with vite features
+- [Vue3](https://v3.vuejs.org/) - Familiar with Vue basic syntax
+- [TypeScript](https://www.typescriptlang.org/) - Familiar with the basic syntax of `TypeScript`
+- [Es6+](http://es6.ruanyifeng.com/) - Familiar with es6 basic syntax
+- [Vue-Router-Next](https://next.router.vuejs.org/) - Familiar with the basic use of vue-router
+- [Element-Plus](https://element-plus.org/) - Familiar with the basic use of element-plus
+- [Mock.js](https://github.com/nuysoft/Mock) - mockjs basic syntax
+
+## Install and use
+
+- Get the project code
 
 ```bash
-git clone https://github.com/Harvey-Specter/plunge_ui.git
-checkout plunge
+git clone https://github.com/kailong321200875/vue-element-plus-admin.git
 ```
 
-- インストール依存
+- Installation dependencies
 
 ```bash
-cd plunge_ui
+cd vue-element-plus-admin
 
 pnpm install
 
 ```
 
-- うんてん
+- run
 
 ```bash
 pnpm run dev
 ```
 
-- パッケージ化
+- build
 
 ```bash
 pnpm run build:pro
 ```
 
-## ブラウザのサポート
+## Change Log
 
-ローカル開発の推奨使用` Chrome 80+`ブラウザ
+[CHANGELOG](./CHANGELOG.md)
 
-現代ブラウザをサポートし、IEをサポートしない
+## How to contribute
+
+You can [Raise an issue](https://github.com/kailong321200875/vue-element-plus-admin/issues/new) Or submit a Pull Request.
+
+**Pull Request:**
+
+1. Fork code
+2. Create your own branch: `git checkout -b feat/xxxx`
+3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
+4. Push your branch: `git push origin feat/xxxx`
+5. submit `pull request`
+
+## Git Contribution submission specification
+
+- `feat` New features
+- `fix` Fix bugs
+- `docs` document
+- `style` Format and style (changes that do not affect code operation)
+- `refactor` Refactor
+- `perf` Optimize related, such as improving performance and experience
+- `test` Add test
+- `build` Compilation related modifications, changes to project construction or dependencies
+- `ci` Continuous integration modification
+- `chore` Changes in the construction process or auxiliary tools
+- `revert` Rollback to previous version
+- `workflow` Workflow improvement
+- `mod` Uncertain modification classification
+- `wip` Under development
+- `types` type
+
+## Browser support
+
+The `Chrome 80+` browser is recommended for local development
+
+Support modern browsers, not IE
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
 | :-: | :-: | :-: | :-: | :-: |
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-## Lic
+## License
 
 [MIT](./LICENSE)
-
-<!-- readme: contributors -end -->

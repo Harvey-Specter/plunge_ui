@@ -5,6 +5,8 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { useIcon } from '@/hooks/web/useIcon'
 import { ContentWrap } from '@/components/ContentWrap'
 import { useAppStore } from '@/store/modules/app'
+import { FormSchema } from '@/types/form'
+import { ComponentOptions } from '@/types/components'
 
 const appStore = useAppStore()
 
@@ -454,6 +456,7 @@ const schema = reactive<FormSchema[]>([
     componentProps: {
       options: [
         {
+          disabled: true,
           label: 'option1',
           value: '1'
         },
@@ -492,6 +495,7 @@ const schema = reactive<FormSchema[]>([
           label: 'option1',
           options: [
             {
+              disabled: true,
               label: 'option1-1',
               value: '1-1'
             },
@@ -528,7 +532,8 @@ const schema = reactive<FormSchema[]>([
           options: [
             {
               label: 'option1-1',
-              value: '1-1'
+              value: '1-1',
+              disabled: true
             },
             {
               label: 'option1-2',
@@ -754,6 +759,7 @@ const schema = reactive<FormSchema[]>([
     componentProps: {
       options: [
         {
+          disabled: true,
           label: 'option-1',
           value: '1'
         },
@@ -771,6 +777,7 @@ const schema = reactive<FormSchema[]>([
     componentProps: {
       options: [
         {
+          disabled: true,
           label: 'option-1',
           value: '1'
         },
@@ -794,6 +801,7 @@ const schema = reactive<FormSchema[]>([
     componentProps: {
       options: [
         {
+          disabled: true,
           label: 'option-1',
           value: '1'
         },
@@ -816,6 +824,7 @@ const schema = reactive<FormSchema[]>([
     componentProps: {
       options: [
         {
+          disabled: true,
           label: 'option-1',
           value: '1'
         },

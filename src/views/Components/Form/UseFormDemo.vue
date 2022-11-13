@@ -6,6 +6,8 @@ import { useForm } from '@/hooks/web/useForm'
 import { reactive, unref, ref } from 'vue'
 import { ElButton } from 'element-plus'
 import { useValidator } from '@/hooks/web/useValidator'
+import { getDictOneApi } from '@/api/common'
+import { FormSchema } from '@/types/form'
 
 const { required } = useValidator()
 
@@ -222,6 +224,20 @@ const formValidation = () => {
 const verifyReset = () => {
   unref(elFormRef)?.resetFields()
 }
+
+const getDictOne = async () => {
+  const res = await getDictOneApi()
+  if (res) {
+    const { setSchema } = methods
+    setSchema([
+      {
+        field: 'field2',
+        path: 'componentProps.options',
+        value: res.data
+      }
+    ])
+  }
+}
 </script>
 
 <template>
@@ -253,6 +269,10 @@ const verifyReset = () => {
 
     <ElButton @click="formValidation"> {{ t('formDemo.formValidation') }} </ElButton>
     <ElButton @click="verifyReset"> {{ t('formDemo.verifyReset') }} </ElButton>
+
+    <ElButton @click="getDictOne">
+      {{ t('searchDemo.dynamicOptions') }}
+    </ElButton>
   </ContentWrap>
   <ContentWrap :title="`UseForm ${t('formDemo.example')}`">
     <Form @register="register" />

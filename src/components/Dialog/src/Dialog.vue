@@ -50,6 +50,7 @@ watch(
 )
 
 const dialogStyle = computed(() => {
+  console.log(unref(dialogHeight))
   return {
     height: unref(dialogHeight)
   }
@@ -72,7 +73,7 @@ const dialogStyle = computed(() => {
         </slot>
         <Icon
           v-if="fullscreen"
-          class="mr-18px cursor-pointer is-hover mt-2px"
+          class="mr-18px cursor-pointer is-hover mt-2px z-10"
           :icon="isFullscreen ? 'zmdi:fullscreen-exit' : 'zmdi:fullscreen'"
           color="var(--el-color-info)"
           @click="toggleFull"

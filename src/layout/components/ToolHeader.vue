@@ -11,7 +11,6 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import { useAppStore } from '@/store/modules/app'
 import { useDesign } from '@/hooks/web/useDesign'
 
-
 const { getPrefixCls, variables } = useDesign()
 
 const prefixCls = getPrefixCls('tool-header')
@@ -51,28 +50,28 @@ export default defineComponent({
         {layout.value !== 'top' ? (
           <div class="h-full flex items-center">
             {hamburger.value && layout.value !== 'cutMenu' ? (
-              <Collapse class="hover-tigger" color="var(--top-header-text-color)"></Collapse>
+              <Collapse class="hover-trigger" color="var(--top-header-text-color)"></Collapse>
             ) : undefined}
             {breadcrumb.value ? <Breadcrumb class="<md:hidden"></Breadcrumb> : undefined}
           </div>
         ) : undefined}
         <div class="h-full flex items-center">
 
-        <HeadButtons class="hover-tigger" color="var(--top-header-text-color)"></HeadButtons>
+        <HeadButtons class="hover-trigger" color="var(--top-header-text-color)"></HeadButtons>
 
           {screenfull.value ? (
-            <Screenfull class="hover-tigger" color="var(--top-header-text-color)"></Screenfull>
+            <Screenfull class="hover-trigger" color="var(--top-header-text-color)"></Screenfull>
           ) : undefined}
           {size.value ? (
-            <SizeDropdown class="hover-tigger" color="var(--top-header-text-color)"></SizeDropdown>
+            <SizeDropdown class="hover-trigger" color="var(--top-header-text-color)"></SizeDropdown>
           ) : undefined}
           {locale.value ? (
             <LocaleDropdown
-              class="hover-tigger"
+              class="hover-trigger"
               color="var(--top-header-text-color)"
             ></LocaleDropdown>
           ) : undefined}
-          <UserInfo class="hover-tigger"></UserInfo>
+          <UserInfo class="hover-trigger"></UserInfo>
         </div>
       </div>
     )
@@ -82,7 +81,6 @@ export default defineComponent({
 
 <style lang="less" scoped>
 @prefix-cls: ~'@{namespace}-tool-header';
-
 .@{prefix-cls} {
   transition: left var(--transition-time-02);
 }

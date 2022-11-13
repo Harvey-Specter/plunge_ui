@@ -12,6 +12,7 @@ import { h, ref, unref, reactive } from 'vue'
 import Write from './components/Write.vue'
 import Detail from './components/Detail.vue'
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { TableColumn } from '@/types/table'
 
 const { register, tableObject, methods } = useTable<TableData>({
   getListApi: getTableListApi,
@@ -90,6 +91,9 @@ const crudSchemas = reactive<CrudSchema[]>([
     form: {
       component: 'Select',
       componentProps: {
+        style: {
+          width: '100%'
+        },
         options: [
           {
             label: '重要',
@@ -154,6 +158,7 @@ const AddAction = () => {
   dialogTitle.value = t('exampleDemo.add')
   tableObject.currentRow = null
   dialogVisible.value = true
+  actionType.value = ''
 }
 
 const delLoading = ref(false)
@@ -228,13 +233,17 @@ const save = async () => {
       @register="register"
     >
       <template #action="{ row }">
-        <ElButton type="primary" @click="action(row, 'edit')">
+        <ElButton type="primary" v-hasPermi="['example:dialog:edit']" @click="action(row, 'edit')">
           {{ t('exampleDemo.edit') }}
         </ElButton>
-        <ElButton type="success" @click="action(row, 'detail')">
+        <ElButton
+          type="success"
+          v-hasPermi="['example:dialog:view']"
+          @click="action(row, 'detail')"
+        >
           {{ t('exampleDemo.detail') }}
         </ElButton>
-        <ElButton type="danger" @click="delData(row, false)">
+        <ElButton type="danger" v-hasPermi="['example:dialog:delete']" @click="delData(row, false)">
           {{ t('exampleDemo.del') }}
         </ElButton>
       </template>

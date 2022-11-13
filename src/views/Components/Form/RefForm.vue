@@ -5,6 +5,8 @@ import { useI18n } from '@/hooks/web/useI18n'
 import { reactive, unref, ref } from 'vue'
 import { ElButton } from 'element-plus'
 import { useValidator } from '@/hooks/web/useValidator'
+import { getDictOneApi } from '@/api/common'
+import { FormSchema } from '@/types/form'
 
 const { required } = useValidator()
 
@@ -213,6 +215,19 @@ const verifyReset = () => {
   const elFormRef = unref(formRef)?.getElFormRef()
   elFormRef?.resetFields()
 }
+
+const getDictOne = async () => {
+  const res = await getDictOneApi()
+  if (res) {
+    unref(formRef)?.setSchema([
+      {
+        field: 'field2',
+        path: 'componentProps.options',
+        value: res.data
+      }
+    ])
+  }
+}
 </script>
 
 <template>
@@ -244,6 +259,10 @@ const verifyReset = () => {
 
     <ElButton @click="formValidation"> {{ t('formDemo.formValidation') }} </ElButton>
     <ElButton @click="verifyReset"> {{ t('formDemo.verifyReset') }} </ElButton>
+
+    <ElButton @click="getDictOne">
+      {{ t('searchDemo.dynamicOptions') }}
+    </ElButton>
   </ContentWrap>
   <ContentWrap :title="`RefForm ${t('formDemo.example')}`">
     <Form :schema="schema" ref="formRef" />

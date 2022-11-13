@@ -32,6 +32,9 @@ const fixedHeader = computed(() => appStore.getFixedHeader)
 // 是否是移动端
 const mobile = computed(() => appStore.getMobile)
 
+// 固定菜单
+const fixedMenu = computed(() => appStore.getFixedMenu)
+
 export const useRenderLayout = () => {
   const renderClassic = () => {
     return (
@@ -85,7 +88,6 @@ export const useRenderLayout = () => {
                   'fixed top-0 left-0 z-10': fixedHeader.value,
                   'w-[calc(100%-var(--left-menu-min-width))] left-[var(--left-menu-min-width)]':
                     collapse.value && fixedHeader.value && !mobile.value,
-
                   'w-[calc(100%-var(--left-menu-max-width))] left-[var(--left-menu-max-width)]':
                     !collapse.value && fixedHeader.value && !mobile.value,
                   '!w-full !left-0': mobile.value
@@ -111,7 +113,7 @@ export const useRenderLayout = () => {
     return (
       <>
         <div class="flex items-center bg-[var(--top-header-bg-color)] border-bottom-1 border-solid border-[var(--top-tool-border-color)] dark:border-[var(--el-border-color)]">
-          {logo.value ? <Logo class="hover-tigger !pr-15px"></Logo> : undefined}
+          {logo.value ? <Logo class="hover-trigger !pr-15px"></Logo> : undefined}
 
           <ToolHeader class="flex-1"></ToolHeader>
         </div>
@@ -168,7 +170,7 @@ export const useRenderLayout = () => {
     return (
       <>
         <div class="flex items-center justify-between bg-[var(--top-header-bg-color)] border-bottom-1 border-solid border-[var(--top-tool-border-color)] dark:border-[var(--el-border-color)]">
-          {logo.value ? <Logo class="hover-tigger"></Logo> : undefined}
+          {logo.value ? <Logo class="hover-trigger"></Logo> : undefined}
           <Menu class="flex-1 px-10px h-[var(--top-tool-height)]"></Menu>
           <ToolHeader></ToolHeader>
         </div>
@@ -205,7 +207,7 @@ export const useRenderLayout = () => {
     return (
       <>
         <div class="flex items-center bg-[var(--top-header-bg-color)] border-bottom-1 border-solid border-[var(--top-tool-border-color)] dark:border-[var(--el-border-color)]">
-          {logo.value ? <Logo class="hover-tigger !pr-15px"></Logo> : undefined}
+          {logo.value ? <Logo class="hover-trigger !pr-15px"></Logo> : undefined}
 
           <ToolHeader class="flex-1"></ToolHeader>
         </div>

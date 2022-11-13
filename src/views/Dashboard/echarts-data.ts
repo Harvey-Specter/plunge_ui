@@ -75,24 +75,24 @@ export const lineOptions: EChartsOption = {
 
 export const pieOptions: EChartsOption = {
   title: {
-    text: t('group.Industrial_Distribution'),    
+    text: t('analysis.userAccessSource'),
     left: 'center'
   },
   tooltip: {
     trigger: 'item',
     formatter: '{a} <br/>{b} : {c} ({d}%)'
   },
-  // legend: {
-  //   orient: 'vertical',
-  //   left: 'left',
-  //   data: [
-  //     t('analysis.directAccess'),
-  //     t('analysis.mailMarketing'),
-  //     t('analysis.allianceAdvertising'),
-  //     t('analysis.videoAdvertising'),
-  //     t('analysis.searchEngines')
-  //   ]
-  // },
+  legend: {
+    orient: 'vertical',
+    left: 'left',
+    data: [
+      t('analysis.directAccess'),
+      t('analysis.mailMarketing'),
+      t('analysis.allianceAdvertising'),
+      t('analysis.videoAdvertising'),
+      t('analysis.searchEngines')
+    ]
+  },
   series: [
     {
       name: t('analysis.userAccessSource'),

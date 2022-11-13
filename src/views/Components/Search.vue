@@ -5,6 +5,8 @@ import { Search } from '@/components/Search'
 import { reactive, ref, unref } from 'vue'
 import { useValidator } from '@/hooks/web/useValidator'
 import { ElButton } from 'element-plus'
+import { getDictOneApi } from '@/api/common'
+import { FormSchema } from '@/types/form'
 
 const { required } = useValidator()
 
@@ -33,7 +35,10 @@ const schema = reactive<FormSchema[]>([
           label: 'option2',
           value: '2'
         }
-      ]
+      ],
+      onChange: (value: string) => {
+        console.log(value)
+      }
     }
   },
   {
@@ -174,6 +179,14 @@ const changePosition = (position: string) => {
   layout.value = 'bottom'
   buttomPosition.value = position
 }
+
+const getDictOne = async () => {
+  const res = await getDictOneApi()
+  if (res) {
+    schema[1].componentProps!.options = res.data
+    console.log(res.data)
+  }
+}
 </script>
 
 <template>
@@ -195,6 +208,9 @@ const changePosition = (position: string) => {
     </ElButton>
     <ElButton @click="changePosition('right')">
       {{ t('searchDemo.bottom') }} {{ t('searchDemo.position') }}-{{ t('searchDemo.right') }}
+    </ElButton>
+    <ElButton @click="getDictOne">
+      {{ t('searchDemo.dynamicOptions') }}
     </ElButton>
   </ContentWrap>
 

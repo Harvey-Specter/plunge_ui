@@ -11,17 +11,13 @@ export interface PermissionState {
   menuTabRouters: AppRouteRecordRaw[]
 }
 
-export const usePermissionStore = defineStore({
-  id: 'permission',
+export const usePermissionStore = defineStore('permission', {
   state: (): PermissionState => ({
     routers: [],
     addRouters: [],
     isAddRouters: false,
     menuTabRouters: []
   }),
-  persist: {
-    enabled: true
-  },
   getters: {
     getRouters(): AppRouteRecordRaw[] {
       return this.routers
@@ -48,9 +44,7 @@ export const usePermissionStore = defineStore({
           routerMap = generateRoutesFn2(routers as AppCustomRouteRecordRaw[])
         } else if (type === 'test') {
           // 模拟前端过滤菜单
-          routerMap = generateRoutesFn2(routers as AppCustomRouteRecordRaw[])
-
-//           routerMap = generateRoutesFn1(cloneDeep(asyncRouterMap), routers as string[])
+          routerMap = generateRoutesFn1(cloneDeep(asyncRouterMap), routers as string[])
         } else {
           // 直接读取静态路由表
           routerMap = cloneDeep(asyncRouterMap)

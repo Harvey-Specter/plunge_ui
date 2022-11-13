@@ -13,6 +13,7 @@ import { useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router'
 import { UserType } from '@/api/login/types'
 import { useValidator } from '@/hooks/web/useValidator'
+import { FormSchema } from '@/types/form'
 
 const { required } = useValidator()
 
@@ -117,6 +118,7 @@ watch(
   }
 )
 
+// 登录
 const signIn = async () => {
   const formRef = unref(elFormRef)
   await formRef?.validate(async (isValid) => {
@@ -128,8 +130,9 @@ const signIn = async () => {
       try {
         const res = await loginApi(formData)
         console.log('res===', res)
-        res.data.email = formData.email //'admin@gmail.com'
-        res.data.role = 'admin'
+        // res.data.email = formData.email //'admin@gmail.com'
+        // res.data.role = 'admin'
+        res.data = {email:formData.email ,role: 'admin', ...res}
         if (res) {
           wsCache.set(appStore.getUserInfo, res.data)
           getRole()
@@ -144,8 +147,9 @@ const signIn = async () => {
 // 获取角色信息
 const getRole = async () => {
   const { getFormData } = methods
+  console.log(10001)
   const formData = await getFormData<UserType>()
-
+  console.log(10002)
   // const constantRouterMap: AppRouteRecordRaw[]
   const adminList: AppCustomRouteRecordRaw[] = [
     {
@@ -214,41 +218,11 @@ const getRole = async () => {
     ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
     : await permissionStore.generateRoutes('test', routers).catch(() => {})
 
-  console.log('permissionStore.getAddRouters========', permissionStore.getAddRouters)
-  permissionStore.getAddRouters.forEach((route) => {
-    addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
-  })
-  console.log('permissionStore.getAddRouters=====2222===');
-  permissionStore.setIsAddRouters(true)
-  console.log('permissionStore.getAddRouters=====33333===');
-
-  push({ path: redirect.value || permissionStore.addRouters[0].path })
-
-  // 下面是原来的代码
-  // const params = {
-  //     roleName: formData.username
-  //   }
-  // admin - 模拟后端过滤菜单
-  // test - 模拟前端过滤菜单
-  // const res =
-  //   formData.username.indexOf('admin') >= 0
-  //     ? await getAdminRoleApi(params)
-  //     : await getTestRoleApi(params)
-  // if (res) {
-  //   const { wsCache } = useCache()
-  //   const routers = res.data || []
-  //   wsCache.set('roleRouters', routers)
-
-  //   formData.username === 'admin'
-  //     ? await permissionStore.generateRoutes('admin', routers).catch(() => {})
-  //     : await permissionStore.generateRoutes('test', routers).catch(() => {})
-
-  //   permissionStore.getAddRouters.forEach((route) => {
-  //     addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
-  //   })
-  //   permissionStore.setIsAddRouters(true)
-  //   push({ path: redirect.value || permissionStore.addRouters[0].path })
-  // }
+    permissionStore.getAddRouters.forEach((route) => {
+      addRoute(route as RouteRecordRaw) // 动态添加可访问路由表
+    })
+    permissionStore.setIsAddRouters(true)
+    push({ path: redirect.value || permissionStore.addRouters[0].path })
 }
 
 // 去注册页面
@@ -290,35 +264,6 @@ const toRegister = () => {
         </ElButton>
       </div>
     </template>
-
-    <!-- template #otherIcon>
-      <div class="flex justify-between w-[100%]">
-        <Icon
-          icon="ant-design:github-filled"
-          :size="iconSize"
-          class="cursor-pointer anticon"
-          :color="iconColor"
-        />
-        <Icon
-          icon="ant-design:wechat-filled"
-          :size="iconSize"
-          class="cursor-pointer anticon"
-          :color="iconColor"
-        />
-        <Icon
-          icon="ant-design:alipay-circle-filled"
-          :size="iconSize"
-          :color="iconColor"
-          class="cursor-pointer anticon"
-        />
-        <Icon
-          icon="ant-design:weibo-circle-filled"
-          :size="iconSize"
-          :color="iconColor"
-          class="cursor-pointer anticon"
-        />
-      </div>
-    </template -->
   </Form>
 </template>
 

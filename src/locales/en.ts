@@ -74,7 +74,10 @@ export default {
     copyFailed: 'Copy failed',
     footer: 'Footer',
     uniqueOpened: 'Unique opened',
-    tagsViewIcon: 'Tags view icon'
+    tagsViewIcon: 'Tags view icon',
+    dynamicRouter: 'Dynamic router',
+    reExperienced: 'Please exit the login experience again',
+    fixedMenu: 'Fixed menu'
   },
   size: {
     default: 'Default',
@@ -146,6 +149,9 @@ export default {
     document: 'Document',
     inputPassword: 'InputPassword',
     sticky: 'Sticky'
+  },
+  permission: {
+    hasPermission: 'Please set the operation permission value'
   },
   analysis: {
     newUser: 'New user',
@@ -345,7 +351,8 @@ export default {
     position: 'position',
     left: 'left',
     center: 'center',
-    right: 'right'
+    right: 'right',
+    dynamicOptions: 'Dynamic options'
   },
   stickyDemo: {
     sticky: 'Sticky'
@@ -375,7 +382,8 @@ export default {
     showExpandedRows: 'Show expanded rows',
     hiddenExpandedRows: 'Hidden expanded rows',
     changeTitle: 'Change title',
-    header: 'Header'
+    header: 'Header',
+    selectAllNone: 'Select all / none'
   },
   richText: {
     richText: 'Rich text',
@@ -385,7 +393,9 @@ export default {
     dialog: 'Dialog',
     dialogDes: 'Secondary packaging of Dialog components based on ElementPlus',
     open: 'Open',
-    close: 'Close'
+    close: 'Close',
+    combineWithForm: 'Combine with form',
+    submit: 'Submit'
   },
   imageViewerDemo: {
     open: 'Open',

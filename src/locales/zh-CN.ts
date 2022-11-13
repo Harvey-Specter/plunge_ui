@@ -74,7 +74,10 @@ export default {
     copyFailed: '拷贝失败',
     footer: '页脚',
     uniqueOpened: '菜单手风琴',
-    tagsViewIcon: '标签页图标'
+    tagsViewIcon: '标签页图标',
+    dynamicRouter: '动态路由',
+    reExperienced: '请重新退出登录体验',
+    fixedMenu: '固定菜单'
   },
   size: {
     default: '默认',
@@ -94,6 +97,7 @@ export default {
     hasUser: '已有账号？去登录',
     forgetPassword: '忘记密码',
     usernamePlaceholder: '请输入用户名',
+    passwordPlaceholder: '请输入密码',
     emailPlaceholder: '请输入邮箱',
     email: '邮箱',
     code: '验证码',
@@ -144,6 +148,9 @@ export default {
     document: '文档',
     inputPassword: '密码输入框',
     sticky: '黏性'
+  },
+  permission: {
+    hasPermission: '请设置操作权限值'
   },
   analysis: {
     newUser: '新增用户',
@@ -340,7 +347,8 @@ export default {
     position: '位置',
     left: '左',
     center: '中',
-    right: '右'
+    right: '右',
+    dynamicOptions: '动态选项'
   },
   stickyDemo: {
     sticky: '黏性'
@@ -370,7 +378,8 @@ export default {
     showExpandedRows: '显示展开行',
     hiddenExpandedRows: '隐藏展开行',
     changeTitle: '修改标题',
-    header: '头部'
+    header: '头部',
+    selectAllNone: '全选/全不选'
   },
   richText: {
     richText: '富文本',
@@ -380,7 +389,9 @@ export default {
     dialog: '弹窗',
     dialogDes: '基于 ElementPlus 的 Dialog 组件二次封装',
     open: '打开',
-    close: '关闭'
+    close: '关闭',
+    combineWithForm: '与表单结合',
+    submit: '提交'
   },
   imageViewerDemo: {
     open: '打开',

@@ -6,6 +6,7 @@ import { getUserListApi } from '@/api/login'
 import { UserType } from '@/api/login/types'
 import { ref, h } from 'vue'
 import { ElButton } from 'element-plus'
+import { TableColumn, TableSlotDefault } from '@/types/table'
 
 interface Params {
   pageIndex?: number
@@ -59,18 +60,18 @@ const getTableList = async (params?: Params) => {
       pageSize: 10
     }
   })
-    .catch(() => {})
-    .finally(() => {
-      loading.value = false
-    })
+  // .catch(() => {})
+  // .finally(() => {
+  //   loading.value = false
+  // })
   if (res) {
-    tableDataList.value = res.data.list
+    tableDataList.value = res.list
   }
 }
 
 getTableList()
 
-const acitonFn = (data: TableSlotDefault) => {
+const actionFn = (data: TableSlotDefault) => {
   console.log(data)
 }
 </script>
@@ -79,7 +80,7 @@ const acitonFn = (data: TableSlotDefault) => {
   <ContentWrap :title="t('userDemo.title')" :message="t('userDemo.message')">
     <Table :columns="columns" :data="tableDataList" :loading="loading" :selection="false">
       <template #action="data">
-        <ElButton type="primary" @click="acitonFn(data as TableSlotDefault)">
+        <ElButton type="primary" @click="actionFn(data as TableSlotDefault)">
           {{ t('tableDemo.action') }}
         </ElButton>
       </template>

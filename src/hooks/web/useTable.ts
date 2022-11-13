@@ -4,6 +4,7 @@ import { ref, reactive, watch, computed, unref, nextTick } from 'vue'
 import { get } from 'lodash-es'
 import type { TableProps } from '@/components/Table/src/types'
 import { useI18n } from '@/hooks/web/useI18n'
+import { TableSetPropsType } from '@/types/table'
 
 const { t } = useI18n()
 
@@ -57,8 +58,7 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
     return {
       ...tableObject.params,
       pageSize: tableObject.pageSize,
-      // pageIndex: tableObject.currentPage
-      page: tableObject.currentPage
+      pageIndex: tableObject.currentPage
     }
   })
 
@@ -90,7 +90,7 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
 
   const register = (ref: typeof Table & TableExpose, elRef: ComponentRef<typeof ElTable>) => {
     tableRef.value = ref
-    elTableRef.value = elRef
+    elTableRef.value = unref(elRef)
   }
 
   const getTable = async () => {
@@ -148,8 +148,7 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
       tableObject.currentPage = 1
       tableObject.params = Object.assign(tableObject.params, {
         pageSize: tableObject.pageSize,
-        // pageIndex: tableObject.currentPage,
-        page: tableObject.currentPage,
+        pageIndex: tableObject.currentPage,
         ...data
       })
       methods.getList()

@@ -3,11 +3,11 @@ import { computed, defineComponent, unref, PropType } from 'vue'
 import { ElMenu, ElScrollbar } from 'element-plus'
 import { useAppStore } from '@/store/modules/app'
 import { usePermissionStore } from '@/store/modules/permission'
-import type { LayoutType } from '@/config/app'
 import { useRenderMenuItem } from './components/useRenderMenuItem'
 import { useRouter } from 'vue-router'
 import { isUrl } from '@/utils/is'
 import { useDesign } from '@/hooks/web/useDesign'
+import { LayoutType } from '@/types/layout'
 
 const { getPrefixCls } = useDesign()
 
@@ -66,7 +66,6 @@ export default defineComponent({
       if (isUrl(index)) {
         window.open(index)
       } else {
-        console.log('push-===', index)
         push(index)
       }
     }
@@ -95,8 +94,8 @@ export default defineComponent({
         >
           {{
             default: () => {
-              const { renderMenuItem } = useRenderMenuItem(unref(routers), unref(menuMode))
-              return renderMenuItem()
+              const { renderMenuItem } = useRenderMenuItem(unref(menuMode))
+              return renderMenuItem(unref(routers))
             }
           }}
         </ElMenu>
@@ -221,10 +220,10 @@ export default defineComponent({
 
   // 水平菜单
   &__horizontal {
-    height: calc(~'var( - -top-tool-height)') !important;
+    height: calc(~'var(--top-tool-height)') !important;
 
     :deep(.@{elNamespace}-menu--horizontal) {
-      height: calc(~'var( - -top-tool-height)');
+      height: calc(~'var(--top-tool-height)');
       border-bottom: none;
       // 重新设置底部高亮颜色
       & > .@{elNamespace}-sub-menu.is-active {
