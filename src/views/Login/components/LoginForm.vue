@@ -50,7 +50,10 @@ const schema = reactive<FormSchema[]>([
       span: 24
     },
     componentProps: {
-      placeholder: t('login.usernamePlaceholder')
+      placeholder: t('login.usernamePlaceholder'),
+      style: {
+        width: '100%'
+      },
     }
   },
   {

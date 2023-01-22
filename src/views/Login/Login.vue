@@ -46,7 +46,7 @@ const toLogin = () => {
             tag="div"
             enter-active-class="animate__animated animate__bounceInLeft"
           >
-            <img src="@/assets/svgs/login-box-bg.svg" key="1" alt="" class="w-350px" />
+            <img src="@/assets/imgs/tj1.png" key="1" alt="" class="w-650px" />
             <div class="text-3xl text-white" key="2">{{ t('login.welcome') }}</div>
             <div class="mt-5 font-normal text-white text-14px" key="3">
               {{ t('login.message') }}
