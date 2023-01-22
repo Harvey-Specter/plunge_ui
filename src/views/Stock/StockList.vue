@@ -103,14 +103,14 @@ const getStockInfo = async (code: string) => {
     .finally(() => {
       loading.value = false
     })
-  // console.log('getCates==res=====', res)
+  console.log('getStockInfo==res=====', res)
   if (res) {
-    myCates = res.data
-    if (res.data.length > 0) {
-      tableObject.currentRow!.cate33 = res.data[0].cate33
-      tableObject.currentRow!.name = res.data[0].name
-      tableObject.currentRow!.size = res.data[0].size
-      tableObject.currentRow!.code = res.data[0].code
+    myCates = res
+    if (res.length > 0) {
+      tableObject.currentRow!.cate33 = res[0].cate33
+      tableObject.currentRow!.name = res[0].name
+      tableObject.currentRow!.size = res[0].size
+      tableObject.currentRow!.code = res[0].code
     }
   }
 }
@@ -372,11 +372,15 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: false
     },
     form: {
+      colProps: {
+        span: 24
+      },
       show: true,
       component: 'Input',
       componentProps: {
-        //readonly: others,
-        // rows: 10
+        style: {
+          width: '100%'
+        },
       }
     }
   },
@@ -402,11 +406,15 @@ const crudSchemas = reactive<CrudSchema[]>([
       show: false
     },
     form: {
+      show: true,
       component: 'Input',
       componentProps: {
+        style: {
+          width: '100%'
+        },
         readonly: false,// others,
         type: 'textarea',
-        rows: 10
+        rows: 5
       },
       colProps: {
         span: 24
@@ -434,23 +442,27 @@ const getCates = async () => {
     .finally(() => {
       loading.value = false
     })
-  // console.log('getCates==res.data=====', res.data)
+  console.log('getCates==res=====', res)
   if (res) {
-    myCates = res.data
+    myCates = res
     let ids = []
-    for (let i = 0; i < res.data.length; i++) {
-      ids.push(res.data[i].value as never)
+    for (let i = 0; i < res.length; i++) {
+      ids.push(res[i].value as never)
     }
     myCateIds.value = ids
-    // console.log(myCates, myCateIds.value)
+    console.log('getCates=========',myCates, myCateIds.value)
 
-    if (crudSchemas.length >= 8) {
-      crudSchemas[7]!.form!.componentProps!.options = myCates
-    }
+    //if (crudSchemas.length >= 8) {
+    crudSchemas[7]!.form!.componentProps!.options = myCates
+    //}
+
+    // const load = () => {
+    //   crudSchemas[7]!.form!.componentProps!.options = myCates
+    // };
   }
 }
 
-getCates()
+// getCates()
 const myCatesOfcode = ref([])
 
 const getCatesByCode = async (userId: string, code: string) => {
@@ -461,10 +473,10 @@ const getCatesByCode = async (userId: string, code: string) => {
     })
   // console.log('getCates==res=====', res)
   if (res) {
-    myCates = res.data
+    myCates = res
     let ids = []
-    for (let i = 0; i < res.data.length; i++) {
-      ids.push(res.data[i].value as never)
+    for (let i = 0; i < res.length; i++) {
+      ids.push(res[i].value as never)
     }
     myCatesOfcode.value = ids
     tableObject!.currentRow!.category_ids = myCatesOfcode.value
@@ -671,7 +683,7 @@ const save = async () => {
     </Table>
   </ContentWrap>
 
-  <Dialog v-model="dialogVisible" :title="dialogTitle">
+  <Dialog v-model="dialogVisible" :title="dialogTitle" maxHeight="440px">
     <Write
       v-if="actionType === 'edit'"
       ref="writeRef"

@@ -65,8 +65,8 @@ export const useAppStore = defineStore('app', {
 
       layout: wsCache.get('layout') || 'classic', // layout布局
       isDark: wsCache.get('isDark') || false, // 是否是暗黑模式
-      // currentSize: wsCache.get('default') || 'small', // 组件尺寸
-      currentSize: 'small', // 组件尺寸
+      currentSize: wsCache.get('default') || 'default', // 组件尺寸
+      //currentSize: 'small', // 组件尺寸
       theme: wsCache.get('theme') || {
         // 主题色
         elColorPrimary: '#409eff',
