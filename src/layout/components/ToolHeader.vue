@@ -5,12 +5,11 @@ import { LocaleDropdown } from '@/components/LocaleDropdown'
 import { SizeDropdown } from '@/components/SizeDropdown'
 import { UserInfo } from '@/components/UserInfo'
 import { HeadButtons } from '@/components/HeadButtons'
-
+import { ThemeSwitch } from '@/components/ThemeSwitch'
 import { Screenfull } from '@/components/Screenfull'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { useAppStore } from '@/store/modules/app'
 import { useDesign } from '@/hooks/web/useDesign'
-
 
 const { getPrefixCls, variables } = useDesign()
 
@@ -72,6 +71,7 @@ export default defineComponent({
               color="var(--top-header-text-color)"
             ></LocaleDropdown>
           ) : undefined}
+          <ThemeSwitch/>
           <UserInfo class="hover-tigger"></UserInfo>
         </div>
       </div>

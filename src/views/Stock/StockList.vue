@@ -406,7 +406,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       componentProps: {
         readonly: false,// others,
         type: 'textarea',
-        rows: 10
+        rows: 7
       },
       colProps: {
         span: 24
@@ -671,7 +671,7 @@ const save = async () => {
     </Table>
   </ContentWrap>
 
-  <Dialog v-model="dialogVisible" :title="dialogTitle">
+  <Dialog v-model="dialogVisible" :title="dialogTitle" :maxHeight="450">
     <Write
       v-if="actionType === 'edit'"
       ref="writeRef"

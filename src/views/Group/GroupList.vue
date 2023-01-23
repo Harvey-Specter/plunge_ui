@@ -660,7 +660,7 @@ const onlymefunc = (val: string) => {
       <ElButton type="primary" :icon="plus" @click="addAction('edit')" />
       <ElButton :loading="delLoading" :icon="del" type="danger" @click="delData(null, true)" />
       
-      <ElCheckboxButton  style="margin-left:10px" :onChange="onlymefunc"> 
+      <ElCheckboxButton  style="margin-left:10px" :onChange="onlymefunc" :border="'false'"> 
       {{t('stock.onlymine')}} </ElCheckboxButton>
 
       <!-- ElButton type="warning" @click="dialogVisible2 = !dialogVisible2">{{
@@ -725,7 +725,7 @@ const onlymefunc = (val: string) => {
     </template>
   </Dialog>
 
-  <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%">
+  <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%" :maxHeight="450">
 
     <Write
       v-if="actionType === 'edit'"

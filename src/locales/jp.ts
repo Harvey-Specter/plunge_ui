@@ -141,7 +141,7 @@ export default {
     cancel: 'キャンセル',
     prodDoc: 'プロジェクトの説明',
     creator: '創設者',
-    onlymine: '私を見て'
+    onlymine: '私の'
     
   },
   group: {
