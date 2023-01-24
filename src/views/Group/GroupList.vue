@@ -725,7 +725,7 @@ const onlymefunc = (val: string) => {
     </template>
   </Dialog>
 
-  <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%" :maxHeight="450">
+  <Dialog v-model="dialogVisible" :title="dialogTitle" width="65%" :maxHeight="430">
 
     <Write
       v-if="actionType === 'edit'"
