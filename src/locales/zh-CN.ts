@@ -468,7 +468,9 @@ export default {
     intr: '取消',
     prodDoc: '项目简介',
     creator: '创建人',
-    onlymine: '只看我的'
+    onlymine: '只看我的',
+    pleaseDelRecode: '请选择要删除的记录',
+    pleaseRecRecode: '请选择要恢复的记录',
   },
   group: {
     code: '别名',

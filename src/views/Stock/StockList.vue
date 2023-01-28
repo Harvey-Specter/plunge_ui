@@ -537,6 +537,7 @@ const delData = async (row: StockData | null, multiple: boolean, delFlag: number
 
   // console.log('selections',selections.length);return
   if (multiple && selections.length == 0) {
+    ElMessage.warning(t('stock.pleaseDelRecode'))
     return
   }
   delLoading.value = true
@@ -571,6 +572,7 @@ const recData = async (row: StockData | null, multiple: boolean) => {
   const selections = await getSelections()
 
   if (multiple && selections.length == 0) {
+    ElMessage.warning(t('stock.pleaseRecRecode'))
     return
   }
 

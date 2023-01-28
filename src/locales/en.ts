@@ -473,8 +473,9 @@ export default {
     cancel: 'cancel',
     prodDoc: 'Project Readme',
     creator: 'creator',
-    onlymine: 'Only mine'
-
+    onlymine: 'Only mine',
+    pleaseDelRecode: 'Please select a record to delete',
+    pleaseRecRecode: 'Please select a record to recovery',
   },
   group: {
     code: 'code',

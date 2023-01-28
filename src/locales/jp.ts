@@ -141,8 +141,9 @@ export default {
     cancel: 'キャンセル',
     prodDoc: 'プロジェクトの説明',
     creator: '創設者',
-    onlymine: '私の'
-    
+    onlymine: '私の',
+    pleaseDelRecode: '削除するレコードを選択してください',
+    pleaseRecRecode: 'リカバリするレコードを選択してください',
   },
   group: {
     code: 'エイリアス',
