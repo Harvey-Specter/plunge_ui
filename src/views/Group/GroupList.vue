@@ -700,7 +700,7 @@ const onlymefunc = (val: string) => {
           @click="delData(row, false)"
         / -->
         <ElDropdown trigger="click"  style="margin-left:5px">
-          <ElButton :icon="more" type="primary"/>
+          <ElButton :icon="more" type="primary">more</ElButton>
 
           <template #dropdown>
             <ElDropdownMenu>
