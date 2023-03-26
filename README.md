@@ -39,7 +39,7 @@ Plunge_UIはPlungeプロジェクトの先端工程であり、現在は日本�
 </div>
 
 アカウント: `admin@gmail.com/123456` 
-- <a href="https://plunge.onrender.com" target="_blank">[plunge]完全版サイト，最初の訪問で少し遅い</a>
+- <a href="https://plunge-fd73.onrender.com/" target="_blank">[plunge]完全版サイト，最初の訪問で少し遅い</a>
 
 ## 開発準備
 
