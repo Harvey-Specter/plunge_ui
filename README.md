@@ -91,9 +91,6 @@ pnpm run build:pro
 | :-: | :-: | :-: | :-: | :-: |
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-<img src="https://user-images.githubusercontent.com/5182031/185537574-b011bcc1-1388-402d-a108-ce57478a1e49.jpg" height=220>
-
-
 ---
 [![](https://visitcount.itsvg.in/api?id=Harvey-SpectePlungeUIr&icon=0&color=0)](https://visitcount.itsvg.in)
 
